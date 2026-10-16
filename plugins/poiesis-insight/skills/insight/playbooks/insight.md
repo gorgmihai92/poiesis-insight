@@ -22,5 +22,6 @@ Use `templates/insight.md`: the claim in one sentence, evidence, rivals, why thi
 confidence, and "so what" for the project. Then run every candidate through `playbooks/challenge.md`.
 
 ## Save
-`insights/<YYYY-MM-DD>-<topic>.md`: the question, the evidence list, the insights that survived (with their
+`insights/<YYYY-MM-DD>-<topic>.md`: the question, a short description of the data (for your own data, see SKILL.md),
+the evidence list, the insights that survived (with their
 challenge result), and those dropped with the reason.

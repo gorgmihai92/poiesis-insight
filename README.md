@@ -26,7 +26,9 @@ means. Design decisions can then point to the insight or source behind them.
 | **Foresight:** what is emerging and what may come | weak signals, the three horizons, layered readings, scenarios (what holds across them, what depends on one) and dated forecasts | `foresight/` |
 | **Challenge:** whether a conclusion holds | for each conclusion: kept, weakened (with the narrower claim) or dropped, and why | in the report |
 
-Every conclusion from insight or foresight goes through the challenge before you see it.
+Every conclusion from insight or foresight goes through the challenge before you see it. The input is your
+[poiesis-research](https://github.com/gorgmihai92/poiesis-research) library, your own data (forms, tables,
+documents), or both.
 
 ## Install
 
@@ -45,6 +47,7 @@ Ask in plain language. The plugin comes in when the work is interpretation, and 
 
 - *"What insights come out of our research library on onboarding?"*
 - *"Here are 40 interview transcripts: what patterns do you see, and how sure are you?"*
+- *"Here is the Google Forms export of our customer survey (responses.csv): what stands out?"*
 - *"Which weak signals in these notes point to where the field is going? Give scenarios and forecasts."*
 - *"Challenge this conclusion: users leave because the pricing page is confusing."*
 - *"Run insight-analyst and foresight-analyst in parallel, then the challenger on both."*
@@ -67,6 +70,26 @@ collects the evidence first, then picks a **playbook**. Each playbook has an **a
 - **Forecasts are scored.** A foresight claim that can be checked later becomes a forecast: a precise question, a
   probability and a date, logged in `foresight/forecasts.md`. `forecasts.py` scores the log (Brier score) once the
   dates pass, so you learn which reasoning to trust.
+
+## Working with poiesis-research and your own data
+
+**From poiesis-research** (if the project has it): insight starts from `research/README.md`, the library's
+index, and reads the notes in `research/notes/`, one per source, with each claim and its page. Insights cite back
+to the note and page. Insight never edits the research files; it writes only to `insights/` and `foresight/`.
+
+**Your own data:**
+
+1. **Convert** what Claude can't read directly. `to_text.py` turns Excel (one CSV per sheet), Word (.docx, .doc,
+   .rtf, .odt) and CSV/TSV into CSV or TXT, and with `--mask` hides emails and phone numbers. A Google Forms export
+   is already CSV. Your original file is never changed.
+2. **Personal data:** columns that identify people (names, addresses, IDs) are dropped or replaced before
+   analysis. Originals and converted files stay out of git and out of public places. Anything you give Claude is
+   processed by the model, so share only data you're allowed to share.
+3. **The data is described first**, at the top of the report: source, how and when it was collected, number of
+   responses, optional questions, what is missing, duplicates or test answers. These are the denominators every
+   conclusion is measured against.
+
+Ask, for example: *"Convert survey.xlsx, mask personal data, describe it, then give me insights."*
 
 ## The rules
 
@@ -103,14 +126,15 @@ plugins/
     .claude-plugin/
       plugin.json             name, version, description
     skills/insight/           the skill: what Claude follows when you ask for insights or foresight
-      SKILL.md                entry point: reads the input, collects the evidence, picks the playbook
+      SKILL.md                entry point: reads the input (research library or your data), picks the playbook
       rules.md                what every conclusion carries, weighing, data before patterns; with sources
       playbooks/
         insight.md            connections, contradictions, counted patterns
         foresight.md          signals, horizons, layers, scenarios, forecasts
         challenge.md          the eight checks and the verdict
-      scripts/
-        forecasts.py          score the forecast log (Brier score); Python 3, standard library
+      scripts/                Python 3; Excel and Word libraries install themselves on first use
+        to_text.py            convert Excel, Word and CSV into CSV or TXT, masking emails and phone numbers
+        forecasts.py          score the forecast log (Brier score)
       templates/
         insight.md            one insight with everything it carries
         signal.md             one signal: observed, visibility, spread, interpretation, horizon

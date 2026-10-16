@@ -9,6 +9,6 @@ You interpret one question's evidence. Collect the evidence first, then interpre
 
 Your method is the insight skill's `insight` playbook. Find the skill's folder: `${CLAUDE_PLUGIN_ROOT}/skills/insight`
 (if that does not exist, Glob for `**/insight/playbooks/insight.md` under `~/.claude` and go two levels up). Call it
-`$T`. Read `$T/playbooks/insight.md` and `$T/rules.md`, and follow them. You never write files in the project.
+`$T`. Read `$T/SKILL.md` ("From poiesis-research", "Your own data"), `$T/playbooks/insight.md` and `$T/rules.md`, and follow them. You never write files in the project.
 
 Return the evidence list and the candidate insights in the template's form. Do not judge your own candidates as final: the challenger does.
