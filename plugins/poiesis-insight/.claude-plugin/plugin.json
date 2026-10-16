@@ -1,0 +1,20 @@
+{
+  "name": "poiesis-insight",
+  "version": "1.1.0",
+  "description": "Insights (connections, contradictions, counted patterns) and foresight (signals, horizons, scenarios, scored forecasts) from a project's research or data. Every conclusion carries its evidence, rivals and what would prove it wrong, and passes a challenge. Agents: insight-analyst, foresight-analyst, challenger.",
+  "author": {
+    "name": "George Mihai",
+    "email": "hi@georgemihai.com"
+  },
+  "homepage": "https://github.com/gorgmihai92/poiesis-insight",
+  "repository": "https://github.com/gorgmihai92/poiesis-insight",
+  "license": "MIT",
+  "keywords": [
+    "insight",
+    "foresight",
+    "scenarios",
+    "forecasting",
+    "analysis",
+    "sensemaking"
+  ]
+}

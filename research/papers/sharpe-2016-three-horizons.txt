@@ -1,0 +1,1572 @@
+[p. 1]
+University of Dundee
+Three horizons
+Sharpe, Bill; Hodgson, Anthony; Leicester, Graham; Lyon, Andrew; Fazey, Ioan
+Published in:
+Ecology and Society
+DOI:
+10.5751/ES-08388-210247
+Publication date:
+2016
+Document Version
+Publisher's PDF, also known as Version of record
+Link to publication in Discovery Research Portal
+Citation for published version (APA):
+Sharpe, B., Hodgson, A., Leicester, G., Lyon, A., & Fazey, I. (2016). Three horizons: A pathways practice for
+transformation. Ecology and Society, 21(2), Article 47. https://doi.org/10.5751/ES-08388-210247
+General rights
+Copyright and moral rights for the publications made accessible in Discovery Research Portal are retained by the authors and/or other
+copyright owners and it is a condition of accessing publications that users recognise and abide by the legal requirements associated with
+these rights.
+Take down policy
+If you believe that this document breaches copyright please contact us providing details, and we will remove access to the work immediately
+and investigate your claim.
+Download date: 16. Oct. 2026
+
+[p. 2]
+Copyright © 2016 by the author(s). Published here under license by the Resilience Alliance.
+Sharpe, B., A. Hodgson, G. Leicester, A. Lyon, and I. Fazey. 2016. Three horizons: a pathways practice for transformation. Ecology
+and Society 21(2):47. http://dx.doi.org/10.5751/ES-08388-210247
+Insight
+Three horizons: a pathways practice for transformation
+Bill Sharpe 1, Anthony Hodgson 1,2, Graham Leicester 1, Andrew Lyon 1 and Ioan Fazey 2
+ABSTRACT. Global environmental change requires responses that involve marked or qualitative changes in individuals, institutions,
+societies, and cultures. Y et, while there has been considerable effort to develop theory about such processes, there has been limited
+research on practices for facilitating transformative change. We present a novel pathways approach called Three Horizons that helps
+participants work with complex and intractable problems and uncertain futures. The approach is important for helping groups work
+with uncertainty while also generating agency in ways not always addressed by existing futures approaches. We explain how the approach
+uses a simple framework for structured and guided dialogue around different patterns of change by using examples. We then discuss
+some of the key characteristics of the practice that facilitators and participants have found to be useful. This includes (1) providing a
+simple structure for working with complexity, (2) helping develop future consciousness (an awareness of the future potential in the
+present moment), (3) helping distinguish between incremental and transformative change, (4) making explicit the processes of power
+and patterns of renewal, (5) enabling the exploration of how to manage transitions, and (6) providing a framework for dialogue among
+actors with different mindsets. The complementarity of Three Horizons to other approaches (e.g., scenario planning, dilemma thinking)
+is then discussed. Overall, we highlight that there is a need for much greater attention to researching practices of transformation in
+ways that bridge different kinds of knowledge, including episteme and phronesis. Achieving this will itself require changes to
+contemporary systems of knowledge production. The practice of Three Horizons could be a useful way to explore how such
+transformations in knowledge production and use could be achieved.
+Key Words: adaptation pathways; climate change; scenarios; transformation; transition
+INTRODUCTION
+Climate and other environmental change is a serious threat to the
+security and well-being of the expected 9–10 billion population
+of the planet (Rockstrom et al. 2009, Nicholls et al. 2011, IPCC
+2013). The viability of business-as-usual ways of life will be
+affected, and transformational changes throughout society at
+many social and geographical scales are required (Stafford-Smith
+et al. 2011, O'Brien and Sygna 2013). Y et, the knowledge we
+already have that can inform transformational change is not being
+effectively used (O'Brien 2011), and the knowledge and processes
+of change we do have are limited in their ability to work with the
+systemic complexity of global problems and to influence action
+at the rates needed to avoid dangerous climate change (Frame and
+Brown 2008, Sardar 2010, O'Brien 2012).  
+New capacities for transformation are needed (Frame and Brown
+2008, Sardar 2010, Miller 2011, ISSC 2012, Proust et al. 2012,
+ISSC and UNESCO 2013, Kläy et al. 2015). This includes
+approaches to help facilitate transitions, open up thinking,
+reimagine futures, work with intractable problems, encourage
+dialogue across diverse groups of people, and provide a sense of
+empowerment and hope in an era where the extent of the
+challenges seems overwhelming and debilitating (Frame and
+Brown 2008, Miller 2011, Ison et al. 2014, Wicks and Jamieson
+2014, Kläy et al. 2015). While there are clear overlaps, a focus on
+transformation is different from resilience, which is often
+interpreted as adapting to retain current system functions and
+processes, while transformation is focused on creating significant
+systemic changes (Walker et al. 2004, Gallopin 2006). In relation
+to issues like climate change, transformation implies a need to
+focus on accelerating the development of processes and practices
+for change (O'Brien 2012). We respond to such calls by outlining
+a practice called Three Horizons that can be used to help work
+with uncertain futures in imaginative ways while also retaining
+important societal features from the present. Interest in Three
+Horizons has been growing over the last decade, and this
+approach is increasingly being used in a variety of contexts as a
+way to help navigate complexity and identify actions to encourage
+change (e.g., Table 1). While this paper is not based on formalized
+academic research, it does present the outcomes of cumulative
+critical reflective practice and experiential knowledge of skilled
+facilitators of futures-oriented approaches. This knowledge
+provides new insights about the approach and transformation in
+practice.  
+We first explain the need for new approaches for exploring
+transformative change and then outline the methodological
+approach taken to articulating the practical knowledge we
+present. We then describe the Three Horizons approach and the
+key features that make it useful for transformative thinking and
+the insights that have emerged from using the approach. Overall,
+this will be of wide relevance to academics and practitioners
+interested in learning about how to conceptualize, study, and
+facilitate the practice of transformation.
+The need for new approaches to facilitate transformation
+Working with complexity
+Two important challenges related to the practice of
+transformation are working with complexity and with the future.
+First, many studies highlight the inherent complexity of
+contemporary challenges, describing them as “wicked” (Rittel
+and Webber 1973), working in a “swamp” (Rosenhead 2006),
+“messy” (Ackoff 1979), “conceptual emergencies” (Leicester and
+O'Hara 2009), or hyper-complex problems (Scharmer 2009 in
+O'Brien 2013). These problems, by definition, defy any single way
+1International Futures Forum, The Boathouse, Silversands, Aberdour, Fife, UK, 2Centre for Environmental Change and Human Resilience,
+University of Dundee, Dundee, UK
+
+[p. 3]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Table 1. Examples where Three Horizons (3H) dialogue has been used to facilitate change and innovation.
+ 
+Case Study
+Participants Background Aims and Objectives Process and Role of 3H
+Intelligent
+Infrastructure
+Systems
+UK Govt. Office for
+Science & Technology
+Foresight Unit, with input
+from a wide community of
+experts in government,
+academia, and industry
+(2006)
+£8Bn a year invested to maintain
+and develop UK transport
+infrastructure;
+Investments can last 50–100
+years or longer;
+Investment needs to meet
+conflicting and changing
+demands, and be safe and
+resilient to shocks
+Explore how science and
+technology could, over the
+next 50 years, bring
+intelligence into
+infrastructure to meet
+demanding and sometimes
+conflicting objectives of
+investments for transport
+infrastructure
+Combination of science reviews,
+scenarios, and technology forward
+look;
+Three Horizons used to link the
+components together
+Challenges facing
+rural communities
+Carnegie UK Trust,
+Commission on Rural
+Community Development
+(2007) and International
+Futures Forum
+Long-term pressures on rural
+communities, and a firm belief
+that a vibrant rural life is a vital
+component of an enduring,
+balanced, and healthy society
+Undertake a comprehensive
+consultation on the challenges
+and opportunities facing rural
+communities across the UK
+and Ireland in recent years,
+and look ahead to the future
+of rural areas
+Commission of Inquiry;
+Three Horizons used to integrate
+material from the Inquiry, develop
+a future-oriented “scenario” view,
+support strategic visioning,
+determine transformative (H2)
+actions
+Transformative
+innovation in
+education:
+“Opening up
+Transformative
+Innovation,” 3H kit
+for schools
+Scottish Inspectorate of
+Schools, Education
+Scotland, and International
+Futures Forum
+Radical changes required in
+education needed to prepare
+young people for an uncertain
+future
+Support transformative
+innovation with a highly
+decentralized, bottom-up,
+system-wide approach
+Three Horizons strategic
+conversations used to develop a
+3H kit for schools to enable them
+to develop their own
+transformative initiatives
+Climate change
+community action
+Glasgow community and
+International Futures
+Forum
+Conflict in discussions between
+meeting outcomes required by
+grant givers and values of life
+for those affected
+To improve the dynamics of
+collaboration on climate
+change to meet both formal
+institutional and community
+objectives
+Facilitation and framing of
+community leader conversations,
+using Three Horizon
+understanding of horizons as
+forms of conscious perspective
+Transition to
+renewable energy
+Major European oil and
+gas company
+Using foresight methods to
+explore new paradigm of energy
+and the transition issues
+To develop a managerial
+understanding toward
+reframing strategy and
+investment portfolio
+Scenario method combined with
+Three Horizons to develop a
+credible research and development
+story to guide resource
+deployment
+of characterizing them (Rittel and Webber 1973). Nevertheless,
+they can broadly be considered as possessing dynamic complexity,
+social complexity (where conflicting values and cultures exist
+among diverse stakeholders), and generative complexity (where
+the intended future cannot be addressed only by existing
+knowledge) (Scharmer 2009 in O'Brien 2013). Contemporary
+problems can also be characterized as having ambivalent goals,
+uncertain knowledge, and distributed power (Voß et al. 2007). We
+broadly refer to these challenges as “complex problems.”  
+Working with complex problems requires approaches that can
+work with both biophysical and social understanding of systems
+at interrelated scales (Folke et al. 2010); engage diverse individuals
+and institutions (Voß et al. 2007); distinguish between and link
+incremental and transformative change (Wise et al. 2014b); make
+issues of power and competing values open and amenable to
+discussion and resolution (Voß et al. 2007, Valorinta et al. 2011);
+and work effectively through learning, invention, and innovation
+to help purposely move toward uncertain futures (Voß et al. 2007,
+Wilkinson 2008:274 in Ramirez et al. 2008). While much progress
+has been made in understanding complexity (Newell 2012,
+McGowan et al. 2014) and the different values held by different
+stakeholders (Christie et al. 2012, Kenter et al. 2015), there are
+still major practical challenges in working with multiple
+perspectives and norms (Frame and Brown 2008, Holman 2011,
+McGowan et al. 2014).
+Working with the future
+A second challenge is the need to work effectively with an
+“incompletely known and uncertain future” (Wilkinson 2008:274
+in Ramirez et al. 2008). Futures practices in general support ways
+of taking decisions in the present that are as well-informed about
+the future as we can make them, while recognizing ignorance and
+uncertainty. If there is no uncertainty, then plans and decisions
+can be made about how to act to achieve the desired outcome.
+Futures methods therefore connect agency (human decisions,
+choices, actions, and capacities) (Câmpeanu and Fazey 2014) and
+intent to irreducible uncertainty about the future context and the
+effect of our actions.  
+There are many tools and approaches for working with the future
+(Van der Heijden 2005, Miller 2011, Hodgson 2012, Mahony
+2014, Milojević and Izgarjan 2014, Videira et al. 2014). They can
+broadly be classified according to how they deal with agency and
+uncertainty (Fig. 1). First, there are traditional forecasting and
+planning approaches, such as weather and economic forecasting,
+that work with low social and generative complexity (bottom left
+quadrant). In these approaches, the future is generally conceived
+of as being an extension of the past and is predictable within a
+set of known sources of variation, even though such changes may
+be very hard to model or understand.
+
+[p. 4]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Fig. 1. The different kinds of tools for working with the future.
+The horizontal axis represents the degree of uncertainty about
+the future; the vertical axis represents the extent to which the
+tools enhance a degree of agency. Four domains indicate the
+relative strengths of different tools and approaches. For
+example, scenarios are generally most useful when the future is
+highly uncertain, but often on their own have limited capacity
+to identify strategies for achieving different futures. Roadmaps
+tend to be most useful in circumstances where there is greater
+certainty, where they provide clearer directions for change. New
+pathways approaches are emerging, which aim to enhance
+agency in situations of high uncertainty. The arrows indicate
+that some scenario approaches, depending on how they are
+applied, also can work well in the high uncertainty and high
+agency domain, and that many existing pathways approaches
+are aligned more closely with roadmaps.
+Second, there are approaches that generate high agency but which
+work best in situations where the uncertainty can be managed by
+bringing it fully within the scope of the actors involved to
+collectively assert their agency (top left quadrant). This includes
+roadmaps, which are a strategic planning exercise focused around
+a complex issue that involves step-by-step progress and learning.
+Roadmaps usually involve bringing together expertise to assemble
+paths toward the future in relation to intermediate goals, and
+aligning intent among many parties to direct resources and
+activity toward shared goals (Saritas and Aylen 2010). In
+technology, the classic case is the semiconductor industry
+roadmap, which was based on the premise that computing power
+would increase exponentially (Moore 1965). Through continued
+resourcing and shared effort, the roadmap helped ensure the
+future was realized. The roadmap orientation to the future is
+therefore about creating a strong sense of shared agency while
+also reducing uncertainty in more manageable ways through
+shared research and development. The outcome is usually a single
+roadmap that characterizes the path of action and learning the
+participants intend to pursue. This provides the agency but does
+not allow significant space for the emergence of new and uncertain
+future conditions that might require going down new paths.  
+Third, there are approaches that work well with uncertainty but
+do not necessarily result in high degrees of agency in the same
+way that roadmaps do (bottom right quadrant). This includes
+scenarios. These are perceptual tools for exploring uncertainties
+in an unknown future; they are usually developed as a small set
+(two to four) of plausible and structurally different futures
+(Peterson et al. 2003, Van der Heijden 2005). Although scenario
+approaches can generate agency (see next paragraph), scenarios
+do not by themselves reveal strategies, and are instead part of an
+input to a strategy process (Ramirez and Van der Heijden 2007).
+Scenario planning therefore actively seeks out sources of
+uncertainty and keeps them visible in ways that challenge the
+assumptions on which current activities are based. The output of
+a scenario planning project is a set of different scenarios that
+highlight critical uncertainties by using distinct stories or visual
+representations of alternative futures.  
+Roadmaps are concerned mostly with coordinating social
+complexity, whereas scenarios are theorized as exploring and re-
+perceiving the dynamic complexity and uncertainty of the future
+(Ramirez et al. 2008) (Fig. 1). This leaves an important space for
+approaches that bring agency into the full domain of future
+uncertainty (top right quadrant, Fig. 1). A variety of scenario
+planning approaches are used for this, such as normative,
+transformative, and participatory approaches, those which
+combine exploratory and normative scenarios, and those that use
+backcasting to develop normative strategies within a scenario
+framework (Ogilvy 2002, Bell 2003, van Notten et al. 2003, Voß
+et al. 2007, Kok et al. 2011, Kahane 2012). Privileging agency of
+participants is a critical aspect of such futures work (Ogilvy 2002,
+Bell 2003, Weisbord and Jasanoff 2010). Increasingly, however, a
+new set of approaches, known as pathways approaches, attempt
+both to deal with complexity and provide agency (Fig. 1). There
+are many different interpretations of pathways approaches
+(Leach 2008, Haasnoot et al. 2012, Wise et al. 2014b, Fazey et al.
+2015), but essentially they aim to help work toward new futures
+in a semiexploratory way (e.g., by identifying different routes and
+paths) but without the specificity of a single roadmap that
+assumes the ability to control all the sources of complexity. Many
+of the existing pathways approaches are, however, highly
+technical, and work on identifying key decision points and critical
+junctures in ways that do not easily translate well into the messy
+and subjective world of complexity in practice. Such pathways
+approaches are often more similar to roadmap techniques, and
+have an underlying assumption of well-understood systemic
+causality and an intention to identify linear directions for
+establishing new futures.  
+Currently, there are limited futures-oriented approaches that
+simultaneously work with complexity, diverse perspectives, and
+values and still provide space for the kinds of imagination,
+creativity, and emergence necessary to go beyond incremental or
+marginal change. While there are exceptions (Burns 2007, Burns
+and Worsley 2015), many existing approaches are complex and
+technical, and there is a need instead for approaches that can help
+generate futures literacy among broad constituencies of
+participants in transformative change (Miller 2011, O'Brien et al.
+2013). We outline a relatively new approach called Three Horizons
+practice, which was first introduced as an analytic lens for
+foresight work (Sharpe and Hodgson 2006, Curry and Hodgson
+
+[p. 5]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+2008). Three Horizons practice supports thinking and dialogue
+about transformation, and while it has been used in many contexts
+(Table 1), as yet, there has been limited critical explanation and
+examination of the approach.
+METHODOLOGICAL APPROACH
+We outline the Three Horizons practice to encourage further and
+wider debate about the facilitation of transformative change. The
+research approach used to generate the insights, however, does
+not conform to traditional methodological approaches used in
+academia. Instead, it is an articulation of the extensive experience
+the authors have gained through developing and using Three
+Horizons in purposive reflective practice.  
+Researchers tend to focus on epistemic forms of knowledge, which
+is logically built up and then applied back to practice (Aristotle
+2004). Such knowledge is teachable and often represented as a set
+of principles or guidelines. Such principles are used to illuminate
+an issue and inform judgment, but they do not prescribe action.
+This requires more practice-oriented forms of knowledge, such
+as techne or “know how” knowledge and phronesis (practical
+wisdom)(Aristotle 2004). The latter involves knowing how to act
+and reflect appropriately to achieve “good ends” (Shotter and
+Tsoukas 2014). Techne and phronesis are usually concerned with
+the particulars of the situation and what is experienced (Van De
+Ven and Johnson 2006, Shotter and Tsoukas 2014), such as the
+knowledge applied by expert facilitators when working with
+different groups of people, solar technicians installing solar
+panels in different circumstances, or doctors working with
+different patients. Eliciting such knowledge is challenging because
+the process of elicitation separates the knowledge from the person
+in which it is embodied and the context to which it is applied
+(Barab and Plucker 2002).  
+Epistemic knowledge alone cannot facilitate the kinds of change
+needed to address contemporary societal challenges, and other
+forms of practical knowledge are required. Y et, despite this need,
+techne and phronesis are not well recognized by academics. This
+results in the theories of pure researchers dictating actions of
+those in practice (Pryjmachuk 1996), or practitioners ignoring
+theoretical insights because they do not find them useful (Rolfe
+1998). Standard attempts to close the perceived “gap” between
+academia and practice then usually involves academics trying to
+develop better strategies for dissemination and greater use of
+research findings, which makes the gap wider by suppressing
+professional judgment and forcing practitioners to use ill-suited
+research findings (Rolfe 1998).  
+We therefore take a different approach to that normally presented
+in academic journals. We aim to articulate how Three Horizons
+practice is approached and used (techne), and discuss the insights
+about change and transformation that have emerged from
+facilitating Three Horizons practice, which help make judgments
+about “good ends” (phronesis). These insights have emerged from
+our collective practical knowledge of learning how to apply the
+approach in diverse contexts in combination with many other
+approaches, and from the facilitation of groups trying to make
+sense of, and work with, complexity. Together, we have
+approximately 90 years of experience in facilitation of futures and
+strategy thinking and about 35 years of facilitating Three
+Horizons. This includes using the approach in about 180 different
+situations, and training 135 people to use the approach. We have
+also spent considerable effort in learning from and about the
+approach, innovating, and reflecting on its outcomes, including
+having numerous discussions that have led to refinements and
+improvements, and ultimately this paper.  
+Importantly, it is not our intention to present this work as an
+academic piece that “tests the effectiveness” of Three Horizons,
+presents “evidence” of its value, or promotes the approach above
+other useful approaches. We also do not suggest that the work
+meets notions of rigor applied in the social sciences that are used
+to develop epistemic knowledge, and some may therefore label
+this paper as no more than a “practice note.” Instead, we have
+worked carefully to find the best way to articulate what we think
+we know from reflecting on the facilitation of Three Horizons.
+The work can therefore be considered as the outcome of action-
+oriented, first-person inquiries by practitioners (Reason and
+Bradbury 2008), and our intention is to lay a foundation for others
+to apply Three Horizons, develop their own practical
+understanding, and come to their own conclusions in their own
+settings and contexts about the relevance and validity of the
+approach. This paper should therefore be viewed as a set of
+propositions about (1) the practice of Three Horizons, and (2)
+the more general insights about the nature of transformation that
+have emerged from its practice. These propositions can then be
+examined in further detail by using more deductive
+methodologies, such as through critical and reflexive action
+research and comparative case studies (Ison et al. 2014).
+THREE HORIZONS AS A PATHWAYS PRACTICE
+Three Horizons framework
+In this section, we outline how Three Horizons practice is often
+used. The practice typically involves a facilitated conversation
+with diverse stakeholders to assist sense-making and strategic
+action. It can be facilitated through multiday workshops or as
+short exercises to complement other activities, including working
+in ways that are complementary to other approaches and tools.
+Three Horizons practice uses a simple framework that can easily
+be communicated in a few minutes. This framework includes three
+lines, with each line representing a system or pattern in the way
+things are done in a particular area of interest (e.g., how an
+organization operates, particular values in society, or the use of
+certain forms of technology) (Fig. 2). The horizontal axis
+represents time stretching into the future from the present, and
+the vertical axis indicates the prevalence of each pattern in a
+relative way. The framework represents three different patterns:
+an established first horizon pattern giving way over time to an
+emerging third horizon, via transitional activity in the second
+horizon.  
+The first horizon (H1): This represents the way things are done
+now, generally called “business as usual.” Society relies on stable
+patterns for the everyday business of life, and most change is
+incremental within these familiar patterns and serves to reproduce
+and reinforce them. The starting point of a three horizon
+conversation is the recognition that the first horizon pattern is
+losing its fit with emerging conditions.
+
+[p. 6]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Fig. 2. Three Horizons. “Prevalence” refers to the extent to
+which a particular pattern dominates the issue of concern (e.g.,
+way of doing things, use of a particular technology, set of
+values). These patterns change over time. H1 is a current,
+declining, pattern. H3 represents an emerging future pattern.
+H2 is the turbulent domain of transitional activities and
+innovations which people are trying out in response to the
+changing landscape between H1 and H3. Importantly, each way
+of doing things is present at all times, albeit to a greater or
+lesser extent. H2- and H2+ highlight that innovations emerging
+in H2 can either be subsumed back into H1 or go on to create
+the space for, and emergence of, H3.
+The third horizon (H3): This represents the emerging pattern that
+will be the long-term successor to the current first horizon. It is
+appearing and growing on the fringes of the present system, and
+developing new ways of meeting the emerging conditions and
+possibilities. Although some dominant pattern will eventually
+emerge, in the process of developing a three horizon map, many
+different views of the future will be present and contested.  
+The second horizon (H2): This is the turbulent domain of
+transitional activities and innovations that people are trying out
+in response to the changing landscape between the first and third
+horizons. This second horizon is important, as it provides the
+disruptions for more radical 3H systems to emerge. Some
+innovations (H2+) will help extend the H1 systems and facilitate
+the emergence of H3 systems. Many innovations will fail, and
+others (H2-) will be absorbed back into the H1 systems and
+contribute only to marginal or incremental change. A good
+example are photovoltaic cells (solar panels). They have
+significant potential to generate a revolution in the power
+relations between traditional consumers and producers of energy.
+Consumers can become producers, and create the conditions for
+radical and transformative innovations in storage capacity and
+localized production that remove market dominance of existing
+large energy companies (Schleicher-Tappeser 2012). Whether the
+H2 innovations become subsumed or controlled by existing
+energy generation patterns and actors or go on to generate
+transformative outcomes remain to be seen, and will depend on
+an array of social, political, and technological factors, including
+the extent of the ability of different actors to influence regulatory
+demands.
+The practice of Three Horizons
+Although Three Horizons has a simple framework, it can be
+thought of as a practice rather than a theory, concept, or idea.
+This is because it involves a facilitated process with a diverse group
+of stakeholders to map out how different patterns change over
+time. It is the experience of being involved in the process that helps
+participants reframe their understanding of the relationship
+between the present and the future. This makes it different from
+detailed concepts and frameworks, such as multilevel perspectives
+on socio-technical transitions, technological innovation systems,
+or the sociology of expectations (Borup et al. 2006, Geels and
+Schot 2007, Bergek et al. 2008), which are used predominantly as
+explanatory abstractions and heuristics. The simple structure of
+Three Horizons makes it highly accessible to diverse participants,
+including children (e.g., Leicester et al. 2013), and allows for the
+incorporation of different dimensions of existing theories (e.g.,
+multilevel perspectives) when required.  
+There are usually five key steps involved in the practice of Three
+Horizons. They are illustrated through an example (Fig. 3) where
+a local authority sought to explore how to transition toward and
+implement a new Curriculum for Excellence in Scotland (CfE).
+This aimed to be a radical departure from existing curricular and
+educational approaches. In this case, the Three Horizons dialogue
+process assisted thinking within the local authority about how to
+meet the challenges and opportunities within the emerging policy
+framework while continuing to deliver effective education through
+the transition period (Fig. 3). The following steps were used to
+explore this transition:  
+Step 1: Examining present concerns. A three horizon conversation
+begins by bringing the issue of concern into view and describing
+the ways in which the current way of doing things is seen to be
+losing its fit with emerging conditions. In the CfE example, the
+emergence of personalized, adaptive teaching technology,
+alongside pervasive digital delivery offered a multitude of new
+ways to structure individual learning paths. This required a
+complete rethink of the role of the teacher, classroom, and school
+to make best use of emerging opportunities and changing
+context.  
+Step 2: Exploring future aspirations. This involves examining the
+third horizon, where visions, aspirations, and possibilities for the
+reality that will emerge over time are explored as a replacement
+of the first horizon. In CfE, the emerging technologies offered
+possibilities to link the school and home in many more ways to
+support learning, and there were aspirations for teachers to be
+learners, and for children to have greater responsibility and
+ownership of their learning.  
+Step 3: Exploring inspirational practice in the present. The second
+step generally merges with the third step, which is to identify
+“pockets of the future in the present,” which are concrete examples
+of where new ways of doing things are visible at the margins of
+the mainstream first horizon systems. In CfE, this involved both
+looking to existing practices locally and examining the huge
+variety of educational systems globally and the different
+approaches they provide.  
+Step 4: Innovations in play. This step considers the second
+horizon, which is viewed as the realm of transition between the
+first and third horizons, and innovations are identified that can
+
+[p. 7]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Fig. 3. An example of the outcome of using Three Horizons as a process to structure dialogue developed through working with a
+local authority in Scotland to transition to the Curriculum for Excellence. The black numbered boxes represent the order in which
+different aspects of the Three Horizons are explored. The dark grey shaded boxes were items given to participants by the facilitators
+to trigger thinking about how things might change in the future. These prompted wider discussion and are represented by the lighter
+shaded boxes. The figure is an anonymized version with only a sample of the items included.
+be seen to be going on in response to the failings of the first
+horizon and the possibilities of the third. For example, in CfE, a
+huge number of new players were identified, coming from both
+inside and outside the education system, who are introducing new
+digital platforms such as MOOCs (Massive Open Online
+Courses). These have gained a great deal of attention and are
+evolving rapidly in ways that open up further opportunities in the
+H2 space. The outcome of many of these disruptive innovations
+is not yet clear.  
+Step 5: Essential features to maintain. The final step draws
+attention to those aspects of the old system that will persist into
+the future within the context of the new dominant system. These
+are often examined as the key or desirable elements that need to
+be retained.  
+Finally, a number of additional steps are typically added to the
+process that make the move from sense-making to transformative
+action, such as examining trade-offs and dilemmas, and how some
+H2 innovations can serve to prop up H1 systems or go on to
+provide new space for emergence of H3 systems, and how the
+participants relate to acting on these possibilities. The specific
+process is highly contingent on the project context, but in general,
+the aim of a 3H conversation is to get into action by identifying
+actions in the second and third horizons that will take a step along
+the pathway of change. These issues are covered in the next section
+as part of the discussions about the useful features of Three
+Horizons practice.
+USEFUL FEATURES OF THREE HORIZONS PRACTICE
+A simple framework to help work with complexity
+We have found that one of the most useful aspects of Three
+Horizons is that it provides a simple structure for working with
+complexity around which dialogue about change from one pattern
+to another can occur. While this is not as comprehensive as deeper
+
+[p. 8]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+explanatory theories and approaches to change (Waddock et al.
+2015), a deep explanatory framework is not the intention. Instead,
+we have found that the pre-given framework is simple enough to
+allow participants to add their own issues and perspectives, help
+them begin to make sense of the complexity in a holistic way,
+avoid constraints in thinking about how progressive change may
+unfold, and explore the role of different components in a
+particular change context or situation. We have also found it
+helpful to avoid deep dialogue around concepts like transition,
+resilience, or transformation, which in our experience often
+creates inertia and inhibits action. Unlike scenario planning, we
+have also found that the Three Horizons framework avoids the
+need to create a unique structure for each particular issue or
+context. Creating a Three Horizons map can be done in only a
+few hours or through much longer sessions. While developing
+deep understanding takes time, a short discussion can give a
+preliminary grip on a situation which then motivates further
+enquiry and more detailed explorations to help shape the
+implementation of the actions identified.
+Development of future consciousness
+While it is common to represent societal change as succeeding S-
+curves (Perez 2004, Tibbs 2011), this does not draw attention to
+the fact that change always originates in the present (Curry and
+Hodgson 2008). In the practice of Three Horizons, a key step is
+to identify examples of the third horizon in the present (pockets
+of the future in the present), and consider how this new pattern
+can emerge through the transitional second horizon. We have
+found that Three Horizons can help participants situate the
+present moment in relation to the future. This is because it helps
+them regard each horizon as a quality of the future in the present,
+with each horizon characterizing a distinct way of acting in the
+present with a qualitatively different relationship to current and
+future patterns. The first horizon is characterized as a
+“managerial” mindset, which keeps things going in familiar ways;
+the second is the entrepreneurial orientation that seizes an
+opportunity; and the third is the visionary outlook that holds an
+imagined future in mind and steers toward it. In this sense, our
+experience suggests the approach can help different actors bring
+all three orientations to the future into view and encourage
+participants to work with these horizons in a flexible way—
+moving from holding any one orientation as a fixed mindset to
+using them all as alternative perspectives.  
+This step into an explicit awareness and use of all three
+perspectives can be thought of as “future consciousness,” or an
+awareness of the future potential of the present and how the future
+emerges from what is done now (Sharpe 2013). This relates to calls
+for “effective future-mindedness” (Ramirez et al. 2008) or futures
+literacy (Miller 2011). Developing future consciousness highlights
+that effective transformational practice needs to engage people in
+developing their own role in shaping the future in a reflexive and
+reflective way, so that they can take responsibility for the process
+of making transformation happen.
+Distinguishing between incremental and transformative change
+Being able to distinguish between actions that generate
+incremental or transformative change is important for more
+effectively transitioning to new futures (Wise et al. 2014 a). Y et,
+this is difficult because transformation is often apparent only after
+it has occurred. We have found that Three Horizons helps
+participants explore dominant patterns of activity and more
+transformative ways of doing things. Through the facilitation of
+Three Horizons practice, participants begin to recognize that the
+first horizon is not static and that dominant pattern(s) of activity
+are actively maintained and reproduced by social processes. That
+is, invention and innovation are always going on in which the
+system renews itself and gets “better” in its own terms, such as
+computers getting faster, drugs getting better, guns getting more
+lethal, and political parties producing their manifestos. Such
+patterns are actively maintained by many social actors: those who
+produce them, use them, and govern them with tacit and explicit
+rules, laws, and norms.  
+An example is the outcomes of many attempts in practical
+domains to enhance resilience. While origins of the concept in
+environmental domains highlight the importance of adaptability
+and flexibility in social and ecological domains as a key source of
+resilience (Holling 2001), the concept of resilience is increasingly
+used in diverse ways (Chandler 2013). In particular, it can often
+be interpreted as a process for maintaining the status quo rather
+than for creating more systemic levels of change or in ways that
+do not acknowledge ecological feedbacks from human actions
+(Whiteman et al. 2004, Pelling 2011). Examples include finding
+more flexible ways to keep motorways open or airplanes flying
+when societies are faced with various natural and human hazards.
+This reinforces or enables environmentally unsustainable
+economies, even though the perseverance of heavily
+consumption-based economies continues to influence underlying
+causes of increasing threats from natural hazards through climate
+change. Such well-intentioned approaches to resilience prop up
+existing systems in ways that early proponents of social-ecological
+resilience sought to avoid (Holling and Meffe 1996, Holling 2001,
+Folke 2006). In Three Horizons practice, these kinds of
+adjustments might be interpreted as sustaining the first horizon
+political-economic structures. In contrast, transformation is then
+understood as requiring renewal of those structures in the
+transition to the third horizon. This interpretation of
+transformation is consistent with many of those in the academic
+literature (Walker et al. 2004, Gallopin 2006).  
+By exploring first and third horizon patterns, we have found that
+participants begin to appreciate how active processes of
+innovation can often help maintain and reinforce current systems
+in ways that paradoxically limit change, and result in only minor
+incremental advances over time. Working with the first horizon
+also highlights how incremental changes that maintain this
+horizon can result in “fixes that fail.” For example, an issue
+explored in the Intelligent Infrastructure Systems foresight
+project (Table 1) was the need to transition to sustainable forms
+of transport with greatly reduced greenhouse gas emissions. In
+this case, participants came to the conclusion that the first horizon
+transport system needed to continually increase the provision of
+transport infrastructure to keep up with increasing demand. Y et,
+the gains from greater efficiencies that emerged from new
+incremental innovations were generally being lost when the use
+of transport in the system overall increased. This highlighted that
+transformation to a fully sustainable system therefore involved
+not only major transitions to clean energy but also ways to contain
+demand, such as through new patterns of mobility achieved by
+alternative forms of urban design and different work and leisure
+social practices. Through contrasting first and third horizon
+
+[p. 9]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+patterns, participants were then able to consider a new system
+that was a better fit to emerging conditions (e.g., a low carbon
+economy) and that included changes in the underlying
+assumptions that put boundaries on incremental change. In our
+experience, practicing Three Horizons can therefore help
+participants distinguish between incremental and transformative
+change, but in a way that enables them to bring these aspects
+together and consider the transitions necessary to move from one
+form of action to another.
+Making power explicit
+Deliberate societal transformation involves intentionally trying
+to direct patterns of change. This requires exploring who has the
+power to resist or bring about change, to what extent change can
+be created, and the relationships between different actors (Hatt
+2013, Geels 2014). Through facilitating Three Horizons, we have
+found that it can help participants explore issues of power in two
+main ways. First, through focused discussions it assists
+practitioners to identify how different actors can most usefully
+influence change. For example, in the Intelligent Infrastructure
+Systems project (Table 1), it became apparent through discussions
+that an individual citizen can do little to influence the availability
+of electric cars beyond exercising their consumer choice, but they
+might join a green lobby group to campaign for change; an
+entrepreneur can raise capital and pioneer innovative
+technologies but cannot do much to put in place needed
+infrastructure, and they need pioneering citizens as customers; or
+a government transport minister has power to influence policies
+but might need the active support of industry groups and lobby
+groups to drive change and shift social norms around the use of
+cars.  
+Second, through facilitating the practice of Three Horizons, we
+have found that the approach can help participants explore
+whether or how society is organized to manage the processes of
+moving toward the third horizon depending on the nature of the
+societies in which they live. For example, democratic societies have
+established processes for the orderly transfer of power, and can
+renew their laws and the constitution that governs those law-
+making processes. Other societies may be unable to transfer power
+and manage change without violent conflict, collapse, and
+renewal in the governance structures themselves. In these cases,
+it may take acts of profound courage to challenge the power of
+the status quo, and the outcomes will be violently contested.
+Similarly, in developed market economies, affairs have been
+organized so that there are distinct policies for governance of the
+established businesses of the first horizon, venture investment for
+the second, and exploratory research—often government funded
+through universities—for the third. Most societies have some
+policies to limit the power of the first horizon actors, such as
+monopoly rules and preventing cartels (Ma 2013), but powerful
+companies can buy up or suppress threatening innovations
+(Stanford 2012, Gerschel-Clarke 2013, Geels 2014). Incumbents
+also have significant power and access to the processes of
+government, and can often achieve a degree of regulatory capture,
+which enables them to exert influence over how new possibilities
+are framed, or resist legislation they perceive as damaging their
+interests (Geels 2014). Differences in the way societies are
+organized, therefore, have different effects on the way in which
+renewal occurs or can be precipitated.  
+By working with Three Horizons, we have found that the processes
+that support or resist change can be made amenable to discussion,
+which can help participants think about how to manage the
+transitions and change those processes. This does not mean that
+everyone will necessarily agree on what the third horizon and
+pattern of renewal should be. Quite the reverse: the practice offers
+a way to identify where there are disagreements and help inform
+which actors need to be convened to support the process of change
+and renewal. We refer to this process as “Convening the Future”
+(Sharpe 2013). This relates directly to the observations of both
+Weisbord and Jasanoff (2010), in their Future Search method,
+and Kahane (2012), in his Transformative Scenario Planning
+method, that it is crucial to get the “whole system” in the room.
+Three Horizons does not take a view on whether the whole system
+must be convened, since often change is brought about by
+challengers outside the system, but it does support the enquiry
+and facilitate constructive dialogue in systemic ways among those
+who view the world through particular horizon perspectives (see
+Framework for dialogue among different actors).
+Exploring the management of transitions
+In our experience of using Three Horizons, we have found that it
+helps maintain focus on the management of transitions.
+Consideration of the first horizon brings out the initial scoping
+of the issue and the indicators of stress and loss of fit that are
+motivating the need for change. Discussing the third horizon then
+allows participants to drop the assumptions that would keep
+responses within the incremental range of the first horizon
+system. This frees participants to explore a wide range of
+transformational possibilities by drawing both on what they see
+out in the world as responses to the changing context and their
+own visions and aspirations. The exploration of the second
+horizon is then placed between these two as the zone of transition
+between the existing systems of the first horizon and the emerging
+or imagined third. This enables discussions to focus on managing
+the transitional process from current to transformative ways of
+doing things. In the Intelligent Infrastructure Futures example
+(Table 1), transport policies for incremental improvements in
+efficiency (extension of the first horizon) were contrasted with
+policies to transform mobility patterns to reduce demand (third
+horizon transformation), which enabled a focus on second
+horizon policies that would help the third horizon changes to
+emerge.  
+We have found two techniques for exploring the second horizon
+transitional space to be helpful. The first is the distinction between
+“H2 plus” (H2+) innovations, which lead on to the third horizon,
+and “H2 minus” (H2-) innovations, which may “prop up” the first
+horizon. Designating innovation as H2 plus or minus is not
+absolute but something that can be explored. For example, in the
+Intelligent Infrastructure Futures project (Table 1), one of the
+issues identified was how new technologies would interact with
+the demand for transport. On the one hand, transport innovations
+that increase speed and efficiency were considered to be useful for
+relieving some problems in the short term but still increased
+demand and emissions in the longer term. This then represented
+an H2 minus capture of the innovation by the H1 patterns of
+mobility. On the other, innovations that link transport services to
+new urban planning and shifts toward active transport (walking
+and cycling) were identified as likely being able to gradually
+transform mobility patterns toward a third horizon of sustainable
+
+[p. 10]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+transport—an H2 plus intervention. This does not mean that H2
+minus interventions are inappropriate and there is no a priori
+“right” view of interventions. Nevertheless, our experience
+suggests that considering the role of innovations through Three
+Horizons can help participants identify which ones are more likely
+to lead to transformation.  
+The second technique for exploring the second horizon
+transitional space is dilemma thinking (Hampden-Turner 1990,
+Höijer et al. 2006). The central idea is that while decision situations
+often appear to be exclusive choices, they can sometimes be more
+helpfully viewed as two competing sets of values where both must
+be respected (Leicester et al. 2013). For example, businesses have
+a dilemma of needing to optimize the current business while
+investing in innovation for future revenue. If either is chosen to
+the exclusion of the other, the business will eventually fail.  
+Through facilitating Three Horizons we have found that
+discussions about change often become polarized between the
+first horizon status quo, seen as “bad,” and the new/desired third
+horizon system, viewed as “good.” In any real world situation,
+however, there will be much in the existing system that needs to
+be carried forward into the new, and aspects of the new that need
+to build on contributions from the first rather than to fully
+reinvent or ignore them. In the Carnegie case (Table 1), for
+example, participants identified historical patterns of land use
+and ownership that have been both barriers to, and enablers of,
+new patterns of use. This included, for example, increasing trends
+toward rural estate owners effectively becoming farmers of wind
+or water alongside more traditional agriculture and forestry, and
+picking up rich subsidies in the process. Dilemma thinking
+addresses such challenges by taking the two sides of a polarity
+and presenting them orthogonally, framing a space in which there
+can be dynamic movement toward synthesis and resolution (Fig.
+4). Dilemmas are therefore not “solved,” but constantly “re-
+solved” through experimentation, feedback, learning, and
+creative innovation. Overall, approaches such as distinguishing
+between H2 plus and minus, and dilemma thinking, complement
+other aspects of Three Horizons practice to help participants
+identify the kinds of transitional changes that need to be put into
+place to achieve transformation.
+Framework for dialogue among different actors—the three
+horizon “voices”
+Participants involved in Three Horizons practice have indicated
+that one of the most useful aspects of the framework is that it
+helps improve the social dynamics of transformative
+conversations. Through our extensive experimentation and
+reflection on the practice, it seems that this occurs because Three
+Horizons (1) is easily communicated and provides opportunities
+for sense-making in a pragmatic way, (2) enables participants to
+help identify their own role toward either maintaining the existing
+systems or pioneering new ones, and (3) encourages those involved
+to understand the different roles and positive contribution of each
+horizon. The second and third points are made possible when
+participants start to move from inhabiting a horizon as a fixed
+mindset to using it flexibly as a perspective. Here, the first horizon
+represents the mindset of a “manager” responsible for keeping
+business-as-usual systems going; i.e., “keeping the lights on” or
+“ensuring the plane can still stay airborne while being
+redesigned.” The third horizon is the mindset of the “visionary,”
+who imagines new possible futures and tries to achieve them
+through pioneering actions. Many of the ideas of the visionary
+are likely to be considered too far beyond current thinking to be
+widely accepted in the present, even though they may eventually
+become the new normal in the future. The second horizon is the
+mindset of the entrepreneur, who acts opportunistically to “seize
+the day” and bring new ideas and innovations into reality. In
+discussions about complex issues involving change, participants
+often bring a particular mindset, and implicitly view the others
+in adversarial ways (Table 2).
+Fig. 4. The space of dilemmas between the values of Horizon 1
+and Horizon 3 in the Carnegie case study. In this space, policies
+and experiments are used to progress towards transformation.
+We have found that by using Three Horizons, participants become
+aware of the different value and role of each horizon and their
+associated mindsets, and that this greatly reduces many sources
+of tension and conflict. Initially, those responsible for the first
+horizon systems that are important for daily life, who have to meet
+ever greater obligations for accountability, transparency, and so
+on, often regard the third horizon visionary as an irritating and
+unrealistic nuisance (Table 2). The third horizon pioneer, in
+contrast, will often regard the first horizon manager as a dinosaur
+who is blocking change (Table 2). Y et, when each party is able to
+see that if no one keeps the current system going, the future cannot
+be resourced, and that if there is no action toward future needs,
+the existing system will collapse, then a much more fruitful
+discussion becomes possible.  
+A concrete example from using Three Horizons was in the
+Carnegie case (Table 1). The commissioners were exposed to a
+diversity of views and perspectives on the future and were able to
+visit examples of innovative, nonmainstream practice. They
+realized at that point that they needed help to make sense of the
+mass of everything they had seen and the numerous perspectives
+of individual commissioners. The Three Horizons approach
+enabled the different perspectives and variety of evidence to be
+
+[p. 11]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Table 2. The different outlooks of the Three Horizons toward each other, both as a negative mindset and a positive perspective in the
+form of words that have been used in real sessions (based on text produced by Ian Page, personal communication). This table is often
+reported to be one of the most useful things people get from using Three Horizons.
+ 
+Looking from
+this Horizon
+Looking at this
+Horizon
+Negative (Mindset) Positive (Perspective)
+Horizon 1 Horizon 1 Competitor. Beat or take over. Useful infrastructure. Potential allies in lobbying for shared
+interests, etc.
+Horizon 2 Parasite of potential investment. Watch and
+monitor.
+Source of abundant ideas. Improvement. Changes scope of what
+can be done.
+Horizon 3 Fanciful and irrelevant. Ignore, or kill to prevent
+momentum building that would challenge H1
+dominance.
+Hope for the future. Possibility of renewal.
+Not challenging H1 role: relates to more of my life than H1.
+Horizon 2 Horizon 1 Slow-moving dinosaurs. Obstructive. Get out of
+the way!
+Holding the “innovator’s dilemma.” Destination for innovation.
+Arena of action. Source of support and ways to scale up.
+Horizon 2 Competitors for resources. Allies in creating momentum.
+Horizon 3 Impractical. Inspirational. Source of ideas and visibility. Sense of direction.
+Horizon 3 Horizon 1 Massive error and liability, barrier to progress. Potential resource when unlocked. Skills that can be redeployed
+—to scale. Valuable heritage and gains to be protected.
+Horizon 2 Obstructive compromise. They are misusing our
+vision.
+Potential allies. Promising practice, stepping stone. Changes
+scope of what is possible.
+Horizon 3 Vision competitors: debate vigorously. Extends the debate beyond the present; brings deeper issues of
+value into play.
+held and appreciated at the same time. An important contribution
+was the way the approach revealed that commissioners who were
+initially stereotyped as entrenched in one specific horizon
+volunteered significant perspectives from other horizons, thus
+dissolving many of the earlier disagreements. This shows how
+Three Horizons legitimizes each of the different perspectives and
+highlights the value of each. In our experience, this can result in
+a shift from holding a horizon as a mindset to using it as a flexible
+perspective on the situation. This allows a shift into future
+consciousness that is the key enabling feature of Three Horizons.
+In summary, Three Horizons helps create a common language
+where participants quickly find it very natural to start talking of
+issues and situations in terms of the “horizons,” which in turn,
+helps participants with significantly different values and
+ideologies work together more effectively.
+DISCUSSION AND CONCLUSIONS
+The key qualities of Three Horizons practice, based on our
+experience of facilitating the approach, can be summarized in
+three main ways. First, it seems to help people begin to make sense
+of complex situations through seeing the world in patterns in a
+way that is relevant to their concerns and their aspirations for
+change. Second, it appears to allow participants to “put
+themselves in the picture” and to relate their own role in bringing
+about change to that of other actors. Finally, by moving from
+their own mindset to a wider perspective of all three horizons,
+our experience suggests that participants can improve the quality
+of future-oriented dialogue between those who have
+responsibility for the present pattern and those seeking a path of
+transformation to the future. Through experiencing such
+dialogue, participants often express that they have experienced a
+renewed sense of hope brought about by greater understanding
+of how actions in the present can contribute to emerging futures
+(Sharpe 2013).  
+Three Horizons therefore seems particularly useful for supporting
+a rapid entry into a future-oriented dialogue on diverse topics,
+with a language that is easily grasped. But like all approaches, it
+has limitations. Personal communication with scenario planning
+facilitators has indicated they find it useful to use the approach
+as a scoping tool at the start of a project and to shape strategic
+action at the end, while using scenario planning to explore the
+uncertainties within and between horizons. Other tools and
+practices are therefore sometimes needed to develop deeper
+insights, such as systems mapping to develop understanding of
+critical relations and feedbacks (Fazey et al. 2011); scenarios to
+structure third horizon uncertainties (Peterson et al. 2003, Saritas
+and Aylen 2010); multiscale perspectives to examine transitions
+in more depth (Geels and Schot 2007, Geels 2014); and dilemma
+thinking to help work with trade-offs (Höijer et al. 2006). In a
+recent exploration of the future of carbon pricing for an
+international institution that had convened a high level expert
+group, Three Horizons was used primarily to frame the problem
+and identify critical unknowns. These unknowns were then
+explored in greater detail using dilemma thinking and scenarios,
+which together then enabled the identification of the adaptive
+pathways most likely to lead to the third horizon future pattern
+(Fig. 5). As with all approaches for working with complexity, good
+facilitation is also required. While in our experience the
+framework can be easily understood and facilitators can quickly
+learn how to apply the approach, the expertise of the facilitator
+has a significant bearing on the depth of insights achieved. We
+are therefore currently both exploring and experimenting with
+how Three Horizons can be used as a supportive and integrative
+framework with other methods while simultaneously developing
+appropriate online training for its facilitation and practice (http://
+h3uni.net/).
+
+[p. 12]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Table 3. Key propositions about deliberate transformation derived from observations and experience of facilitating the practice of
+Three Horizons (based on some of the insights in Sharpe 2013).
+ 
+Proposition Explanation
+Transformation requires development
+of future consciousness.
+Future consciousness can be considered to be an awareness of the future potential of the present moment. It is
+limited by a range of cognitive, psychological, and systemic issues, such as existing psychological investment in
+the security of the status quo, fear of a new changed paradigm, which can trigger denial of the problems in the
+present, and linear causal mindsets that limit appreciation of underlying systemic issues. Nevertheless, working
+with Three Horizons suggests that everyone has a natural capacity to relate to the future and act in the present
+moment to create that future, and this awareness can be deepened through reflective practice using approaches
+such as Three Horizons.
+ 
+Transformation involves a repatterning
+of collective lives rather than expansion
+of the current pattern.
+Incremental changes can lead to transformation, but these changes act mostly to retain existing ways of doing
+things. This implies that it is important to work collectively to change existing patterns when transformation is
+needed and to identify what needs to be done in the present moment to work with the future in the long term.
+ 
+Transformation needs to bring together
+personal aspects and wider structural
+aspects of change.
+Transformative innovation involves working with different qualities of the future in the present (in this case, the
+different horizons) in a way that brings together the inward looking aspect of reflecting on an individual or
+groups’ future consciousness (the first proposition) and the outward looking aspect of collectively
+understanding patterns of change and response (the second proposition). That is, transformation needs to
+bring together the personal aspects (e.g., values, future consciousness) and those aspects that need to be
+changed. This is similar to ideas that highlight the importance of working across the personal, political, and
+practical spheres of society (Sharma 2007), and which affirm that the incorporation of ethics and aesthetics, in
+addition to seeking new knowledge, is essential for transformation to occur (Hanlon et al. 2012).
+ 
+Simple structures are needed for
+integrative and transformative dialogue.
+Simple and easily accessible approaches are needed to help work with diverse perspectives and provide
+opportunities for collective thinking about the future without being trapped by personal values, fears, or other
+emotional ties. Working with Three Horizons suggests that there is a need for such approaches to provide a
+balance between having some structure and avoiding inappropriate constraints on understanding. Approaches
+also need to help avoid getting stuck in discussions about different interpretations of concepts like
+transformation.
+ 
+Transformation can occur only as a
+universal shared practice in which every
+person is viewed as a unique source of
+insight and human potential.
+Human lives are a process of constant discovery and invention, with each person living a unique human life
+(Horton 2002). Building a fully shared capacity for future consciousness is essential for engendering hopes for
+transformation and moving toward a more just and equitable world.
+Fig. 5. An example of the way Three Horizons (3H) can frame
+the use of other tools. It depicts the flow of a recent project led
+by one of the authors that explored how carbon pricing could
+be used to help drive the transformation of the world economy
+to a low carbon future. From the initial 3H exploration, the
+critical unknowns of approach were explored with both
+dilemmas and scenarios, which led to an understanding of the
+adaptive pathways to the third horizon.
+In addition to articulating what we think we know about the
+practice of Three Horizons, reflecting on its practice has helped
+identify insights about the nature of transformation itself (Table
+3). We do not claim that these represent reproducible findings,
+but rather that they serve to represent the articulation of practical
+knowledge in epistemic ways. Such reflections through practice
+have, for example, helped us develop our own thinking about the
+differences between incremental and transformative change and
+how conversations about transformation can be facilitated. This
+highlights that new and important knowledge about the nature
+of change itself emerges from trying to do change as well as from
+analytical-deductive approaches that primarily seek to observe it.
+This is consistent with calls for researchers to engage more directly
+in processes of change to help accelerate learning for deliberate
+transformation (O'Brien 2012, Arkesteijn et al. 2015).  
+To accelerate learning about practices of change and
+transformation, we need participatory, reflective, and action-
+based forms of research that simultaneously work with techne,
+phronesis, and episteme (Frame and Brown 2008, Reason and
+Bradbury 2008, Ison et al. 2014). These needs are reflected in
+wider calls for more open knowledge systems that are more
+inclusive, transparent, and action-oriented (Flyvberg 2001,
+Cornell et al. 2013, van Kerkhoff 2014, Kläy et al. 2015). Y et,
+despite the importance of the transformation agenda, currently
+there are limited avenues for funding research that works more
+
+[p. 13]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+directly with practical forms of knowledge (Kläy et al. 2015). This
+may seem surprising given the increasing emphasis on the need
+for research to be useful. Y et, usefulness is usually defined by
+existing policy and research environments that focus on research
+to address first horizon issues (i.e., “keeping the lights on”) rather
+than on the processes and practices of third horizon renewal
+(Pardoe 2014). The challenge here is that for research to be
+effective in assisting transformation, a transformation in the way
+research is conducted and the acceptance of other forms of
+knowledge will also be required. Details of a new research agenda
+are beyond the scope of this paper, but such changes rest on greater
+acknowledgement by researchers and practitioners that all
+research is socially constructed and that observers are not
+independent from what is observed (Aufenvenne et al. 2014, Kläy
+et al. 2015). Moving toward new ways of thinking about research
+and knowledge production will require second horizon strategic
+actions that can assist the transition from the first horizon to new
+third horizon modes of research. Three Horizons would be useful
+for helping to begin to explore how such transitions might come
+about.
+Responses to this article can be read online at: 
+http://www.ecologyandsociety.org/issues/responses.
+php/8388
+Acknowledgments:
+We would like to thank the insightful comments provided by three
+anonymous reviewers. Jim Ewing first formulated the idea of the
+different voices in which each horizon typically speaks, and Ian Page
+developed those ideas into the horizon outlooks shown in Table 2.
+We are grateful to the many people who collaborated with us in
+exploring the possibilities of using Three Horizons for their projects,
+in particular those whose applications we report in Table 3. This
+work was partly supported by the Knowledge Network for Enabling
+Transformation project funded by the International Social Science
+Council (ISSC) (T2S_PP-067).
+LITERATURE CITED
+Ackoff, R. 1979. The art of problem-solving . John Wiley, New
+Y ork, USA.  
+Aristotle. 2004. The Nicomachean ethics (translated by J. A. K.
+Thomson). Penguin Books, London, UK.  
+Arkesteijn, M., B. van Mierlo, and C. Leeuwis. 2015. The need
+for reflexive evaluation approaches in development cooperation.
+Evaluation 21:99–115. http://dx.doi.org/10.1177/1356389014564719  
+Aufenvenne, P ., H. Egner, and K. Von Elverfeldt. 2014. On climate
+change research, the crisis of science and second-order science.
+Constructivist Foundations 10:120–129.  
+Barab, S. A., and J. A. Plucker. 2002. Smart people or smart
+contexts? Cognition, ability, and talent development in an age of
+situated approaches to knowing and learning. Educational
+Psychologist 37:165–182. http://dx.doi.org/10.1207/s15326985ep3703_3  
+Bell, W . 2003. Foundations of futures studies: history, purposes, and
+knowledge: 1 (Human science for a new era) . Transaction
+Publishers, Piscataway, New Jersey.  
+Bergek, A., S. Jacobsson, B. Carlsson, S. Lindmark, and A.
+Rickne. 2008. Analyzing the functional dynamics of
+technological innovation systems: a scheme of analysis. Research
+Policy 37:407–429. http://dx.doi.org/10.1016/j.respol.2007.12.003  
+Borup, M., N. Brown, K. Konrad, and H. Van Lente. 2006. The
+sociology of expectations in science and technology. Technology
+Analysis and Strategic Management  18:285–298. http://dx.doi.
+org/10.1080/09537320600777002  
+Burns, D. 2007. Systemic action research: a strategy for whole
+system change. Policy Press, Bristol, UK.  
+Burns, D., and S. Worsley. 2015. Navigating complexity in
+international development: facilitating sustainable change at scale.
+Practical Action Publishing, Rugby, UK. http://dx.doi.
+org/10.3362/9781780448510  
+Câmpeanu, C. N., and I. Fazey. 2014. Adaptation and pathways
+of change and response: a case study from Eastern Europe. Global
+Environmental Change: Human and Policy Dimensions  28:351–
+367. http://dx.doi.org/10.1016/j.gloenvcha.2014.04.010  
+Chandler, D. 2013. Resilience ethics: responsibility and the
+globally embedded subject. Ethics and Global Politics 6:175–194.
+http://dx.doi.org/10.3402/egp.v6i3.21695  
+Christie, M., I. Fazey, R. Cooper, T. Hyde, and J. O. Kenter. 2012.
+An evaluation of monetary and non-monetary techniques for
+assessing the importance of biodiversity and ecosystem services
+to people in countries with developing economies. Ecological
+Economics 83:67–78. http://dx.doi.org/10.1016/j.ecolecon.2012.08.012  
+Cornell, S., F . Berkhout, W . Tuinstra, J. D. Tàbara, J. Jäger, I.
+Chabay, B. de Wit, R. Langlais, D. Mills, P . Moll, I. M. Otto, A.
+Petersen, C. Pohl, and L. van Kerkhoff. 2013. Opening up
+knowledge systems for better responses to global environmental
+change. Environmental Science and Policy 28:60–70. http://dx.doi.
+org/10.1016/j.envsci.2012.11.008  
+Curry, A., and A. Hodgson. 2008. Seeing in multiple horizons:
+connecting futures to strategy. Journal of Futures Studies 13:1–20.  
+Fazey, I., N. Pettorelli, J. Kenter, D. Wagatora, and D. Schuett.
+2011. Maladaptive trajectories of change in Makira, Solomon
+Islands. Global Environmental Change  21:1275–1289. http://dx.
+doi.org/10.1016/j.gloenvcha.2011.07.006  
+Fazey, I., R. M. Wise, C. Lyon, C. Câmpeanu, P . Moug, and T.
+E. Davies. 2015. Past and future adaptation pathways. Climate
+and Development 8:26–44. http://dx.doi.org/10.1080/17565529.2­
+014.989192  
+Flyvberg, B. 2001. Making social science matter: why social inquiry
+fails and how it can succeed again . Cambridge University Press.
+http://dx.doi.org/10.1017/CBO9780511810503  
+Folke, C. 2006. Resilience: the emergence of a perspective for
+social-ecological systems analyses. Global Environmental Change-
+Human and Policy Dimensions  16:253–267. http://dx.doi.
+org/10.1016/j.gloenvcha.2006.04.002  
+Folke, C., S. R. Carpenter, B. Walker, M. Scheffer, T. Chapin, and
+J. Rockström. 2010. Resilience thinking: integrating resilience,
+adaptability and transformability. Ecology and Society  15(4):2.
+http://www.ecologyandsociety.org/vol15/iss4/art20/
+
+[p. 14]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Frame, B., and J. Brown. 2008. Developing post-normal
+technologies for sustainability. Ecological Economics 65:225–241.
+http://dx.doi.org/10.1016/j.ecolecon.2007.11.010  
+Gallopin, G. C. 2006. Linkages between vulnerability, resilience,
+and adaptive capacity. Global Environmental Change-Human and
+Policy Dimensions  16:293–303. http://dx.doi.org/10.1016/j.
+gloenvcha.2006.02.004  
+Geels, F . W . 2014. Regime resistance against low-carbon
+transitions: introducing politics and power into the multi-level
+perspective. Theory, Culture and Society 31:21–40. http://dx.doi.
+org/10.1177/0263276414531627  
+Geels, F . W ., and J. Schot. 2007. Typology of sociotechnical
+transition pathways. Research Policy 36:399–417. http://dx.doi.
+org/10.1016/j.respol.2007.01.003  
+Gerschel-Clarke, A. 2013. Are patent trolls strangling sustainable
+innovation? The Guardian.  
+Haasnoot, M., H. Middelkoop, A. Offermans, E. van Beek, and
+W . P . A. van Deursen. 2012. Exploring pathways for sustainable
+water management in river deltas in a changing environment.
+Climatic Change 115:795–819. http://dx.doi.org/10.1007/
+s10584-012-0444-2  
+Hampden-Turner, C. 1990. Charting the corporate mind: graphic
+solutions to business conflicts. The Free Press, New Y ork, USA.  
+Hanlon, P ., S. Carlisle, M. Hannah, A. Lyon, and D. Reilly. 2012.
+A perspective on the future public health: an integrative and
+ecological framework. Perspectives in Public Health 132:313–319.  
+Hatt, K. 2013. Social attractors: a proposal to enhance ‘resilience
+thinking’ about the social. Society & Natural Resources 26:30–43.
+http://dx.doi.org/10.1080/08941920.2012.695859  
+Hodgson, A. 2012. A transdisciplinary world model. Systems
+Research and Behavioral Science  29:517–526. http://dx.doi.
+org/10.1002/sres.2154  
+Höijer, B., R. Lidskog, and Y . Uggla. 2006. Facing dilemmas:
+sense-making and decision-making in late modernity. Futures 
+38:350–366. http://dx.doi.org/10.1016/j.futures.2005.07.007  
+Holling, C. S. 2001. Understanding the complexity of economic,
+ecological, and social systems. Ecosystems 4:390–405. http://dx.
+doi.org/10.1007/s10021-001-0101-5  
+Holling, C. S., and G. K. Meffe. 1996. Command and control and
+the pathology of natural resource management. Conservation
+Biology 10:328–337. http://dx.doi.org/10.1046/j.1523-1739.1996.10020328.
+x  
+Holman, P . 2011. Engaging emergence: turning upheaval into
+opportunity. Eighth International Conference on Complex
+Systems, New England Complex Systems Institute, Massachusetts,
+USA.  
+Horton, S. L. 2002. Conceptualizing transition: the role of
+metaphor in describing the experience of change at midlife.
+Journal of Adult Development 9:277–290.  
+Intergovernmental Panel on Climate Change (IPCC). 2013.
+Climate change 2013: the physical science basis . IPCC Working
+Group I Contribution to AR5. Intergovernmental Panel on
+Climate Change, Stockholm, Sweden.  
+International Social Science Council (ISSC). 2012. Transformative
+cornerstones of social science research for global change.
+International Social Science Council, Paris, France.  
+International Social Science Council (ISSC) and United Nations
+Educational, Scientific and Cultural Organization (UNESCO).
+2013. World social science report: changing global environments,
+Paris, France.  
+Ison, R., A. Grant, and R. Bawden. 2014. Scenario praxis for
+systemic governance: a critical framework. Environment and
+Planning C: Government and Policy  32:623–640. http://dx.doi.
+org/10.1068/c11327  
+Kahane, A. 2012. Transformative scenario planning: working
+together to change the future . Berrett-Koehler Publishers, San
+Francisco, California, USA.  
+Kenter, J. O., L. O'Brien, N. Hockley, N. Ravenscroft, I. Fazey,
+K. N. Irvine, M. S. Reed, M. Christie, E. Brady, R. Bryce, A.
+Church, N. Cooper, A. Davies, A. Evely, M. Everard, R. Fish, J.
+A. Fisher, N. Jobstvogt, C. Molloy, J. Orchard-Webb, S. Ranger,
+M. Ryan, V . Watson, and S. Williams. 2015. What are shared and
+social values of ecosystems? Ecological Economics  111:86–99.
+http://dx.doi.org/10.1016/j.ecolecon.2015.01.006  
+Kläy, A., A. B. Zimmermann, and F . Schneider. 2015. Rethinking
+science for sustainable development: reflexive interaction for a
+paradigm transformation. Futures 65:72–85. http://dx.doi.
+org/10.1016/j.futures.2014.10.012  
+Kok, K., M. van Vliet Mathijs, I. Bärlund Ilona, A. Dubel, and
+J. Sendzimir. 2011. Combining participative backcasting and
+exploratory scenario development: experiences from the
+SCENES project. Technological Forecasting and Social Change  
+78:835–851. http://dx.doi.org/10.1016/j.techfore.2011.01.004  
+Leach, M. 2008. Pathways to sustainability in the forest?
+Misunderstood dynamics and the negotiation of knowledge,
+power, and policy. Environment and Planning A  40:1783–1795.
+http://dx.doi.org/10.1068/a40215  
+Leicester, G., and M. O'Hara. 2009. Ten things to do in a conceptual
+emergency. International Futures Forum, Aberdour, Scotland.  
+Leicester, G., D. Stewart, K. Bloomer, and J. Ewing. 2013.
+Transformative innovation in education: a playbook for pragmatic
+visionaries. Triarchy Press, Axminster, UK.  
+Ma, D. 2013. State capacity and great divergence, the case of Qing
+China (1644–1911). Eurasian Geography and Economics 54:484–
+499.  
+Mahony, T. O. 2014. Integrated scenarios for energy: a
+methodology for the short term. Futures 55:41–57. http://dx.doi.
+org/10.1016/j.futures.2013.11.002  
+McGowan, K. A., F . Westley, E. D. G. Fraser, P . A. Loring, K.
+C. Weathers, F . Avelino, J. Sendzimir, R. R. Chowdhury, and M.
+L. Moore. 2014. The research journey: travels across the idiomatic
+and axiomatic toward a better understanding of complexity.
+Ecology and Society 19. http://dx.doi.org/10.5751/es-06518-190337  
+Miller, R. 2011. Futures literacy: embracing complexity and using
+the future. Ethos 10:23–28.
+
+[p. 15]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Milojević, I., and A. Izgarjan. 2014. Creating alternative futures
+through storytelling: a case study from Serbia. Futures 57:51–61.
+http://dx.doi.org/10.1016/j.futures.2013.12.001  
+Moore, G. E. 1965. Cramming more components onto integrated
+circuits. Electronics 38. http://dx.doi.org/10.1109/jproc.1998.658762  
+Newell, B. 2012. Simple models, powerful ideas: towards effective
+integrative practice. Global Environmental Change  22:776–783.
+http://dx.doi.org/10.1016/j.gloenvcha.2012.03.006  
+Nicholls, R. J., N. Marinova, J. A. Lowe, S. Brown, P . Vellinga,
+D. De Gusmão, J. Hinkel, and R. S. J. Tol. 2011. Sea-level rise and
+its possible impacts given a ‘beyond 4°C world’ in the twenty-first
+century. Philosophical Transactions of the Royal Society A:
+Mathematical, Physical and Engineering Sciences  369:161–181.
+http://dx.doi.org/10.1098/rsta.2010.0291  
+O'Brien, K. 2011. Responding to environmental change: a new
+age for human geography? Progress in Human Geography 35:542–
+549. http://dx.doi.org/10.1177/0309132510377573  
+O'Brien, K. 2012. Global environmental change II: from
+adaptation to deliberate transformation. Progress in Human
+Geography 36:667–676. http://dx.doi.org/10.1177/0309132511425767  
+O'Brien, K. 2013. Global environmental change III: closing the
+gap between knowledge and action. Progress in Human Geography 
+37:587–596. http://dx.doi.org/10.1177/0309132512469589  
+O'Brien, K., J. Reams, A. Caspari, A. Dugmore, M. Faghihimani,
+I. Fazey, H. Hackmann, D. Manuel-Navarrete, J. Marks, R.
+Miller, K. Raivio, P . Romero-Lankao, H. Virji, C. Vogel, and V .
+Winiwarter. 2013. Y ou say you want a revolution? Transforming
+education and capacity building in response to global change.
+Environmental Science and Policy  28:48–59. http://dx.doi.
+org/10.1016/j.envsci.2012.11.011  
+O'Brien, K., and L. Sygna. 2013. Responding to climate change:
+the three spheres of transformation. In K. O'Brien, and L. Sygna,
+editors. Proceedings of Transformation in a Changing Climate .
+June 19–21 2013. University of Oslo, Oslo, Norway.  
+Ogilvy, J. A. 2002. Creating better futures . Oxford University
+Press, New Y ork, USA.  
+Pardoe, S. 2014. Research impact unpacked? A social science
+agenda for critically analyzing the discourse of impact and
+informing practice. SAGE Open 4. http://dx.doi.
+org/10.1177/2158244014529774  
+Pelling, M. 2011. Adaptation to climate change: from resilience to
+transformation. Routledge, London, UK.  
+Perez, C. 2004. Finance and technical change: a long-term view.
+Pages 775–799 in H. Hanusch, and A. Pyka, editors. The Elgar
+companion to neo-Schumpeterian economics . Edward Elgar,
+Cheltenham, UK. http://dx.doi.org/10.4337/9781847207012.00059  
+Peterson, G. D., G. S. Cumming, and S. R. Carpenter. 2003.
+Scenario planning: a tool for conservation in an uncertain world.
+Conservation Biology  17:358–366. http://dx.doi.org/10.1046/
+j.1523-1739.2003.01491.x  
+Proust, K., B. Newell, H. Brown, A. Capon, C. Browne, A.
+Burton, J. Dixon, L. Mu, and M. Zarafu. 2012. Human health
+and climate change: leverage points for adaptation in urban
+environments. International Journal of Environmental Research
+and Public Health  9:2134–2158. http://dx.doi.org/10.3390/
+ijerph9062134  
+Pryjmachuk, S. 1996. A nursing perspective on the
+interrelationships between theory, research and practice. Journal
+of Advanced Nursing  23:679–684. http://dx.doi.org/10.1111/
+j.1365-2648.1996.tb00037.x  
+Ramirez, R., J. W . Selsky, and K. van der Heijden. 2008. Business
+planning for turbulent times: new methods for applying scenarios.
+Earthscan, London, UK.  
+Ramirez, R., and K. Van der Heijden. 2007. Scenarios to develop
+strategic options: a new interactive role for scenarios in strategy.
+In B. Sharpe, and K. Van der Heijden, editors. Scenarios for
+success: turning insights in to action. Wiley, Chichester, UK. http://
+dx.doi.org/10.1002/9781119208136.ch4  
+Reason, P ., and H. Bradbury. 2008. The Sage handbook of action
+research: participative inquiry and practice . Sage, London, UK.
+http://dx.doi.org/10.4135/9781848607934  
+Rittel, H. W . J., and M. M. Webber. 1973. Dilemmas in a general
+theory of planning. Policy Sciences  4:155–169. http://dx.doi.
+org/10.1007/bf01405730  
+Rockstrom, J., W . Steffen, K. Noone, A. Persson, F . S. Chapin,
+E. Lambin, T. M. Lenton, M. Scheffer, C. Folke, H. J.
+Schellnhuber, B. Nykvist, C. A. de Wit, T. Hughes, S. van der
+Leeuw, H. Rodhe, S. Sorlin, P . K. Snyder, R. Costanza, U. Svedin,
+M. Falkenmark, L. Karlberg, R. W . Corell, V . J. Fabry, J. Hansen,
+B. Walker, D. Liverman, K. Richardson, P . Crutzen, and J. Foley.
+2009. Planetary boundaries: exploring the safe operating space
+for humanity. Ecology and Society  14(2):32. http://www.
+ecologyandsociety.org/vol14/iss2/art32/  
+Rolfe, G. 1998. The theory-practice gap in nursing: from research-
+based practice to practitioner-based research. Journal of
+Advanced Nursing 28:672–679. http://dx.doi.org/10.1046/
+j.1365-2648.1998.00806.x  
+Rosenhead, J. 2006. Past, present and future of problem
+structuring methods. Journal of the Operational Research Society 
+57:759–765. http://dx.doi.org/10.1057/palgrave.jors.2602206  
+Sardar, Z. 2010. Welcome to postnormal times. Futures 42:435–
+444. http://dx.doi.org/10.1016/j.futures.2009.11.028  
+Saritas, O., and J. Aylen. 2010. Using scenarios for roadmapping:
+the case of clean production. Technological Forecasting and Social
+Change 77:1061–1075. http://dx.doi.org/10.1016/j.techfore.2010.03.003  
+Schleicher-Tappeser, R. 2012. How renewables will change
+electricity markets in the next five years. Energy Policy 48:64–75.
+http://dx.doi.org/10.1016/j.enpol.2012.04.042  
+Sharma, M. 2007. Personal to planetary transformation. Kosmos
+Journal Fall/Winter:31–35.  
+Sharpe, B. 2013. Three horizons: patterning of hope. Triarchy Press,
+Axminster, Devon, UK.  
+Sharpe, B., and A. Hodgson. 2006. Intelligent infrastructure
+futures: technology forward look. Foresight Directorate, UK Dept
+of Trade & Industry, London, UK.
+
+[p. 16]
+Ecology and Society 21(2): 47
+http://www.ecologyandsociety.org/vol21/iss2/art47/
+Shotter, J., and H. Tsoukas. 2014. In search of phronesis:
+leadership and the art of judgment. Academy of Management
+Learning and Education  13:224–243. http://dx.doi.org/10.5465/
+amle.2013.0201  
+Stafford-Smith, M., L. Horrocks, A. Harvey, and C. Hamilton.
+2011. Rethinking adaptation for a 4C world. Philosophical
+Transactions of the Royal Society A 369:196–216.  
+Stanford, M. 2012. Eco thugs: how patent trolls threaten to
+undermine a sustainable energy future. Green Living Press.  http://
+blog.loomistank.com/2012/02/23/eco-thugs-how-patent-trolls-threaten-
+to-undermine-a-sustainable-energy-future/  
+Tibbs, H. 2011. Changing cultural values and the transition to
+sustainability. Journal of Futures Studies 15:13–32.  
+Valorinta, M., H. Schildt, and J. A. Lamberg. 2011. Path
+dependence of power relations, path-breaking change and
+technological adaptation. Industry and Innovation  18:765–790.
+http://dx.doi.org/10.1080/13662716.2011.621745  
+Van De Ven, A. H., and P . E. Johnson. 2006. Knowledge for theory
+and practice. Academy of Management Review 31:802–821. http://
+dx.doi.org/10.5465/amr.2006.22527385  
+Van der Heijden, K. 2005. Scenarios: the art of strategic
+conversation. John Wiley & Sons, Chichester, UK.  
+van Kerkhoff, L. 2014. Developing integrative research for
+sustainability science through a complexity principles-based
+approach. Sustainability Science  9:143–155. http://dx.doi.
+org/10.1007/s11625-013-0203-y  
+van Notten, P . W . F ., J. Rotmans, M. B. A. van Asselt, and D. S.
+Rothman. 2003. An updated scenario typology. Futures 35:423–
+443. http://dx.doi.org/10.1016/s0016-3287(02)00090-3  
+Videira, N., F . Schneider, F . Sekulova, and G. Kallis. 2014.
+Improving understanding on degrowth pathways: an exploratory
+study using collaborative causal models. Futures 55:58–77. http://
+dx.doi.org/10.1016/j.futures.2013.11.001  
+Voß, J. P ., J. Newig, B. Kastens, J. Monstadt, and B. Nölting. 2007.
+Steering for sustainable development: a typology of problems and
+strategies with respect to ambivalence, uncertainty and
+distributed power. Journal of Environmental Policy and Planning 
+9:193–212. http://dx.doi.org/10.1080/15239080701622881  
+Waddock, S., G. M. Meszoely, S. Waddell, and D. Dentoni. 2015.
+The complexity of wicked problems in large scale change. Journal
+of Organizational Change Management  28:993–1012. http://dx.
+doi.org/10.1108/jocm-08-2014-0146  
+Walker, B., C. S. Hollin, S. R. Carpenter, and A. Kinzig. 2004.
+Resilience, adaptability and transformability in social-ecological
+systems. Ecology and Society 9(2):5. http://www.ecologyandsociety.
+org/vol9/iss2/art5/  
+Weisbord, W ., and S. Jasanoff. 2010. Future search: getting the
+whole system in the room for vision, commitment, and action. Third
+edition. Berrett-Koehler, San Francisco, California, USA.  
+Whiteman, G., B. C. Forbes, J. Niemela, and F . S. Chapin. 2004.
+Bringing feedback and resilience of high-latitude ecosystems into
+the corporate boardroom. Ambio 33:371–376. http://dx.doi.
+org/10.1579/0044-7447-33.6.371  
+Wicks, A., and M. Jamieson. 2014. New ways for occupational
+scientists to tackle “wicked problems” impacting population
+health. Journal of Occupational Science  21:81–85. http://dx.doi.
+org/10.1080/14427591.2014.878208  
+Wise, R. M., J. R. A. Butler, T. Skewes, E. Bohensky, and N.
+Peterson. 2014 a. The future economics of marine ecosystem
+services in Kimbe Bay, Papua New Guinea: implications for locally
+managed marine areas . Report prepared for the Australian
+Department of Environment as part of the Coral Triangle
+Initiative on Coral Reefs, Food Security and Fisheries. CSIRO,
+Canberra, Australia.  
+Wise, R. M., I. Fazey, M. Stafford Smith, S. E. Park, H. C. Eakin,
+E. R. M. Archer Van Garderen, and B. Campbell. 2014 b.
+Reconceptualising adaptation to climate change as part of
+pathways of change and response. Global Environmental Change 
+28:325–336. http://dx.doi.org/10.1016/j.gloenvcha.2013.12.002

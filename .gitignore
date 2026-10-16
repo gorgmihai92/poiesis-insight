@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.pdf
+# Closed-licence texts stay local (only open-licence texts are committed)
+research/papers/heuer-*
+research/papers/dhami-*
+research/papers/nickerson-*
+research/papers/phadnis-*
