@@ -126,13 +126,26 @@ LICENSE                       MIT
 
 ## Where the rules come from
 
-Each rule names its source, with a note per source in `research/notes`: Klein & Jarosz 2011 (how
-insights happen), Pirolli & Card 2005 (evidence before sensemaking), Heuer 1999 (diagnosticity, competing
-hypotheses), Dhami et al. 2019 (the competing-hypotheses matrix did not improve accuracy; consistent weighing
-did), Nickerson 1998 (confirmation bias), Simmons et al. 2011 (comparisons fixed in advance), Kahneman & Klein 2009
-(limits of intuition), Whitson & Galinsky 2008 (illusory patterns), Hiltunen 2008 (weak signals), Sharpe et al.
-2016 (three horizons), Inayatullah 1998 (causal layered analysis), Phadnis et al. 2015 (what scenarios do), Mellers
-et al. 2015 (scored forecasts).
+Each rule names its source; there is one note per source in `research/notes`.
+
+- **Three paths to an insight (connections, contradictions, impasses):** Klein & Jarosz 2011.
+- **Evidence first, then sensemaking:** Pirolli & Card 2005. Analysts forage for evidence and make sense of it in
+  two loops, so every conclusion points back to its evidence.
+- **Diagnostic evidence and competing hypotheses:** Heuer 1999. Evidence counts only if it favors one explanation
+  over its rivals; try to disprove, report every hypothesis's likelihood, name what to watch.
+- **One weighing rule, not a ritual matrix:** Dhami, Belton & Mandel 2019. The competing-hypotheses matrix did not
+  improve accuracy; analysts who weighed evidence consistently were right 80% of the time against 31%.
+- **Rival explanations before judging:** Nickerson 1998, confirmation bias.
+- **Comparisons fixed in advance:** Simmons, Nelson & Simonsohn 2011. Flexible analysis makes false patterns likely.
+- **Confidence not taken from feeling sure:** Kahneman & Klein 2009. Intuition is reliable only in regular,
+  learnable settings with feedback.
+- **Hidden patterns checked harder:** Whitson & Galinsky 2008, illusory pattern perception (contested by a small
+  replication).
+- **Weak signals (visibility, spread and meaning kept apart):** Hiltunen 2008.
+- **Three horizons (H1, H2+, H2−, H3):** Sharpe et al. 2016.
+- **Uncommon conclusions from deeper layers:** Inayatullah 1998, causal layered analysis.
+- **Scenarios guide flexible choices, not predictions:** Phadnis et al. 2015.
+- **Forecasts with probabilities and dates, scored later:** Mellers et al. 2015.
 
 ## Update or remove
 
