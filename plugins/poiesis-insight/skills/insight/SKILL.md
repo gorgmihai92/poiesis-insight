@@ -21,8 +21,8 @@ Research reports what sources say; this skill interprets it. Two playbooks, one 
 2. **Evidence before meaning:** first collect what the input shows, with exact references (note and page, row,
    quote, time); only then build interpretations (rules.md, "Two loops").
 3. **Pick the playbook.** A request can use both (insights first, then what they suggest about the future).
-4. **Challenge** every conclusion with `playbooks/challenge.md` before reporting it. Report what survived, what was
-   weakened and what was dropped, and why.
+4. **Challenge** every conclusion with `playbooks/challenge.md` before reporting it, at the depth chosen (rules.md,
+   "Depth"). Report what survived, what was weakened and what was dropped, and why.
 5. **Follow `rules.md`**, the same for every playbook.
 
 ## From poiesis-research
@@ -48,3 +48,19 @@ Insight never edits these files; it writes only to `insights/` and `foresight/`.
 
 Scripts are in `${CLAUDE_SKILL_DIR}/scripts` (called `$S`; if that path does not exist, Glob for
 `**/insight/scripts/forecasts.py` under `~/.claude`). They need only Python 3; run them with `python3 -I`.
+
+## Answers
+Short and direct: the answer first, then what it rests on, in bullets or a table; no preamble, no recap. The full
+work goes in the saved file; the chat gets the summary, the "Not checked" line and the file's path. Use an agent
+only for independent parts that can run in parallel, or for the independent check at thorough depth; otherwise
+work inline.
+
+## Other Poiesis plugins
+This plugin works alone. Suggest another one only when it would change the result: once, in one line, and go
+on without it if the user says no (say what was left out). Check with `claude plugin list`; install only after
+the user agrees, with `claude plugin marketplace add gorgmihai92/<repo>` and then
+`claude plugin install <plugin>@<repo>` (it works after Claude Code restarts).
+- **poiesis-research** (repo `poiesis-research`): when a conclusion needs sources the project does not have, or the
+  evidence for a claim is thin.
+- **poiesis-frontier** (repo `poiesis-frontier`): when the user wants what to build or try next, not only what the
+  evidence means; frontier starts from the insights kept here.

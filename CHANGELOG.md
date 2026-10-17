@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.4.0
+- Depth: quick, standard (default) or thorough, per request or `Depth:` in `research.config.md`. A few rules hold
+  at every depth; the rest are defaults, skippable if the report says why. Every report ends with "Not checked".
+  Rules limit what is reported as true, never what may be explored.
+- The challenge runs inline at quick and standard depth, by the `challenger` agent at thorough.
+- Answers short and direct, the answer first; agents only for independent parallel parts or the thorough check;
+  each agent has a word limit.
+- "Other Poiesis plugins": when another one would change the result, Claude suggests it once and installs it only
+  if the user agrees.
+- README: the four toolkits, their roles, agents, what each reads and leaves, and how they connect.
+
 ## 1.3.0
 - Insight: a free search for hidden correlations and uncommon patterns, allowed only with a hold-out set aside
   first; findings are leads, corrected for the number of comparisons tried, until they hold on the hold-out.

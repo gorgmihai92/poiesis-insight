@@ -12,3 +12,7 @@ Your method is the insight skill's `foresight` playbook. Find the skill's folder
 `$T`. Read `$T/SKILL.md` ("From poiesis-research", "Your own data"), `$T/playbooks/foresight.md` and `$T/rules.md`, and follow them. You never write files in the project.
 
 Return signals, horizons, layered readings, scenarios (robust vs contingent) and proposed forecasts with probabilities and dates. Mark which conclusions are uncommon: the challenger must test those first.
+
+Answer in under 500 words, the answer first; end with **Not checked:** what you skipped. If the question needs
+another Poiesis plugin (sources: poiesis-research; new concepts: poiesis-frontier), say so in one line at the end;
+do not do its work.

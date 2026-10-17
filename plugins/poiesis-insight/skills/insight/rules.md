@@ -1,5 +1,20 @@
 # Rules (every playbook)
 
+## Depth
+Some rules hold at every depth; the rest are defaults, scaled to what is at stake. The user picks the depth, or the
+project's `research.config.md` sets it (`Depth:`); otherwise **standard**.
+- **Always:** evidence items with their references; interpretation labelled as interpretation; rates over the units
+  analyzed; rivals named for every conclusion; a free search only with a hold-out (otherwise what it finds stays a
+  lead); nothing from memory unmarked.
+- **Quick:** planned comparisons only; each conclusion checked inline for rivals and chance (challenge checks 1 and
+  4).
+- **Standard:** the full challenge, all eight checks, inline.
+- **Thorough:** the challenge by the independent `challenger` agent, given the conclusions and the data but not the
+  reasoning; a free search with a hold-out when patterns nobody planned for are wanted.
+
+A default may be skipped at any depth if the report says which one and why. Every report ends with **Not
+checked:** what was skipped, or "nothing". These rules limit what is reported as true, never what may be explored.
+
 ## Two loops
 Collect the evidence first (what the input shows, each item with its reference), then make sense of it (schemas,
 hypotheses, conclusions), and go back to the evidence when a hypothesis needs it. Every conclusion points back to
