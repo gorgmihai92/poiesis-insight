@@ -1,34 +1,38 @@
 # Poiesis Insight
 
-A Claude Code plugin that interprets the research or data a project already has. It finds **insights** (what the
-evidence means) and does **foresight** (what is emerging and what may come). Every conclusion carries its evidence,
-its rival explanations and what would prove it wrong, and must survive a challenge before it is reported.
+Interpretation that survives a challenge, in Claude Code. Poiesis Insight interprets the research or data a project
+already has. It finds **insights** (what the evidence means) and does **foresight** (what is emerging and what may
+come). Every conclusion carries its evidence, its rival explanations and what would prove it wrong, and must survive
+a challenge before it is reported.
 
-For anyone with research notes, interviews, surveys or usage data who needs conclusions that hold up. Install it
-below and ask in plain language.
+For anyone with research notes, interviews, surveys or usage data who needs conclusions that hold up. Poiesis
+Insight is one of the four products in the [Poiesis Toolkit](#part-of-the-poiesis-toolkit) and works on its own, as
+one plugin. Install it below and ask in plain language.
 
-## The Poiesis toolkits
+## Part of the Poiesis Toolkit
 
-**Collect → connect → explore → create.** Four toolkits. Each works on its own; together, each reads what the others
-left in your project, as plain files.
+The Poiesis Toolkit is four products for Claude Code, one for each step from a question to a finished product:
+**Research** collects, **Insight** connects, **Frontier** explores, **Design** creates. Each installs and works on
+its own. Insight and Frontier also read what the other steps left in your project, as plain files, and Design
+builds a Frontier concept when you ask.
 
-| Toolkit | Role | Agents | Reads | Leaves in your project |
-|---|---|---|---|---|
-| [poiesis-research](https://github.com/gorgmihai92/poiesis-research) | **collect:** the literature on a topic, the evidence for and against a claim, the grants that fit | `paper-scout`, `evidence-scout`, `funding-scout` | the web's scholarly databases, official funding pages | `research/` |
-| [poiesis-insight](https://github.com/gorgmihai92/poiesis-insight) | **connect:** what the evidence or your data mean, and what is emerging; every conclusion challenged | `insight-analyst`, `foresight-analyst`, `challenger` | `research/`, your own data, `frontier/results/` | `insights/`, `foresight/` |
-| [poiesis-frontier](https://github.com/gorgmihai92/poiesis-frontier) | **explore:** new concepts, each with the smallest experiment that could kill it | `experimentalist` | `insights/`, `foresight/`, `research/` | `frontier/` |
-| [poiesis-design](https://github.com/gorgmihai92/poiesis-design) | **create:** how the interface looks, behaves and what it says, checked before release | `ui-auditor`, `ux-tester`, `copy-reviewer` | your code, `.poiesis-design/` | `.poiesis-design/`, design tokens, components |
+| Product | What it does | Plugins | Agents | Reads | Leaves in your project |
+|---|---|---|---|---|---|
+| [Poiesis Research](https://github.com/gorgmihai92/poiesis-research) | **collect:** the literature on a topic, the evidence for and against a claim, the grants that fit | `poiesis-research` | `paper-scout`, `evidence-scout`, `funding-scout` | the web's scholarly databases, official funding pages | `research/` |
+| [Poiesis Insight](https://github.com/gorgmihai92/poiesis-insight) | **connect:** what the evidence or your data mean, and what is emerging; every conclusion challenged | `poiesis-insight` | `insight-analyst`, `foresight-analyst`, `challenger` | `research/`, your own data, `frontier/results/` | `insights/`, `foresight/` |
+| [Poiesis Frontier](https://github.com/gorgmihai92/poiesis-frontier) | **explore:** new concepts, each with the smallest experiment that could kill it | `poiesis-frontier` | `experimentalist` | `insights/`, `foresight/`, `research/` | `frontier/` |
+| [Poiesis Design](https://github.com/gorgmihai92/poiesis-design) | **create:** how the interface looks, behaves and what it says, built from components that already pass, checked before release | `poiesis-ui`, `poiesis-ux`, `poiesis-copy`, `poiesis-components` | `ui-auditor`, `ux-tester`, `copy-reviewer` | your code, `.poiesis-design/` | `.poiesis-design/`, design tokens, components |
 
 ```
-research ──► insight ──► frontier ──► design
+Research ──► Insight ──► Frontier ──► Design
                ▲            │
-               └─ results ◄─┘   (experiment results go back to insight as data)
+               └─ results ◄─┘   (experiment results go back to Insight as data)
 ```
 
-- **One job each.** Research says what sources say; insight says what it means; frontier proposes what could be
-  and how to test it; design builds and checks. None does another's job.
-- **None needs another.** When one would really improve the answer, Claude says so once, in one line, and offers
-  to install it. You can say no; the work goes on and the report says what was left out.
+- **One job each.** Research says what sources say; Insight says what it means; Frontier proposes what could be
+  and how to test it; Design builds and checks. None does another's job.
+- **None needs another.** When another product would really improve the answer, Claude says so once, in one line,
+  and offers to install it. You can say no; the work goes on and the report says what was left out.
 - **Depth you choose:** quick, standard (the default) or thorough, per request or as a line in your project's
   `CLAUDE.md`, e.g. `Depth: quick`. A few rules hold at every depth (nothing invented, sources cited, interpretation
   labelled); the rest scale with what is at stake, and every report ends with what was **not checked**.
@@ -45,7 +49,7 @@ research ──► insight ──► frontier ──► design
 | **Challenge:** whether a conclusion holds | for each conclusion: kept, weakened (with the narrower claim) or dropped, and why | in the report |
 
 Every conclusion from insight or foresight goes through the challenge before you see it. The input is your
-[poiesis-research](https://github.com/gorgmihai92/poiesis-research) library, your own data (forms, tables,
+[Poiesis Research](https://github.com/gorgmihai92/poiesis-research) library, your own data (forms, tables,
 documents), or both.
 
 ## Install
@@ -92,9 +96,9 @@ collects the evidence first, then picks a **playbook**. Each playbook has an **a
   probability and a date, logged in `foresight/forecasts.md`. `forecasts.py` scores the log (Brier score) once the
   dates pass, so you learn which reasoning to trust.
 
-## Working with poiesis-research and your own data
+## Working with Poiesis Research and your own data
 
-**From poiesis-research** (if the project has it): insight starts from `research/README.md`, the library's
+**From Poiesis Research** (if the project has it): Poiesis Insight starts from `research/README.md`, the library's
 index, and reads the notes in `research/notes/`, one per source, with each claim and its page. Insights cite back
 to the note and page. Insight never edits the research files; it writes only to `insights/` and `foresight/`.
 
@@ -203,11 +207,11 @@ Each rule names its source; there is one note per source in `research/notes`.
 - **Trends: signal or noise:** Benneyan, Lloyd & Plsek 2003, control charts.
 - **Trends: start from the base rate:** Kahneman & Lovallo 1993, the outside view.
 
-## Files shared with the other toolkits
+## Files shared with the other products
 
-Writes `insights/<date>-<topic>.md`, each insight with **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by frontier; `foresight/` scenarios and the forecast log `foresight/forecasts.md`. It reads research notes and frontier's results.
+Writes `insights/<date>-<topic>.md`, each insight with **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by Frontier; `foresight/` scenarios and the forecast log `foresight/forecasts.md`. It reads Research notes and Frontier's results.
 
-The paths and fields the other toolkits read are a contract: they change only in a major version, noted in the
+The paths and fields the other products read are a contract: they change only in a major version, noted in the
 changelog. Every plugin reads the others' files tolerantly: a missing file or field is reported as unknown, never
 an error. The full list is in each skill's `SKILL.md`, so Claude knows it too.
 
