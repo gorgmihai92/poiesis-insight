@@ -9,6 +9,16 @@ Collect signals from the input (and, if the user asks, from new research via the
 the **issue** (how widespread), the **interpretation** (what it might mean to us). A weak signal is low on
 visibility and spread; it is not yet a trend.
 
+## Trends in data
+When the data have a time order (survey waves, usage logs, metrics), a trend is reported only after three checks:
+- **Signal or noise:** is the change larger than the series' usual variation? Draw the series with its mean and
+  limits at about three standard deviations, and look for points outside them or a long run on one side
+  (control charts; Benneyan et al. 2003). Say how many points the series has; a few points give a lead, not a trend.
+- **Base rate:** how often do similar changes, in similar series or past periods, continue? Start the forecast from
+  that outside view and adjust it, not from the story of this case (Kahneman & Lovallo 1993).
+- **Shape:** steady, speeding up, slowing down or leveling off; seasonal; a sudden break. Extrapolate only as a
+  dated forecast in the log, never as a statement.
+
 ## Horizons (Sharpe et al. 2016)
 Place each pattern: **H1** the current way, losing its fit; **H3** an emerging pattern on the fringes; **H2** the
 transitional innovations, either feeding H3 (H2+) or being absorbed back into H1 (H2−). All three exist at once.

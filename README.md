@@ -22,8 +22,8 @@ means. Design decisions can then point to the insight or source behind them.
 
 | You want to know | It returns | Saved in |
 |---|---|---|
-| **Insight:** what the evidence means | connections, contradictions and counted patterns, each with its evidence, rivals, confidence and what it means for the project | `insights/` |
-| **Foresight:** what is emerging and what may come | weak signals, the three horizons, layered readings, scenarios (what holds across them, what depends on one) and dated forecasts | `foresight/` |
+| **Insight:** what the evidence means | connections, contradictions and counted patterns, and, on request, hidden correlations from a free search confirmed on held-out data; each with its evidence, rivals, confidence and what it means for the project | `insights/` |
+| **Foresight:** what is emerging and what may come | weak signals, trends in your data (checked against noise and base rates), the three horizons, layered readings, scenarios (what holds across them, what depends on one) and dated forecasts | `foresight/` |
 | **Challenge:** whether a conclusion holds | for each conclusion: kept, weakened (with the narrower claim) or dropped, and why | in the report |
 
 Every conclusion from insight or foresight goes through the challenge before you see it. The input is your
@@ -49,6 +49,8 @@ Ask in plain language. The plugin comes in when the work is interpretation, and 
 - *"Here are 40 interview transcripts: what patterns do you see, and how sure are you?"*
 - *"Here is the Google Forms export of our customer survey (responses.csv): what stands out?"*
 - *"Which weak signals in these notes point to where the field is going? Give scenarios and forecasts."*
+- *"Search this usage log for correlations we haven't thought of."*
+- *"Is the drop in weekly signups a real trend or noise?"*
 - *"Challenge this conclusion: users leave because the pricing page is confusing."*
 - *"Run insight-analyst and foresight-analyst in parallel, then the challenger on both."*
 
@@ -59,8 +61,8 @@ collects the evidence first, then picks a **playbook**. Each playbook has an **a
 
 | Playbook | Agent | What it does |
 |---|---|---|
-| insight | `insight-analyst` | lists the evidence and what was observed, fixes the comparisons in advance, then looks for connections, contradictions and counted patterns |
-| foresight | `foresight-analyst` | logs signals (visibility, spread and meaning kept apart), places them on three horizons, reads the issue in four layers, builds scenarios, writes forecasts |
+| insight | `insight-analyst` | lists the evidence and what was observed, fixes the comparisons in advance, then looks for connections, contradictions and counted patterns; for hidden correlations, searches freely and confirms leads on held-out data |
+| foresight | `foresight-analyst` | logs signals (visibility, spread and meaning kept apart), checks trends in data against noise and base rates, places them on three horizons, reads the issue in four layers, builds scenarios, writes forecasts |
 | challenge | `challenger` | tries to show why each conclusion is wrong: rivals, diagnostic evidence, independence, chance, sensitivity, consistency, denominators, replication |
 
 - **Evidence before meaning.** What the input shows is collected first, each item with its reference; only then is
@@ -103,6 +105,10 @@ The same rules apply to every playbook (`skills/insight/rules.md`), each with it
   outcome; comparisons fixed before looking; natural replications checked first; and when the data are a tool's
   output, whether the tool could produce the pattern.
 - **Hidden patterns are checked harder,** not reported sooner: independent support and a test against chance.
+- **Free search only with a hold-out.** Part of the data is set aside first; what the search finds is a lead,
+  corrected for how many comparisons were tried, until it holds on the part set aside.
+- **Trends in data** are reported only when the change exceeds the series' usual noise, starting from how often
+  similar changes continued.
 - **Interpretation is labelled** as interpretation, and nothing is added from memory without saying so.
 
 ## What it adds to your project
@@ -129,8 +135,8 @@ plugins/
       SKILL.md                entry point: reads the input (research library or your data), picks the playbook
       rules.md                what every conclusion carries, weighing, data before patterns; with sources
       playbooks/
-        insight.md            connections, contradictions, counted patterns
-        foresight.md          signals, horizons, layers, scenarios, forecasts
+        insight.md            connections, contradictions, counted patterns, free search with a hold-out
+        foresight.md          signals, trends in data, horizons, layers, scenarios, forecasts
         challenge.md          the eight checks and the verdict
       scripts/                Python 3; Excel and Word libraries install themselves on first use
         to_text.py            convert Excel, Word and CSV into CSV or TXT, masking emails and phone numbers
@@ -161,6 +167,11 @@ Each rule names its source; there is one note per source in `research/notes`.
   improve accuracy; analysts who weighed evidence consistently were right 80% of the time against 31%.
 - **Rival explanations before judging:** Nickerson 1998, confirmation bias.
 - **Comparisons fixed in advance:** Simmons, Nelson & Simonsohn 2011. Flexible analysis makes false patterns likely.
+- **Free search as leads, tested on a hold-out:** Nosek et al. 2018 (generating vs testing hypotheses); Gelman &
+  Loken 2014 (forking paths).
+- **Correcting for many comparisons:** Benjamini & Hochberg 1995, the false discovery rate.
+- **Plot before summarizing:** Anscombe 1973.
+- **Reversal inside subgroups and regression to the mean as rivals:** Simpson 1951; Barnett, van der Pols & Dobson 2005.
 - **Confidence not taken from feeling sure:** Kahneman & Klein 2009. Intuition is reliable only in regular,
   learnable settings with feedback.
 - **Hidden patterns checked harder:** Whitson & Galinsky 2008, illusory pattern perception (contested by a small
@@ -170,6 +181,8 @@ Each rule names its source; there is one note per source in `research/notes`.
 - **Uncommon conclusions from deeper layers:** Inayatullah 1998, causal layered analysis.
 - **Scenarios guide flexible choices, not predictions:** Phadnis et al. 2015.
 - **Forecasts with probabilities and dates, scored later:** Mellers et al. 2015.
+- **Trends: signal or noise:** Benneyan, Lloyd & Plsek 2003, control charts.
+- **Trends: start from the base rate:** Kahneman & Lovallo 1993, the outside view.
 
 ## Update or remove
 

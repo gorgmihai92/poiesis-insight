@@ -9,7 +9,8 @@ its evidence items. (Pirolli & Card 2005)
 - **Evidence:** the items it rests on, each with its reference. A single memorable case is not a pattern: count
   cases (Nickerson 1998, p. 9).
 - **Rivals:** the other explanations, generated before judging, including the boring ones (chance, selection,
-  measurement, a confound). People generate too few hypotheses and then see the data through the first one
+  measurement, a confound, reverse cause, regression to the mean (Barnett et al. 2005), a pattern that reverses
+  inside subgroups (Simpson 1951)). People generate too few hypotheses and then see the data through the first one
   (Heuer 1999, p. 124; Nickerson 1998, p. 3).
 - **Why this one:** the diagnostic evidence, that is the items that favor this explanation over its rivals.
   Evidence consistent with every rival does not count (Heuer 1999, p. 73, 129).
@@ -30,7 +31,8 @@ its evidence items. (Pirolli & Card 2005)
   analyzed, never units selected because they show the outcome (e.g. "minutes with at least one mark"); if the data
   do not list the analyzed units, say so and ask for them.
 - **Slices fixed in advance:** choose groups, periods and comparisons before looking for the pattern, and report
-  every slice tried, not only the one that showed something (Simmons et al. 2011).
+  every slice tried, not only the one that showed something (Simmons et al. 2011); a free search is allowed only with a hold-out (see
+  "Hidden patterns").
 - **Natural replications first:** if the data have another version, period, source or subset, check the pattern
   there before reporting it. A pattern that holds in one only is a lead, not an insight. Know what a replication
   tests: the same material re-measured by a changed tool tests robustness to the tool; new material tests the
@@ -47,6 +49,9 @@ its evidence items. (Pirolli & Card 2005)
   is reported only with independent support (more than one source or data slice) and after asking whether chance or
   the way the data were collected would produce it.
 - Uncommon is a reason to check harder, not a reason to report.
+- Searching freely is allowed only with a hold-out set aside first: what the search finds is a lead until it holds
+  on data that were not searched (Nosek et al. 2018). Report how many comparisons were tried, and correct for them
+  (Benjamini & Hochberg 1995).
 
 ## Separation of roles
 - Interpretation is labelled as interpretation: "the notes say" vs "this suggests".

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0
+- Insight: a free search for hidden correlations and uncommon patterns, allowed only with a hold-out set aside
+  first; findings are leads, corrected for the number of comparisons tried, until they hold on the hold-out.
+  Plot before summarizing; outliers checked for errors first; what the data should show and do not.
+- Foresight: trends in time-ordered data, checked against the series' noise (control charts) and the base rate of
+  similar changes, with their shape; extrapolation only as a dated forecast.
+- Rivals now include reverse cause, regression to the mean and reversal inside subgroups; the challenge checks the
+  comparison count and the hold-out. Insight template: "Found by" line.
+- Eight new research notes.
+
 ## 1.2.0
 - Your own data: `to_text.py` converts Excel, Word and CSV/TSV into CSV or TXT and masks emails and phone numbers;
   steps for personal data and for describing the data before interpreting it.
