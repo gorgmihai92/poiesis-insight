@@ -4,6 +4,9 @@ A Claude Code plugin that interprets the research or data a project already has.
 evidence means) and does **foresight** (what is emerging and what may come). Every conclusion carries its evidence,
 its rival explanations and what would prove it wrong, and must survive a challenge before it is reported.
 
+For anyone with research notes, interviews, surveys or usage data who needs conclusions that hold up. Install it
+below and ask in plain language.
+
 ## The Poiesis toolkits
 
 **Collect → connect → explore → create.** Four toolkits. Each works on its own; together, each reads what the others
@@ -14,7 +17,7 @@ left in your project, as plain files.
 | [poiesis-research](https://github.com/gorgmihai92/poiesis-research) | **collect:** the literature on a topic, the evidence for and against a claim, the grants that fit | `paper-scout`, `evidence-scout`, `funding-scout` | the web's scholarly databases, official funding pages | `research/` |
 | [poiesis-insight](https://github.com/gorgmihai92/poiesis-insight) | **connect:** what the evidence or your data mean, and what is emerging; every conclusion challenged | `insight-analyst`, `foresight-analyst`, `challenger` | `research/`, your own data, `frontier/results/` | `insights/`, `foresight/` |
 | [poiesis-frontier](https://github.com/gorgmihai92/poiesis-frontier) | **explore:** new concepts, each with the smallest experiment that could kill it | `experimentalist` | `insights/`, `foresight/`, `research/` | `frontier/` |
-| [poiesis-design](https://github.com/gorgmihai92/poiesis-design) | **create:** how the interface looks and behaves, checked before release | `ui-auditor`, `ux-tester` | your code, `.poiesis-design/` | `.poiesis-design/`, design tokens, components |
+| [poiesis-design](https://github.com/gorgmihai92/poiesis-design) | **create:** how the interface looks, behaves and what it says, checked before release | `ui-auditor`, `ux-tester`, `copy-reviewer` | your code, `.poiesis-design/` | `.poiesis-design/`, design tokens, components |
 
 ```
 research ──► insight ──► frontier ──► design
@@ -33,7 +36,7 @@ research ──► insight ──► frontier ──► design
   parts in parallel, or for an independent check at thorough depth.
 - **Rules limit what is reported as true, never what may be explored.**
 
-## What it covers
+## Three kinds of question: what it means, what is coming, whether it holds
 
 | You want to know | It returns | Saved in |
 |---|---|---|
@@ -56,9 +59,9 @@ In Claude Code:
 
 It needs **Python 3**, which macOS and most Linux systems already have. No keys, no setup.
 
-## What to ask Claude
+## Ask in plain language
 
-Ask in plain language. The plugin comes in when the work is interpretation, and you can name its agents directly.
+The plugin comes in when the work is interpretation, and you can name its agents directly.
 
 - *"What insights come out of our research library on onboarding?"*
 - *"Here are 40 interview transcripts: what patterns do you see, and how sure are you?"*
@@ -69,7 +72,7 @@ Ask in plain language. The plugin comes in when the work is interpretation, and 
 - *"Challenge this conclusion: users leave because the pricing page is confusing."*
 - *"Run insight-analyst and foresight-analyst in parallel, then the challenger on both."*
 
-## How it works
+## Evidence first, then meaning, then a challenge
 
 One skill, `insight`, is the entry point. It reads your research library (`research/`) or the data you give it,
 collects the evidence first, then picks a **playbook**. Each playbook has an **agent** for parallel work.
@@ -109,7 +112,7 @@ to the note and page. Insight never edits the research files; it writes only to 
 
 Ask, for example: *"Convert survey.xlsx, mask personal data, describe it, then give me insights."*
 
-## The rules
+## The same rules for every conclusion
 
 The same rules apply to every playbook (`skills/insight/rules.md`), each with its source:
 
@@ -127,7 +130,7 @@ The same rules apply to every playbook (`skills/insight/rules.md`), each with it
   similar changes continued.
 - **Interpretation is labelled** as interpretation, and nothing is added from memory without saying so.
 
-## What it adds to your project
+## Reports stay in `insights/` and `foresight/`
 
 ```
 insights/<date>-<topic>.md     the question, the evidence, the insights that survived (with their challenge
@@ -223,4 +226,4 @@ Edit the files under `plugins/poiesis-insight/`, run `claude plugin validate .`,
 
 ## License
 
-MIT. Requires Python 3.
+MIT.
