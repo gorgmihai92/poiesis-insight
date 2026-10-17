@@ -10,7 +10,7 @@
     {
       "name": "poiesis-insight",
       "description": "Insights (connections, contradictions, counted patterns) and foresight (signals, horizons, scenarios, scored forecasts) from a project's research or data. Every conclusion carries its evidence, rivals and what would prove it wrong, and passes a challenge. Agents: insight-analyst, foresight-analyst, challenger.",
-      "version": "1.4.1",
+      "version": "1.4.2",
       "author": {
         "name": "George Mihai",
         "email": "hi@georgemihai.com"

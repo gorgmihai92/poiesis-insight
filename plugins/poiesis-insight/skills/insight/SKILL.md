@@ -49,9 +49,15 @@ Insight never edits these files; it writes only to `insights/` and `foresight/`.
 Scripts are in `${CLAUDE_SKILL_DIR}/scripts` (called `$S`; if that path does not exist, Glob for
 `**/insight/scripts/forecasts.py` under `~/.claude`). They need only Python 3; run them with `python3 -I`.
 
+## Saving
+Save the work (paths in the playbooks) when any of these holds: the depth is standard or thorough; the user asks;
+the project already has the folder (`insights/`, `foresight/`), so it keeps a record; or something must be tracked later (a forecast with a resolve date).
+Otherwise (quick depth, a one-off question) answer in the chat only, and end with one line offering to save it.
+Never create a folder the user did not want.
+
 ## Answers
-Short and direct: the answer first, then what it rests on, in bullets or a table; no preamble, no recap. The full
-work goes in the saved file; the chat gets the summary, the "Not checked" line and the file's path. Use an agent
+Short and direct: the answer first, then what it rests on, in bullets or a table; no preamble, no recap. When the
+work is saved, the chat gets the summary, the "Not checked" line and the file's path. Use an agent
 only for independent parts that can run in parallel, or for the independent check at thorough depth; otherwise
 work inline.
 
@@ -64,3 +70,15 @@ the user agrees, with `claude plugin marketplace add gorgmihai92/<repo>` and the
   evidence for a claim is thin.
 - **poiesis-frontier** (repo `poiesis-frontier`): when the user wants what to build or try next, not only what the
   evidence means; frontier starts from the insights kept here.
+
+## Files shared with other Poiesis plugins
+These paths and fields are a contract between the Poiesis plugins: rename or remove one only in a major version,
+and say so in the changelog; adding fields is free. Read other plugins' files tolerantly: a missing file or field
+means "unknown", said in the report, never an error.
+- Writes `insights/<date>-<topic>.md`: each insight with **Evidence**, **Confidence**, **Found by**, **Challenge**
+  (`kept` / `weakened` / `dropped`) and **So what**. Frontier starts from kept and weakened ones.
+- Writes `foresight/<date>-<topic>.md` (scenarios with robust and contingent findings; signals with **Horizon**)
+  and `foresight/forecasts.md` (columns `id | question | probability | made | resolve by | outcome | reasoning`).
+- Reads `research/notes/` (poiesis-research: **Source**, "What it says" with pages, "Later work") and
+  `frontier/results/<id>.md` (poiesis-frontier: "What happened", "Against the kill criterion", **Raw data**) as
+  your own data.

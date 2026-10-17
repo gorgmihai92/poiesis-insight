@@ -37,6 +37,6 @@ Where a claim can be checked later, write it as a forecast: a precise question, 
 it. Add it to `foresight/forecasts.md` (`templates/forecasts.md`). When dates pass, score them:
 `python3 -I $S/forecasts.py foresight/forecasts.md`. Scores show which reasoning to trust next time.
 
-## Save
+## Save (see SKILL.md, "Saving")
 `foresight/<YYYY-MM-DD>-<topic>.md`: signals, horizons, layers, scenarios, what survived the challenge, and the
 forecasts added to the log.

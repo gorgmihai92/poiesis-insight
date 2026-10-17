@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.2
+- Saving: files only at standard or thorough depth, when asked, when the folder already exists, or for a
+  forecast; otherwise the answer stays in the chat.
+- "Files": the paths and fields shared with the other Poiesis plugins, as a contract (changed only in a major
+  version), in the skill and the README; other plugins' files are read tolerantly.
+
 ## 1.4.1
 - Depth is set with a `Depth:` line in the project's `CLAUDE.md`, so it works without poiesis-research.
 

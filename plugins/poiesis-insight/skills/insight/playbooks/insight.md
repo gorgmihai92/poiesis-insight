@@ -37,7 +37,7 @@ lead in the report and names the data that would test it.
 Use `templates/insight.md`: the claim in one sentence, evidence, rivals, why this one, rests on, would be wrong if,
 confidence, and "so what" for the project. Then run every candidate through `playbooks/challenge.md`.
 
-## Save
+## Save (see SKILL.md, "Saving")
 `insights/<YYYY-MM-DD>-<topic>.md`: the question, a short description of the data (for your own data, see SKILL.md),
 the evidence list, the insights that survived (with their
 challenge result), the leads still untested, and those dropped with the reason.

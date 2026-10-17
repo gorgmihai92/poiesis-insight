@@ -200,6 +200,14 @@ Each rule names its source; there is one note per source in `research/notes`.
 - **Trends: signal or noise:** Benneyan, Lloyd & Plsek 2003, control charts.
 - **Trends: start from the base rate:** Kahneman & Lovallo 1993, the outside view.
 
+## Files shared with the other toolkits
+
+Writes `insights/<date>-<topic>.md`, each insight with **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by frontier; `foresight/` scenarios and the forecast log `foresight/forecasts.md`. It reads research notes and frontier's results.
+
+The paths and fields the other toolkits read are a contract: they change only in a major version, noted in the
+changelog. Every plugin reads the others' files tolerantly: a missing file or field is reported as unknown, never
+an error. The full list is in each skill's `SKILL.md`, so Claude knows it too.
+
 ## Update or remove
 
 ```
@@ -210,7 +218,7 @@ Each rule names its source; there is one note per source in `research/notes`.
 
 ## Changing the plugin
 
-Edit the files under `plugins/poiesis-insight/`, run `claude plugin validate .`, bump the version in
+Edit the files under `plugins/poiesis-insight/`, run `claude plugin validate .`, bump the version (major if a field under "Files" changes) in
 `plugin.json`, `marketplace.json` and `CHANGELOG.md`, and push. Projects get it with the update commands above.
 
 ## License
