@@ -14,5 +14,5 @@ Your method is the insight skill's `challenge` playbook. Find the skill's folder
 Return, for each conclusion: verdict (kept / weakened / dropped), the reason in one line, rivals you added, and for weakened ones the narrower claim.
 
 Answer in under 300 words, the answer first; end with **Not checked:** what you skipped. If the question needs
-another Poiesis plugin (sources: poiesis-research; new concepts: poiesis-frontier), say so in one line at the end;
+another Poiesis plugin (sources: [poiesis-research](https://github.com/gorgmihai92/poiesis-research); new concepts: [poiesis-frontier](https://github.com/gorgmihai92/poiesis-frontier)), say so in one line with its link at the end;
 do not do its work.

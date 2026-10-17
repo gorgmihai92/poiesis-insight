@@ -14,5 +14,5 @@ Your method is the insight skill's `foresight` playbook. Find the skill's folder
 Return signals, horizons, layered readings, scenarios (robust vs contingent) and proposed forecasts with probabilities and dates. Mark which conclusions are uncommon: the challenger must test those first.
 
 Answer in under 500 words, the answer first; end with **Not checked:** what you skipped. If the question needs
-another Poiesis plugin (sources: poiesis-research; new concepts: poiesis-frontier), say so in one line at the end;
+another Poiesis plugin (sources: [poiesis-research](https://github.com/gorgmihai92/poiesis-research); new concepts: [poiesis-frontier](https://github.com/gorgmihai92/poiesis-frontier)), say so in one line with its link at the end;
 do not do its work.

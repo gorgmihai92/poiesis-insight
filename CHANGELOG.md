@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3
+- Suggestions of another Poiesis plugin, from the skill or its agents, give the plugin's link and name the skill or
+  agent to use.
+
 ## 1.4.2
 - Saving: files only at standard or thorough depth, when asked, when the folder already exists, or for a
   forecast; otherwise the answer stays in the chat.

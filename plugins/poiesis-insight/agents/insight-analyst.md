@@ -14,5 +14,5 @@ Your method is the insight skill's `insight` playbook. Find the skill's folder: 
 Return the evidence list and the candidate insights in the template's form. If you searched freely, also return the leads, how many comparisons you tried, and what the hold-out showed. Do not judge your own candidates as final: the challenger does.
 
 Answer in under 500 words, the answer first; end with **Not checked:** what you skipped. If the question needs
-another Poiesis plugin (sources: poiesis-research; new concepts: poiesis-frontier), say so in one line at the end;
+another Poiesis plugin (sources: [poiesis-research](https://github.com/gorgmihai92/poiesis-research); new concepts: [poiesis-frontier](https://github.com/gorgmihai92/poiesis-frontier)), say so in one line with its link at the end;
 do not do its work.

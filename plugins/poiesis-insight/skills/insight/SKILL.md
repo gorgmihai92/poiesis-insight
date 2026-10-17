@@ -66,9 +66,11 @@ This plugin works alone. Suggest another one only when it would change the resul
 on without it if the user says no (say what was left out). Check with `claude plugin list`; install only after
 the user agrees, with `claude plugin marketplace add gorgmihai92/<repo>` and then
 `claude plugin install <plugin>@<repo>` (it works after Claude Code restarts).
-- **poiesis-research** (repo `poiesis-research`): when a conclusion needs sources the project does not have, or the
+Every suggestion, from the skill or an agent, gives the plugin's link (below) and names the skill or agent
+to use, e.g. "[poiesis-insight](https://github.com/gorgmihai92/poiesis-insight), `foresight-analyst`".
+- **[poiesis-research](https://github.com/gorgmihai92/poiesis-research)**: when a conclusion needs sources the project does not have, or the
   evidence for a claim is thin.
-- **poiesis-frontier** (repo `poiesis-frontier`): when the user wants what to build or try next, not only what the
+- **[poiesis-frontier](https://github.com/gorgmihai92/poiesis-frontier)**: when the user wants what to build or try next, not only what the
   evidence means; frontier starts from the insights kept here.
 
 ## Files shared with other Poiesis plugins
