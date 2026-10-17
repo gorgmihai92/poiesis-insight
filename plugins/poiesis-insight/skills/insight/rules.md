@@ -2,7 +2,8 @@
 
 ## Depth
 Some rules hold at every depth; the rest are defaults, scaled to what is at stake. The user picks the depth, or the
-project's `research.config.md` sets it (`Depth:`); otherwise **standard**.
+project sets it with a `Depth:` line in its `CLAUDE.md` (read in every session, by every Poiesis plugin);
+otherwise **standard**.
 - **Always:** evidence items with their references; interpretation labelled as interpretation; rates over the units
   analyzed; rivals named for every conclusion; a free search only with a hold-out (otherwise what it finds stays a
   lead); nothing from memory unmarked.

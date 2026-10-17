@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1
+- Depth is set with a `Depth:` line in the project's `CLAUDE.md`, so it works without poiesis-research.
+
 ## 1.4.0
 - Depth: quick, standard (default) or thorough, per request or `Depth:` in `research.config.md`. A few rules hold
   at every depth; the rest are defaults, skippable if the report says why. Every report ends with "Not checked".
