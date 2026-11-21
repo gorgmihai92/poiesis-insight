@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+"""The entry gate of poiesis-insight: before an insight is built on a research note, each quote in the note is
+looked for in the source's text. Run with `python3 -I`.
+
+  quote_gate.py research/notes [more folders or .md files ...] [--papers research/papers] [--strict]
+
+It reads what poiesis-research writes, and needs no other plugin:
+- a quote is a list line that starts with a quotation mark and gives its page: `- "exact words" (p. 4)`;
+- the source's text is a `.txt` file with a line `[p. N]` before each page: the file the note's **File** line
+  names (with `.txt` in place of `.pdf`), or a file with the note's name in a --papers folder;
+- the note's **Read** line says how much of the source was read.
+
+One line per quote, and one per note that has nothing to check:
+
+  FOUND       the words are in the source, starting on the page the note gives
+  WRONG PAGE  the words are in the source, on another page
+  NOT FOUND   the words are not in the source's text
+  NO TEXT     the source's text is not on this machine, so the note's quotes were not checked
+  NO QUOTES   the note has no quote line, so none of its claims can be checked this way
+
+Letters and digits have to match in order. Spaces, hyphens at line ends, quotation marks, accents and ligatures
+are ignored, because text taken out of a PDF mangles them. `...` or `…` splits a quote into parts that must all
+be there, in order. A quote may run onto the next page; it has to start on the page given.
+
+FOUND shows that the words are in the source. It does not show that a claim built on them follows.
+
+Exit codes: 0 no quote failed; 1 a quote is NOT FOUND or on the WRONG PAGE, or with --strict a note could not
+be checked (NO TEXT, NO QUOTES); 2 a wrong command line.
+"""
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+import unicodedata
+from pathlib import Path
+
+MARKS = "\"“”„«»"
+QUOTE_LINE_RE = re.compile(r"^\s*[-*+]\s+[" + MARKS + r"](.+)$")
+PAGE_RE = re.compile(r"\bpp?\.\s*(\d+)(?:\s*[-–—]\s*(\d+))?")
+MARKER_RE = re.compile(r"^\[p\. (\d+)\]\s*$", re.M)
+ELLIPSIS_RE = re.compile(r"\s*\[?(?:…|\.\.\.)\]?\s*")
+FILE_LINE_RE = re.compile(r"^\s*[-*+]\s+\*\*File:?\*\*:?\s*`([^`]+)`", re.M)
+READ_LINE_RE = re.compile(r"^\s*[-*+]\s+\*\*Read:?\*\*:?\s*(.+)$", re.M)
+OLD_READ_RE = re.compile(r"\*\*((?:abstract|title|reference)[^*]*only[^*]*)\*\*", re.I)
+
+
+def fold(text: str) -> str:
+    """What survives being taken out of a PDF: letters and digits, in lower case, accents and ligatures undone."""
+    return "".join(char for char in unicodedata.normalize("NFKD", text).casefold() if char.isalnum())
+
+
+def pages_of(text: str) -> dict[int, str]:
+    """The folded text of each page. A text with no `[p. N]` line is one page, numbered 0."""
+    marks = list(MARKER_RE.finditer(text))
+    if not marks:
+        return {0: fold(text)}
+    return {int(mark.group(1)): fold(text[mark.end(): marks[i + 1].start() if i + 1 < len(marks) else len(text)])
+            for i, mark in enumerate(marks)}
+
+
+def quotes_of(note: str) -> list[tuple[int, str, tuple[int, int] | None]]:
+    """(line number, the quoted words, the pages given or None) for each quote line."""
+    found = []
+    for number, line in enumerate(note.splitlines(), 1):
+        hit = QUOTE_LINE_RE.match(line)
+        if not hit:
+            continue
+        rest = hit.group(1)
+        end = max(rest.rfind(mark) for mark in MARKS)
+        if end <= 0:
+            continue
+        page = PAGE_RE.search(rest[end + 1:])
+        span = (int(page.group(1)), int(page.group(2) or page.group(1))) if page else None
+        found.append((number, rest[:end], span))
+    return found
+
+
+def read_level(note: str) -> str:
+    """How much of the source was read, as the note says it; 'not stated' when it does not."""
+    hit = READ_LINE_RE.search(note)
+    if hit:
+        return hit.group(1).strip()
+    hit = OLD_READ_RE.search(note)
+    return hit.group(1).strip() if hit else "not stated"
+
+
+def find(quote: str, pages: dict[int, str], span: tuple[int, int] | None) -> tuple[str, str]:
+    """("FOUND" | "WRONG PAGE" | "NOT FOUND", where)."""
+    parts = [part for part in (fold(piece) for piece in ELLIPSIS_RE.split(quote)) if part]
+    if not parts:
+        return "NOT FOUND", "nothing to look for"
+
+    def start_in(text: str) -> int:
+        start = position = text.find(parts[0])
+        if start < 0:
+            return -1
+        position += len(parts[0])
+        for part in parts[1:]:
+            position = text.find(part, position)
+            if position < 0:
+                return -1
+            position += len(part)
+        return start
+
+    numbers = sorted(pages)
+    letters = sum(map(len, parts))
+    weak = f" (only {letters} letters: a weak check)" if letters < 20 else ""
+    if numbers == [0]:
+        return ("FOUND", "the text has no page marks" + weak) if start_in(pages[0]) >= 0 \
+            else ("NOT FOUND", "not in the source's text")
+    if span:
+        own = "".join(pages.get(number, "") for number in range(span[0], span[1] + 1))
+        if 0 <= start_in(own + pages.get(span[1] + 1, "")) < len(own):
+            return "FOUND", f"p. {span[0]}" + ("" if span[0] == span[1] else f"–{span[1]}") + weak
+    whole = "".join(pages[number] for number in numbers)
+    start = start_in(whole)
+    if start < 0:
+        return "NOT FOUND", "not in the source's text"
+    seen = 0
+    first = numbers[-1]
+    for number in numbers:
+        seen += len(pages[number])
+        if start < seen:
+            first = number
+            break
+    if span is None:
+        return "FOUND", f"p. {first}; the note gives no page" + weak
+    return "WRONG PAGE", f"the note says p. {span[0]}; the words start on p. {first}"
+
+
+def source_text(note_path: Path, note: str, papers: list[Path]) -> Path | None:
+    candidates = []
+    named = FILE_LINE_RE.search(note)
+    if named:
+        target = (note_path.parent / named.group(1)).resolve()
+        candidates += [target.with_suffix(".txt"), target]
+    for folder in papers:
+        candidates.append(folder / f"{note_path.stem}.txt")
+        if named:
+            candidates.append(folder / Path(named.group(1)).with_suffix(".txt").name)
+    return next((path for path in candidates if path.suffix == ".txt" and path.is_file()), None)
+
+
+def check(paths: list[Path], papers: list[Path], strict: bool) -> int:
+    notes = sorted(path for given in paths for path in ([given] if given.is_file() else given.rglob("*.md")))
+    counts: dict[str, int] = {}
+    unchecked: list[str] = []
+
+    def say(status: str, note: Path, detail: str) -> None:
+        counts[status] = counts.get(status, 0) + 1
+        print(f"{status:10} {note.name} · {detail}")
+
+    for path in notes:
+        note = path.read_text(encoding="utf-8-sig", errors="replace")
+        level = read_level(note)
+        quotes = quotes_of(note)
+        if not quotes:
+            say("NO QUOTES", path, f"read: {level} · no quote line, so nothing was checked")
+            unchecked.append(path.name)
+            continue
+        text = source_text(path, note, papers)
+        if text is None:
+            say("NO TEXT", path, f"read: {level} · {len(quotes)} quote{'' if len(quotes) == 1 else 's'} not "
+                                 "checked: the source's text is not here")
+            unchecked.append(path.name)
+            continue
+        pages = pages_of(text.read_text(encoding="utf-8", errors="replace"))
+        for number, quote, span in quotes:
+            status, where = find(quote, pages, span)
+            shown = quote if len(quote) <= 70 else quote[:67] + "…"
+            say(status, path, f"line {number} · {where} · \"{shown}\"")
+
+    print()
+    print(" · ".join(f"{status}: {count}" for status, count in sorted(counts.items())) or "No notes.")
+    failed = counts.get("NOT FOUND", 0) + counts.get("WRONG PAGE", 0)
+    if failed:
+        print(f"{failed} quote{'' if failed == 1 else 's'} failed: do not build on those claims until the note is "
+              "corrected.")
+    if unchecked:
+        print(f"{len(unchecked)} note{'' if len(unchecked) == 1 else 's'} not checked against the source: use "
+              "their claims as unchecked and name them under \"Not checked\"."
+              + (" With --strict this fails." if strict else ""))
+    return 1 if failed or (strict and unchecked) else 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("paths", nargs="+", type=Path, help="notes: folders or .md files")
+    parser.add_argument("--papers", type=Path, action="append", default=[],
+                        help="where the sources' .txt files are, when they are not next to their PDF")
+    parser.add_argument("--strict", action="store_true",
+                        help="also fail when a note could not be checked (NO TEXT, NO QUOTES)")
+    args = parser.parse_args(argv)
+    missing = [str(path) for path in args.paths if not path.exists()]
+    if missing:
+        parser.error("not found: " + ", ".join(missing))
+    return check(args.paths, args.papers, args.strict)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
