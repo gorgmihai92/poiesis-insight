@@ -1,0 +1,18 @@
+[p. 1]
+Counting works in a bibliographic database
+A text written for the tests of poiesis-insight. It is not a real source.
+
+A database of scholarly works grows for two reasons. Researchers publish more, and the data-
+base itself takes in new kinds of record. The second reason is easy to miss.
+
+[p. 2]
+When a database begins to index datasets, the number of works it holds can jump in one year
+while the number of articles barely moves. A share computed over all works then falls, even
+though nothing changed in the field. We call this the “base effect”.
+
+In our sample of 412 topics, 37 showed a fall in share that disappeared when the base was
+limited to articles.
+
+[p. 3]
+A count describes the database as much as the field. Report which document types were
+counted, above and below the line.
