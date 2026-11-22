@@ -1,5 +1,37 @@
 # Changelog
 
+## Unreleased: becomes 2.0.0 when foresight moves out
+Everything below is built. The version is still 1.4.3, because one step is left: foresight moves to
+[poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight) once that plugin is published, and that
+removal is what makes this a major version.
+
+- **The challenge stamp.** `challenge_stamp.py` records each verdict once, in `insights/challenge-stamps.jsonl`,
+  with the conclusion's id, the day and a hash of its sentence. `verify` fails on a missing stamp, a changed
+  sentence, a retyped verdict or an altered line. `stamp-format.md` describes the format so that poiesis-frontier
+  and poiesis-studio can verify a stamp with their own code.
+- **Ids and From.** Each insight carries `- **Id:** IN-001`, each research question `- **Id:** QN-001`, and a
+  `- **From:**` line that names what it rests on. `ids.py` gives the next free id, lists what rests on what, and
+  reports what went stale when a verdict changed. It changes nothing.
+- **The entry gate.** `quote_gate.py` looks for each quote of a research note in the source's text before an
+  insight is built on the note, and names the notes it could not check.
+- **Playbook `questions`:** a gap described by where and why the evidence falls short, the kind of gap checked,
+  then the assumptions behind it contested on five types. Template `question.md`.
+- **Playbook `methods`:** a field's designs, samples and measures tabled study by study, method patterns as
+  counted conclusions, and the field's findings re-read against them. Template `methods.md`.
+- **Playbook `challenge`:** a ninth check, absence ("none found" is not "does not exist"); the stamp; a new
+  challenge when the method, the data or the sentence changes after a verdict; five claims per saved report
+  drawn by `sample_check.py` for a person to check, with what the checks so far allow.
+- **`challenger` agent:** one structured block per conclusion (claim, verdict, narrower claim, reason, parts,
+  rivals added, checks, confidence, not checked). The word limit is gone; it still runs on Sonnet. Its answer is
+  saved as it came, in `insights/challenges/`, and the stamps are written from that file.
+- **Rules:** each rule whose source was read only as an abstract, or not read, says so. New sections on the entry
+  gate, ids and From, "a verdict is written once" and "not found is not does not exist". A step with no playbook
+  or script is named as missing, not improvised.
+- **Eleven research notes**, each with how much of its source was read; tests for every script (`tests/`); six
+  eval cases (`plugins/poiesis-insight/evals/`), written and not run.
+- Files contract, additions only: the **Id** and **From** lines, `insights/challenge-stamps.jsonl`,
+  `insights/challenges/`, `insights/human-checks.md`. `- **Challenge:**` may now read `not challenged`.
+
 ## 1.4.3
 - Suggestions of another Poiesis plugin, from the skill or its agents, give the plugin's link and name the skill or
   agent to use.
