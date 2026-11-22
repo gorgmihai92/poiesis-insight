@@ -120,5 +120,5 @@ a recorded run: "no experiment exists" had to become "none found".)
 
 ## How much of each source was read
 A rule names its source, and the source's note says how much of it was read. Where a source was read only as an
-abstract, or not read at all, the rule says so in its brackets. Sources with page numbers were read in the pages
-given. Notes are in the plugin's repository, under `research/notes/`.
+abstract, or not read at all, the rule says so in its brackets. A page number says where a claim is in the
+source; how much of the source was read is in its note, which may say that it was not recorded. Notes are in the plugin's repository, under `research/notes/`.

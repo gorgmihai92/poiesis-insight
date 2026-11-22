@@ -232,6 +232,13 @@ class TheReviewsCases(Project):
         self.assertNotIn("STALE CN-003", self.ids("stale").stdout)
 
 
+class TheRecheckCases(Project):
+    def test_a_number_in_prose_does_not_move_next(self):
+        (self.root / "insights" / "2026-11-21-prose.md").write_text("# Prose\n\nIN-2024 was a year of change.\n",
+                                                                    encoding="utf-8")
+        self.assertEqual(self.ids("next", "IN").stdout.strip(), "IN-004")
+
+
 class FromLine(unittest.TestCase):
     def test_ids_note_names_and_citations_are_separated(self):
         self.assertEqual(ids.from_items("IN-001, `QN-002`; walters-2023, [@smith2020, p. 4]"),

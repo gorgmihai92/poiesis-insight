@@ -523,6 +523,46 @@ class TheReviewsCases(Folder):
         self.assertEqual(list(found), ["IN-001"])
 
 
+class TheRecheckCases(Folder):
+    """What the review's re-check found after the first fixes."""
+
+    def setUp(self):
+        super().setUp()
+        self.write("--note", self.note, "--id", "IN-001", "--verdict", "weakened")
+
+    def verify_with(self, label):
+        self.note.write_text(NOTE.replace("- **Challenge:** weakened · the difference cannot be told apart from chance",
+                                          label), encoding="utf-8")
+        return self.run_stamp("verify", "--note", self.note, "--id", "IN-001")
+
+    def test_a_negated_verdict_does_not_pass(self):
+        for label in ("- **Challenge:** not weakened", "- **Challenge:** unweakened"):
+            self.assertIn("VERDICT RETYPED", self.verify_with(label).stdout, label)
+
+    def test_other_forms_of_the_label_are_read(self):
+        for label in ("- *Challenge:* kept", "- __Challenge:__ kept", "- **Challenge** kept", "- **Challenge result:** kept"):
+            self.assertIn("VERDICT RETYPED", self.verify_with(label).stdout, label)
+
+    def test_a_prose_line_that_starts_with_challenge_is_not_the_label(self):
+        done = self.verify_with("Challenge: the sample is small, and kept that in mind.\n"
+                                "- **Challenge:** weakened · the difference cannot be told apart from chance")
+        self.assertEqual(done.returncode, 0, done.stdout)
+
+    def test_a_note_of_questions_only_passes_with_nothing_checked(self):
+        self.note.write_text("### Does it hold on articles only?\n\n- **Id:** QN-001\n- **From:** IN-001\n",
+                             encoding="utf-8")
+        done = self.run_stamp("verify", "--note", self.note)
+        self.assertEqual(done.returncode, 0, done.stdout)
+        self.assertIn("research questions only", done.stdout)
+
+    def test_a_block_named_inside_its_heading_with_no_readable_verdict_is_refused(self):
+        path = self.folder / "answer.md"
+        path.write_text("### 2. IN-002\n- Verdict - kept\n", encoding="utf-8")
+        done = self.write("--note", self.note, "--verdicts", path)
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("IN-002: the answer has a block for it and no Verdict line", done.stdout)
+
+
 class StrictAnswers(Folder):
     def answer(self, text):
         path = self.folder / "answer.md"

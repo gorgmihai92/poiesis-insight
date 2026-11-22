@@ -54,12 +54,14 @@ SPACE_RE = re.compile(r"[\t\n\x0b\x0c\r ]+")
 
 HEADING_RE = re.compile(r"^#{1,6}[ \t]+(.*)$")
 FENCE_RE = re.compile(r"^[ \t]*(`{3,}|~{3,})")
-ID_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?id(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(\S+)[ \t]*$", re.IGNORECASE)
-CHALLENGE_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?challenge[a-z]*(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
+ID_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+(?:\*\*)?|\*\*)id(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(\S+)[ \t]*$", re.IGNORECASE)
+CHALLENGE_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+(?:[*_]{1,2})?|[*_]{1,2})challenge[a-z ]*?(?:[*_]{1,2})?[ \t]*(?::(?:[*_]{1,2})?|(?:[*_]{1,2})?:|[*_]{2}[ \t])[ \t]*(.*)$", re.IGNORECASE)
+NEGATION_RE = re.compile(r"\b(?:not|no|never|un\w*)\b", re.IGNORECASE)
 VERDICT_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?verdict(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
 NARROWER_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?narrower(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
 VERDICT_WORD_RE = re.compile(r"\b(kept|weakened|dropped)\b", re.IGNORECASE)
 OBJECT_ID_RE = re.compile(r"[A-Z]{1,3}-[0-9]+")
+ANSWER_ID_RE = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]{1,3}-?[0-9]{1,4}(?![A-Za-z0-9])")
 ITEM_RE = re.compile(r"^[ \t]*[-*+][ \t]+")
 FIRST_WORD_RE = re.compile(r"[A-Za-z]+")
 NO_NARROWER = {"", "-", "–", "—", "none", "none.", "n/a", "not applicable", "null"}
@@ -121,7 +123,11 @@ def shown_verdicts(label: str | None) -> frozenset | None:
     {weakened}; `weakened → kept` gives both; `not challenged` gives none. None when there is no label."""
     if label is None:
         return None
-    return frozenset(word.lower() for word in VERDICT_WORD_RE.findall(label.split("·")[0]))
+    head = label.split("·")[0]
+    words = frozenset(word.lower() for word in VERDICT_WORD_RE.findall(head))
+    if words and NEGATION_RE.search(head):
+        return frozenset({"negated"})          # `not weakened` is not a verdict: it never matches a stamp
+    return words
 
 
 def one_verdict(value: str) -> str:
@@ -322,8 +328,9 @@ def answer_verdicts(markdown: str) -> list[dict]:
     for heading, lines in blocks(markdown):
         verdict = field(lines, VERDICT_LINE_RE)
         narrower = field(lines, NARROWER_LINE_RE)
-        token = heading.split()[0].strip("*`:·,.") if heading.split() else ""
-        if verdict is None and not OBJECT_ID_RE.fullmatch(token):
+        named = ANSWER_ID_RE.search(heading)
+        token = named.group(0) if named else (heading.split()[0].strip("*`:·,.") if heading.split() else "")
+        if verdict is None and not named:
             continue
         narrower = normalise(narrower or "")
         if narrower.lower() in NO_NARROWER:
@@ -545,6 +552,9 @@ def cmd_verify(args) -> int:
     for id_ in skipped:
         print(f"SKIPPED {id_}: a research question with no Challenge line and no stamp; questions are not stamped")
     total = len(targets) + len(missing)
+    if total == 0 and skipped:
+        print("0 checked: the note holds research questions only, and questions are not stamped.")
+        return 0
     if total == 0:
         print(f"Nothing checked: {args.note} has no conclusion, that is no heading with an `- **Id:**` line "
               "under it. Nothing verifies.")
