@@ -125,3 +125,10 @@ means "unknown", said in the report, never an error.
   there.
 - Until 1.4.3 this plugin also wrote `foresight/<date>-<topic>.md` and `foresight/forecasts.md`. Since 2.0.0
   [poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight) writes them.
+
+Added in 2.1.0. Everything above is unchanged.
+- A report starts as `templates/report.md` shows: a block of Obsidian properties (`type`, `plugin`, `date`,
+  `topic`), then its title. Copy the values from the report itself; the block is a copy for Obsidian's views, and
+  the Id, From, Written and Challenge lines stay the record. In the block no line starts with `#` and text values
+  are quoted. Never put a link in a heading (the heading is the stamped sentence) or an **Id** line, or a link
+  with an alias (`[[a|b]]`) in a table. `quote_gate.py` and `sample_check.py` skip the block.
