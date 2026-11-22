@@ -22,8 +22,10 @@ One line per quote, and one per note that has nothing to check:
 Letters and digits have to match in order, and so do the marks that change a number: a decimal point or comma
 between digits, a minus or plus sign before one, and %, <, >, =, ±. Spaces, hyphens at line ends, quotation
 marks, accents and ligatures are ignored, because text taken out of a PDF mangles them. `...` or `…` splits a
-quote into parts that must all be there, in order, each within 200 letters of the one before. A quote may run
-onto the next page; it has to start on the page given.
+quote into parts that must all be there, in order, each within 200 letters of the one before. The words an
+ellipsis skips are not checked (a "not" may be among them), so such a quote is marked "has an ellipsis: read the
+source there". A quote may run onto the next page; it has to start on the page given. Any list line that starts
+with a double quotation mark is read as a quote, wherever it is in the note.
 
 A list line under a "Quotes" heading that cannot be read as a quote (no opening or closing quotation mark) is
 reported as NOT READ, so that nothing is skipped in silence.
@@ -41,7 +43,7 @@ import sys
 import unicodedata
 from pathlib import Path
 
-MARKS = "\"“”„«»‘’'"
+MARKS = "\"“”„«»"
 QUOTE_LINE_RE = re.compile(r"^\s*[-*+]\s+[" + MARKS + r"](.+)$")
 PAGE_RE = re.compile(r"\bpp?\.\s*(\d+)(?:\s*[-–—]\s*(\d+))?")
 MARKER_RE = re.compile(r"^\[p\. (\d+)\]\s*$", re.M)
@@ -148,8 +150,9 @@ def find(quote: str, pages: dict[int, str], span: tuple[int, int] | None) -> tup
 
     numbers = sorted(pages)
     letters = sum(map(len, parts))
-    weak = f" (only {letters} letters: a weak check)" if letters < 20 else \
-        (" (a part of it is under 12 letters: a weak check)" if min(map(len, parts)) < 12 and len(parts) > 1 else "")
+    weak = f" (only {letters} letters: a weak check)" if letters < 20 else ""
+    if len(parts) > 1:
+        weak += " (has an ellipsis: read the source there" + (", and a part is under 12 letters" if min(map(len, parts)) < 12 else "") + ")"
     if numbers == [0]:
         return ("FOUND", "the text has no page marks" + weak) if start_in(pages[0]) >= 0 \
             else ("NOT FOUND", "not in the source's text")
