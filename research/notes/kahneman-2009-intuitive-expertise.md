@@ -9,4 +9,4 @@
 - Intuitive judgments are trustworthy only in environments regular enough to be learned, with enough practice and timely feedback; elsewhere confident intuition is not a sign of accuracy.
 
 ## What it means for the plugin
-- Foresight about irregular, low-feedback domains (politics, markets far ahead) must not rest on confident judgment; it states uncertainty and uses base rates.
+- Confidence in a conclusion is not taken from how sure it feels: in irregular, low-feedback settings confident judgment is not a sign of accuracy (rules.md, "Every conclusion carries").
