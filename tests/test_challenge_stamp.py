@@ -97,7 +97,7 @@ class Normalising(unittest.TestCase):
 
 
 class Vectors(unittest.TestCase):
-    """The three vectors of challenge-stamp-format.md."""
+    """The three vectors of stamp-format.md."""
 
     def test_each_vector_gives_the_stamp_the_note_expects(self):
         self.assertEqual(len(VECTORS["vectors"]), 3)
@@ -121,7 +121,7 @@ class Vectors(unittest.TestCase):
         vector = VECTORS["vectors"][2]
         found, twice = stamp.conclusions(vector["note"])
         self.assertEqual(found[vector["id"]]["text"], vector["text"])
-        self.assertEqual(found[vector["id"]]["shown"], "dropped")
+        self.assertEqual(found[vector["id"]]["shown"], {"dropped"})
         self.assertEqual(twice, [])
 
     def test_the_command_writes_the_same_line(self):
@@ -285,8 +285,9 @@ The data behind IN-002.
                   "- **Narrower:** Slow growth, with no detectable\nchange in rate.\n"
                   "**Tally:** 1 kept, 1 weakened, 0 dropped.\n")
         self.assertEqual(stamp.answer_verdicts(answer), [
-            {"id": "IN-002", "verdict": "kept", "narrower": ""},
-            {"id": "IN-001", "verdict": "weakened", "narrower": "Slow growth, with no detectable change in rate."}])
+            {"id": "IN-002", "verdict": "kept", "as_written": "kept", "narrower": ""},
+            {"id": "IN-001", "verdict": "weakened", "as_written": "weakened",
+             "narrower": "Slow growth, with no detectable change in rate."}])
         done = self.write("--note", self.note, "--verdicts", self.answer(answer), "--by", "agent")
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
         self.assertIn('NOTE IN-002: the note shows "not challenged" and the stamp says kept', done.stdout)
@@ -317,7 +318,7 @@ The data behind IN-002.
         answer = self.ANSWER.replace("**Dropped**", "split")
         done = self.write("--note", self.note, "--verdicts", self.answer(answer))
         self.assertEqual(done.returncode, 1)
-        self.assertIn("IN-002: the answer's verdict is not one of kept, weakened, dropped", done.stdout)
+        self.assertIn('IN-002: the answer\'s verdict "split" is not one word of kept, weakened, dropped', done.stdout)
         self.assertFalse(self.stamps.exists())
 
     def test_an_answer_with_no_verdict_is_refused(self):
@@ -411,7 +412,7 @@ class Verifying(Folder):
         self.assertEqual(done.stdout.splitlines(), [
             "OK IN-001 weakened 2026-11-22",
             "NO STAMP IN-002: no challenge is recorded",
-            "SKIPPED QN-001: no Challenge line and no stamp, so it is not read as a conclusion",
+            "SKIPPED QN-001: a research question with no Challenge line and no stamp; questions are not stamped",
             "2 checked: 1 in order, 1 not.",
         ])
 
@@ -449,6 +450,103 @@ class Verifying(Folder):
                          "IN-001 dropped 2026-11-25 (by agent; challenged 2 times; again: the base changed)")
 
 
+class TheReviewsCases(Folder):
+    """Ways the first version failed open, found by the independent review of 2026-11-22."""
+
+    def setUp(self):
+        super().setUp()
+        self.write("--note", self.note, "--id", "IN-001", "--verdict", "weakened")
+
+    def with_label(self, label):
+        self.note.write_text(NOTE.replace("- **Challenge:** weakened · the difference cannot be told apart from chance",
+                                          label), encoding="utf-8")
+        return self.run_stamp("verify", "--note", self.note, "--id", "IN-001")
+
+    def test_a_label_retyped_in_another_form_still_fails(self):
+        for label in ("- **Challenged:** kept", "- Challenge: **kept**", "**Challenge:** kept",
+                      "- **Challenge:** weakened → kept after review", "- **Challenge:** Weakened? No: kept",
+                      "- **Challenge:** not challenged"):
+            done = self.with_label(label)
+            self.assertEqual(done.returncode, 1, label)
+            self.assertIn("VERDICT RETYPED IN-001", done.stdout, label)
+
+    def test_the_stamped_word_in_another_form_still_passes(self):
+        for label in ("- Challenge: weakened", "- **Challenge**: **Weakened** · was: \"kept as it stood\"",
+                      "- **Challenge:** weakened, narrower"):
+            self.assertEqual(self.with_label(label).returncode, 0, label)
+
+    def test_an_insight_with_no_challenge_line_and_no_stamp_is_a_missing_stamp(self):
+        self.note.write_text(NOTE.replace("- **Challenge:** not challenged\n", ""), encoding="utf-8")
+        done = self.run_stamp("verify", "--note", self.note)
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("NO STAMP IN-002", done.stdout)
+        self.assertIn("SKIPPED QN-001", done.stdout)
+
+    def test_a_note_in_which_nothing_is_recognised_fails(self):
+        self.note.write_text("# Notes\n\nNo headings with ids here.\n", encoding="utf-8")
+        done = self.run_stamp("verify", "--note", self.note)
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("Nothing checked", done.stdout)
+
+    def test_an_id_line_without_the_list_dash_is_read(self):
+        self.note.write_text("### The share rose in five countries.\n\n**Id:** IN-009\n**Challenge:** kept\n",
+                             encoding="utf-8")
+        done = self.run_stamp("verify", "--note", self.note)
+        self.assertEqual(done.returncode, 1)
+        self.assertIn('NO STAMP IN-009: no challenge is recorded: "kept" is shown', done.stdout)
+
+    def test_a_line_separator_in_a_field_does_not_break_the_file(self):
+        for odd in ("\u2028", "\u2029", "\u0085", "\x0c"):
+            done = self.run_stamp("write", "--note", self.note, "--id", "IN-001", "--verdict", "weakened",
+                                  "--date", "2026-11-22", "--again", f"the base changed{odd}second part")
+            self.assertEqual(done.returncode, 0, repr(odd))
+        self.assertTrue(self.stamps.read_bytes().isascii())
+        self.assertEqual(len(self.stamps.read_text(encoding="utf-8").split("\n")), 6)
+        self.assertEqual(self.run_stamp("list").returncode, 0)
+        self.assertEqual(self.run_stamp("verify", "--note", self.note, "--id", "IN-001").returncode, 0)
+
+    def test_a_research_question_is_not_stamped(self):
+        done = self.write("--note", self.note, "--id", "QN-001", "--verdict", "kept")
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("a question is not stamped", done.stdout)
+
+    def test_a_stamp_line_a_careful_reader_would_reject_is_rejected(self):
+        line = self.lines()[0]
+        for key, value in (("v", True), ("v", 1.0), ("date", "2026-99-99"), ("date", "２０２６-11-22")):
+            self.stamps.write_text(stamp.stamp_line(dict(line, **{key: value})) + "\n", encoding="utf-8")
+            done = self.run_stamp("verify", "--note", self.note, "--id", "IN-001")
+            self.assertIn("STAMP ALTERED", done.stdout, (key, value))
+
+    def test_an_id_inside_a_longer_code_fence_is_not_a_conclusion(self):
+        note = "### Real.\n\n- **Id:** IN-001\n\n````\n```\n### Inside.\n- **Id:** IN-077\n```\n````\n"
+        found, _ = stamp.conclusions(note)
+        self.assertEqual(list(found), ["IN-001"])
+
+
+class StrictAnswers(Folder):
+    def answer(self, text):
+        path = self.folder / "answer.md"
+        path.write_text(text, encoding="utf-8")
+        return self.write("--note", self.note, "--verdicts", path)
+
+    def test_weakened_with_no_narrower_claim_is_refused(self):
+        done = self.answer("### IN-001\n- **Verdict:** weakened\n- **Narrower:** none\n")
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("gives no narrower claim", done.stdout)
+        self.assertFalse(self.stamps.exists())
+
+    def test_a_verdict_with_more_words_than_the_verdict_is_refused(self):
+        done = self.answer("### IN-002\n- **Verdict:** kept — but only as a lead, really weakened\n")
+        self.assertEqual(done.returncode, 1)
+        self.assertFalse(self.stamps.exists())
+
+    def test_a_verdict_line_without_the_dash_is_read_and_a_block_without_one_is_named(self):
+        done = self.answer("### IN-002\n**Verdict:** dropped\n\n### IN-001\n- **Reason:** cannot tell\n")
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("IN-001: the answer has a block for it and no Verdict line that could be read", done.stdout)
+        self.assertFalse(self.stamps.exists())
+
+
 class ReadingANote(unittest.TestCase):
     def test_a_heading_inside_a_code_block_is_not_a_conclusion(self):
         note = "### Real one.\n\n```python\n# not a heading\n- **Id:** IN-009\n```\n\n- **Id:** IN-001\n"
@@ -473,22 +571,42 @@ class ReadingANote(unittest.TestCase):
 
 class TheLabsTrendScan(unittest.TestCase):
     """The pair `fixtures/README.md` in the notebook describes: the published page showed c6 as kept, and the
-    challenger had said weakened. Stamps written from the challenger's verdicts fail the published rows and
-    pass the corrected ones."""
+    challenger had said weakened. Each page is turned into a note (heading: the page's restated claim; Challenge
+    line: the verdict the page shows), the challenger's verdicts are stamped on the page's sentences with
+    `challenge_stamp.py write`, and each note is checked with `verify`. What this tests is the label: the page
+    reworded the challenger's narrower claims, so the sentences stamped here are the page's, not the challenger's
+    (the last test shows that the challenger's own sentences do not match the page)."""
 
-    def check_rows(self, challenger: dict, rows: list[dict]) -> list[tuple[str, str]]:
+    def note_of(self, rows: list[dict]) -> str:
+        return "# Trend scan\n\n" + "".join(f"### {row['restated']}\n\n- **Id:** {row['id']}\n"
+                                              f"- **Challenge:** {row['verdict']}\n\n" for row in rows)
+
+    def run_pair(self, challenger: dict, published: list[dict], corrected: list[dict], sentences=None):
         with tempfile.TemporaryDirectory() as folder:
-            ledger = stamp.Ledger(Path(folder) / "challenge-stamps.jsonl")
-            ledger.append([stamp.make_stamp(row["id"], challenger[row["id"]], "2026-11-17", row["restated"])
-                           for row in rows])
-            ledger = stamp.Ledger(ledger.path)
-            return [(row["id"], status) for row in rows
-                    for status, _ in stamp.check(ledger, row["id"], row["restated"], stamp.first_word(row["verdict"]))]
+            root = Path(folder)
+            (root / "insights").mkdir()
+            for name, rows in (("published", published), ("corrected", corrected)):
+                (root / "insights" / f"{name}.md").write_text(self.note_of(rows), encoding="utf-8")
+            for row in corrected:
+                if sentences:
+                    args = ["--text", sentences[row["id"]]]
+                else:
+                    args = ["--note", "insights/corrected.md"]
+                done = helpers.run("challenge_stamp.py", "write", "--id", row["id"], "--verdict",
+                                   challenger[row["id"]], "--date", "2026-11-17", *args, cwd=root)
+                self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+            return [helpers.run("challenge_stamp.py", "verify", "--note", f"insights/{name}.md", cwd=root)
+                    for name in ("published", "corrected")]
 
     def test_the_published_verdicts_fail_and_the_corrected_ones_pass(self):
         rows = json.loads(ROWS.read_text(encoding="utf-8"))
-        self.assertEqual(self.check_rows(rows["challenger"], rows["published"]), [("c6", "VERDICT RETYPED")])
-        self.assertEqual(self.check_rows(rows["challenger"], rows["corrected"]), [])
+        published, corrected = self.run_pair(rows["challenger"], rows["published"], rows["corrected"])
+        self.assertEqual(published.returncode, 1)
+        self.assertEqual([line for line in published.stdout.splitlines() if not line.startswith("OK ")],
+                         ['VERDICT RETYPED c6: shown "kept", stamped weakened on 2026-11-17',
+                          "6 checked: 5 in order, 1 not."])
+        self.assertEqual(corrected.returncode, 0, corrected.stdout)
+        self.assertEqual(corrected.stdout.splitlines()[-1], "6 checked: 6 in order, 0 not.")
 
     def test_the_same_on_the_notebooks_own_files(self):
         lab = helpers.lab()
@@ -497,10 +615,19 @@ class TheLabsTrendScan(unittest.TestCase):
         verdicts = json.loads((lab / "challenge-verdicts.json").read_text(encoding="utf-8"))
         run = next(run for run in verdicts["runs"] if run["run"] == "trend-scan")
         challenger = {c["id"].lower(): c["verdict"] for c in run["conclusions"]}
-        published = json.loads((lab / "trend-scan" / "challenge.published.json").read_text(encoding="utf-8"))["rows"]
-        corrected = json.loads((lab / "trend-scan" / "challenge.corrected.json").read_text(encoding="utf-8"))["rows"]
-        self.assertEqual(self.check_rows(challenger, published), [("c6", "VERDICT RETYPED")])
-        self.assertEqual(self.check_rows(challenger, corrected), [])
+        pages = [json.loads((lab / "trend-scan" / f"challenge.{name}.json").read_text(encoding="utf-8"))["rows"]
+                 for name in ("published", "corrected")]
+        published, corrected = self.run_pair(challenger, *pages)
+        self.assertIn('VERDICT RETYPED c6: shown "kept"', published.stdout)
+        self.assertEqual(published.returncode, 1)
+        self.assertEqual(corrected.returncode, 0, corrected.stdout)
+
+    def test_the_challengers_own_sentences_are_not_the_pages(self):
+        rows = json.loads(ROWS.read_text(encoding="utf-8"))
+        _, corrected = self.run_pair(rows["challenger"], rows["published"], rows["corrected"],
+                                     sentences=rows["challenger_narrower"])
+        self.assertEqual(corrected.returncode, 1)
+        self.assertEqual(sum(line.startswith("TEXT CHANGED") for line in corrected.stdout.splitlines()), 6)
 
     def test_the_copy_in_this_repository_is_the_notebooks(self):
         lab = helpers.lab()
@@ -510,6 +637,7 @@ class TheLabsTrendScan(unittest.TestCase):
         verdicts = json.loads((lab / "challenge-verdicts.json").read_text(encoding="utf-8"))
         run = next(run for run in verdicts["runs"] if run["run"] == "trend-scan")
         self.assertEqual(rows["challenger"], {c["id"].lower(): c["verdict"] for c in run["conclusions"]})
+        self.assertEqual(rows["challenger_narrower"], {c["id"].lower(): c["narrower"] for c in run["conclusions"]})
         for name in ("published", "corrected"):
             theirs = json.loads((lab / "trend-scan" / f"challenge.{name}.json").read_text(encoding="utf-8"))["rows"]
             self.assertEqual(rows[name], [{key: row[key] for key in ("id", "verdict", "restated")} for row in theirs])

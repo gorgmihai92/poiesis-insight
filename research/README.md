@@ -1,7 +1,7 @@
 # Sources behind the rules
 
 The sources behind the rules (each rule names its source in `skills/insight/rules.md` and the playbooks). One
-note per source in `notes/`; open-licence texts in `papers/` (closed ones stay local).
+note per source in `notes/`. The sources' texts stay local in `papers/` and are not committed.
 
 Every note says how much of its source was read: the notes written for 2.0.0 in a **Read** line, the earlier
 ones on their **Evidence** line ("abstract only", "reference only"). A rule that rests on an abstract or on an
@@ -40,4 +40,5 @@ research/notes --papers research/papers`.
 - **Foresight and trends in data** moved in 2.0.0 to
   [poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight), with their seven notes (Hiltunen 2008,
   Sharpe et al. 2016, Inayatullah 1998, Phadnis et al. 2015, Mellers et al. 2015, Benneyan et al. 2003, Kahneman &
-  Lovallo 1993) and the open text of Sharpe et al. 2016.
+  Lovallo 1993). The open text of Sharpe et al. 2016 was removed from this repository; it is in its history
+  (`fe7ddca`), and poiesis-foresight keeps its own copy local.

@@ -48,16 +48,18 @@ DEFAULT_STAMPS = "insights/challenge-stamps.jsonl"
 SEAL_HEAD = "poiesis-challenge-stamp v1"
 
 ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}")
-DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
+DATE_RE = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
 HEX64_RE = re.compile(r"[0-9a-f]{64}")
 SPACE_RE = re.compile(r"[\t\n\x0b\x0c\r ]+")
 
 HEADING_RE = re.compile(r"^#{1,6}[ \t]+(.*)$")
-FENCE_RE = re.compile(r"^[ \t]*(```|~~~)")
-ID_LINE_RE = re.compile(r"^[ \t]*[-*+][ \t]+\*\*id:?\*\*:?[ \t]*(\S+)[ \t]*$", re.IGNORECASE)
-CHALLENGE_LINE_RE = re.compile(r"^[ \t]*[-*+][ \t]+\*\*challenge:?\*\*:?[ \t]*(.*)$", re.IGNORECASE)
-VERDICT_LINE_RE = re.compile(r"^[ \t]*[-*+][ \t]+\*\*verdict:?\*\*:?[ \t]*(.*)$", re.IGNORECASE)
-NARROWER_LINE_RE = re.compile(r"^[ \t]*[-*+][ \t]+\*\*narrower:?\*\*:?[ \t]*(.*)$", re.IGNORECASE)
+FENCE_RE = re.compile(r"^[ \t]*(`{3,}|~{3,})")
+ID_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?id(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(\S+)[ \t]*$", re.IGNORECASE)
+CHALLENGE_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?challenge[a-z]*(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
+VERDICT_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?verdict(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
+NARROWER_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?narrower(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
+VERDICT_WORD_RE = re.compile(r"\b(kept|weakened|dropped)\b", re.IGNORECASE)
+OBJECT_ID_RE = re.compile(r"[A-Z]{1,3}-[0-9]+")
 ITEM_RE = re.compile(r"^[ \t]*[-*+][ \t]+")
 FIRST_WORD_RE = re.compile(r"[A-Za-z]+")
 NO_NARROWER = {"", "-", "–", "—", "none", "none.", "n/a", "not applicable", "null"}
@@ -104,7 +106,29 @@ def make_stamp(id_: str, verdict: str, date: str, text: str, by: str | None = No
 
 
 def stamp_line(stamp: dict) -> str:
-    return json.dumps(stamp, ensure_ascii=False)
+    """One line of JSON. Everything outside ASCII is escaped, so no character inside a field can break the line."""
+    return json.dumps(stamp, ensure_ascii=True)
+
+
+def lines_of(text: str) -> list[str]:
+    """Lines split at a line feed only, with a carriage return before it dropped. Other characters that some
+    programs treat as line ends (U+2028, U+0085, a form feed) stay inside their line."""
+    return [line[:-1] if line.endswith("\r") else line for line in text.split("\n")]
+
+
+def shown_verdicts(label: str | None) -> frozenset | None:
+    """The verdict words in a label, up to the `·` that starts its reason: `weakened · was: ...` gives
+    {weakened}; `weakened → kept` gives both; `not challenged` gives none. None when there is no label."""
+    if label is None:
+        return None
+    return frozenset(word.lower() for word in VERDICT_WORD_RE.findall(label.split("·")[0]))
+
+
+def one_verdict(value: str) -> str:
+    """A verdict field that holds exactly one verdict word, in lower case; '' for anything else, such as
+    `kept, but only as a lead` or `split`."""
+    bare = re.sub(r"[*_`.!]", "", value or "").strip().lower()
+    return bare if bare in VERDICTS else ""
 
 
 def label_head(value: str) -> str:
@@ -132,7 +156,7 @@ class Ledger:
         self.entries: dict[str, list[tuple[int, dict | None, str]]] = {}
         if self.exists:
             try:
-                lines = path.read_text(encoding="utf-8-sig").splitlines()
+                lines = lines_of(path.read_text(encoding="utf-8-sig"))
             except (OSError, UnicodeDecodeError) as err:
                 raise Unreadable(f"cannot read {path}: {err}")
             for number, line in enumerate(lines, 1):
@@ -190,18 +214,26 @@ class Ledger:
 
 def flaw(stamp: dict) -> str:
     """Why a line with a readable id is not a valid stamp, or ''."""
-    if stamp.get("v") != VERSION:
+    if type(stamp.get("v")) is not int or stamp.get("v") != VERSION:
         return f"has version {stamp.get('v')!r}, and this script reads version {VERSION}"
     verdict, date, digest, seal = (stamp.get(key) for key in ("verdict", "date", "text_sha256", "seal"))
     if verdict not in VERDICTS:
         return f"has the verdict {verdict!r}, which is not one of {', '.join(VERDICTS)}"
-    if not isinstance(date, str) or not DATE_RE.fullmatch(date):
+    if not isinstance(date, str) or not DATE_RE.fullmatch(date) or not real_date(date):
         return "has no date in the form YYYY-MM-DD"
     if not isinstance(digest, str) or not HEX64_RE.fullmatch(digest):
         return "has no text_sha256 of 64 hexadecimal digits"
     if seal != seal_of(stamp["id"], verdict, date, digest):
         return "does not match its seal: it was changed after it was written"
     return ""
+
+
+def real_date(value: str) -> bool:
+    try:
+        datetime.date.fromisoformat(value)
+        return True
+    except ValueError:
+        return False
 
 
 # ---------- conclusions in a note
@@ -217,12 +249,17 @@ def blocks(markdown: str) -> list[tuple[str, list[str]]]:
     """Each heading with the lines under it, up to the next heading. Lines inside a fenced code block are
     skipped, so a `#` comment in code is not taken for a heading."""
     found: list[tuple[str, list[str]]] = []
-    fenced = False
-    for line in markdown.splitlines():
-        if FENCE_RE.match(line):
-            fenced = not fenced
+    fence = ""                                   # the fence that opened the block we are in, or ''
+    for line in lines_of(markdown):
+        hit = FENCE_RE.match(line)
+        if hit:
+            mark = hit.group(1)
+            if not fence:
+                fence = mark
+            elif mark[0] == fence[0] and len(mark) >= len(fence) and not line.strip()[len(mark):].strip():
+                fence = ""
             continue
-        if fenced:
+        if fence:
             continue
         heading = HEADING_RE.match(line)
         if heading:
@@ -233,9 +270,9 @@ def blocks(markdown: str) -> list[tuple[str, list[str]]]:
 
 
 def conclusions(markdown: str) -> tuple[dict[str, dict], list[str]]:
-    """The conclusions of a note by id: `text` is the heading, `shown` the first word of the Challenge line
-    ('' when the block has none) and `has_challenge_line` whether the line is there. Also the ids that appear
-    under more than one heading."""
+    """The conclusions of a note by id: `text` is the heading, `shown` the verdict words of the Challenge line
+    (None when the block has none), `label` that line as written and `has_challenge_line` whether the line is
+    there. Also the ids that appear under more than one heading."""
     by_id: dict[str, dict] = {}
     twice: list[str] = []
     for heading, lines in blocks(markdown):
@@ -254,8 +291,9 @@ def conclusions(markdown: str) -> tuple[dict[str, dict], list[str]]:
             if id_ not in twice:
                 twice.append(id_)
             continue
-        by_id[id_] = {"id": id_, "text": heading, "shown": first_word(label or ""),
-                      "label": label_head(label or ""), "has_challenge_line": label is not None}
+        by_id[id_] = {"id": id_, "text": heading, "shown": shown_verdicts(label),
+                      "label": label_head(label) if label is not None else None,
+                      "has_challenge_line": label is not None}
     return by_id, twice
 
 
@@ -277,18 +315,21 @@ def field(lines: list[str], pattern: re.Pattern) -> str | None:
 def answer_verdicts(markdown: str) -> list[dict]:
     """The verdicts in a challenger's saved answer: one block per conclusion, a heading that starts with the
     id, a line `- **Verdict:** kept|weakened|dropped`, and for a weakened one `- **Narrower:** the claim that
-    survives`. Headings with no Verdict line are not verdicts."""
+    survives`. A verdict field has to hold one verdict word and nothing else.
+    Headings that start with an id-like token (`IN-001`) and have no Verdict line are returned with the
+    verdict None, so that a block whose verdict could not be read is not passed over in silence."""
     found = []
     for heading, lines in blocks(markdown):
         verdict = field(lines, VERDICT_LINE_RE)
         narrower = field(lines, NARROWER_LINE_RE)
-        if verdict is None:
-            continue
         token = heading.split()[0].strip("*`:·,.") if heading.split() else ""
+        if verdict is None and not OBJECT_ID_RE.fullmatch(token):
+            continue
         narrower = normalise(narrower or "")
         if narrower.lower() in NO_NARROWER:
             narrower = ""
-        found.append({"id": token, "verdict": first_word(verdict), "narrower": narrower})
+        found.append({"id": token, "verdict": None if verdict is None else one_verdict(verdict),
+                      "as_written": normalise(verdict or ""), "narrower": narrower})
     return found
 
 
@@ -325,6 +366,8 @@ def plan_stamp(ledger: Ledger, id_: str, verdict: str, text: str, date: str, by:
         raise Refused(f"{id_!r} is not an id: use letters, digits, dot, dash or underscore, such as IN-001")
     if verdict not in VERDICTS:
         raise Refused(f"{id_}: the verdict {verdict!r} is not one of {', '.join(VERDICTS)}")
+    if id_.upper().startswith("QN-"):
+        raise Refused(f"{id_} is a research question, and a question is not stamped: stamp the gap it rests on")
     if not normalise(text):
         raise Refused(f"{id_}: the conclusion has no text")
     stamp, why = ledger.current(id_)
@@ -370,15 +413,20 @@ def cmd_write(args) -> int:
             elif id_ not in found:
                 problems.append(f"{id_}: the answer gives a verdict, and {args.note} has no conclusion with "
                                 "this id")
+            elif answer["verdict"] is None:
+                problems.append(f"{id_}: the answer has a block for it and no Verdict line that could be read")
             elif answer["verdict"] not in VERDICTS:
-                problems.append(f"{id_}: the answer's verdict is not one of {', '.join(VERDICTS)}")
-            elif answer["verdict"] == "weakened" and answer["narrower"] \
-                    and normalise(found[id_]["text"]) != answer["narrower"]:
+                problems.append(f"{id_}: the answer's verdict \"{answer['as_written']}\" is not one word of "
+                                f"{', '.join(VERDICTS)}")
+            elif answer["verdict"] == "weakened" and not answer["narrower"]:
+                problems.append(f"{id_}: weakened, and the answer gives no narrower claim. A weakened "
+                                "conclusion is stamped as the claim that survives: ask the challenger for it")
+            elif answer["verdict"] == "weakened" and normalise(found[id_]["text"]) != answer["narrower"]:
                 problems.append(f"{id_}: weakened, and the note's heading is not the narrower claim the "
                                 "challenger gave. Copy that claim into the heading as it stands, then stamp")
             else:
                 todo.append((id_, answer["verdict"], found[id_]["text"]))
-                if found[id_]["shown"] and found[id_]["shown"] != answer["verdict"]:
+                if found[id_]["shown"] is not None and found[id_]["shown"] != {answer["verdict"]}:
                     notes.append(f"NOTE {id_}: the note shows \"{found[id_]['label']}\" and the stamp says "
                                  f"{answer['verdict']}. Change the note's label to match")
         if problems:
@@ -401,7 +449,7 @@ def cmd_write(args) -> int:
                 raise Refused(f"{id_}: {args.note} has no conclusion with this id. A conclusion is a heading "
                               f"with a line `- **Id:** {id_}` under it")
             text = found[id_]["text"]
-            if found[id_]["shown"] and found[id_]["shown"] != verdict:
+            if found[id_]["shown"] is not None and found[id_]["shown"] != {verdict}:
                 notes.append(f"NOTE {id_}: the note shows \"{found[id_]['label']}\" and the stamp says "
                              f"{verdict}. Change the note's label to match")
         else:
@@ -433,23 +481,25 @@ def one_text(args) -> str:
 
 # ---------- verify
 
-def check(ledger: Ledger, id_: str, text: str | None, shown: str | None,
-          label: str | None = None) -> list[tuple[str, str]]:
+def check(ledger: Ledger, id_: str, text: str | None, shown, label: str | None = None) -> list[tuple[str, str]]:
     """What is wrong with one conclusion, as (status, sentence) pairs; an empty list when it verifies.
-    `text` is the sentence as it stands now. `shown` is the first word of the verdict displayed with it, in
-    lower case ('' or None when none is displayed), and `label` is that verdict as written, for the message."""
-    label = label or shown
+    `text` is the sentence as it stands now. `shown` is the set of verdict words displayed with it (None when
+    nothing is displayed), and `label` is what is displayed, as written, for the message. A displayed label
+    passes only when its one verdict word is the stamped one."""
+    if isinstance(shown, str):
+        shown = shown_verdicts(shown) if shown else None
+    label = label or ""
     stamp, why = ledger.current(id_)
     if why:
         return [("STAMP ALTERED", why)]
     if stamp is None:
-        said = f": \"{label}\" is shown, and no stamp backs it" if shown in VERDICTS else ""
+        said = f": \"{label}\" is shown, and no stamp backs it" if shown else ""
         return [("NO STAMP", f"no challenge is recorded{said}")]
     wrong = []
     if text is not None and text_hash(text) != stamp["text_sha256"]:
         wrong.append(("TEXT CHANGED", f"the sentence is not the one stamped {stamp['verdict']} on "
                                       f"{stamp['date']}. Challenge it again"))
-    if shown and shown != stamp["verdict"]:
+    if shown is not None and shown != {stamp["verdict"]}:
         wrong.append(("VERDICT RETYPED", f"shown \"{label}\", stamped {stamp['verdict']} on {stamp['date']}"))
     return wrong
 
@@ -469,15 +519,15 @@ def cmd_verify(args) -> int:
                 missing.append(f"TWICE {id_}: the note has this id under two headings")
             elif id_ not in found:
                 missing.append(f"NOT IN NOTE {id_}: {args.note} has no conclusion with this id")
-            elif not args.id and not found[id_]["has_challenge_line"] and not ledger.times(id_) \
-                    and not ledger.damaged:
+            elif not args.id and id_.upper().startswith("QN-") and not found[id_]["has_challenge_line"] \
+                    and not ledger.times(id_) and not ledger.damaged:
                 skipped.append(id_)
             else:
                 targets.append((id_, found[id_]["text"], found[id_]["shown"], found[id_]["label"]))
     else:
         if not args.id or len(args.id) != 1:
             raise Unreadable("verify needs --note, or one --id with --text or --text-file")
-        shown = first_word(args.verdict) if args.verdict else None
+        shown = shown_verdicts(args.verdict) if args.verdict else None
         targets.append((args.id[0], one_text(args), shown, label_head(args.verdict or "") or None))
 
     bad = len(missing)
@@ -493,8 +543,12 @@ def cmd_verify(args) -> int:
             stamp, _ = ledger.current(id_)
             print(f"OK {id_} {stamp['verdict']} {stamp['date']}")
     for id_ in skipped:
-        print(f"SKIPPED {id_}: no Challenge line and no stamp, so it is not read as a conclusion")
+        print(f"SKIPPED {id_}: a research question with no Challenge line and no stamp; questions are not stamped")
     total = len(targets) + len(missing)
+    if total == 0:
+        print(f"Nothing checked: {args.note} has no conclusion, that is no heading with an `- **Id:**` line "
+              "under it. Nothing verifies.")
+        return 1
     print(f"{total} checked: {total - bad} in order, {bad} not.")
     return 1 if bad else 0
 
@@ -565,6 +619,9 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     except Unreadable as problem:
         print(f"challenge_stamp.py: {problem}", file=sys.stderr)
+        return 2
+    except OSError as err:
+        print(f"challenge_stamp.py: {err}", file=sys.stderr)
         return 2
 
 

@@ -198,6 +198,40 @@ class Stale(Project):
         self.assertEqual(done.stdout.strip(), "0 objects read, 0 with a From line: 0 findings.")
 
 
+class TheReviewsCases(Project):
+    def test_an_altered_stamp_is_a_finding_not_silence(self):
+        self.stamp("IN-001", "kept", "2026-11-17")
+        path = self.root / "insights" / "challenge-stamps.jsonl"
+        path.write_text(path.read_text(encoding="utf-8").replace("2026-11-17", "2026-11-16"), encoding="utf-8")
+        done = self.ids("stale")
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("STAMP ALTERED QN-001", done.stdout)
+        self.assertEqual(self.ids("list").returncode, 1)
+
+    def test_a_dropped_source_travels_along_from(self):
+        self.first_challenge()
+        (self.root / "frontier" / "2026-11-21-more.md").write_text(
+            "### Built on the tracker\n\n- **Id:** CN-004\n- **From:** CN-002\n", encoding="utf-8")
+        self.assertIn("THROUGH CN-004", self.ids("stale").stdout)
+
+    def test_a_folder_that_does_not_exist_is_exit_code_2(self):
+        self.assertEqual(helpers.run("ids.py", "stale", "--root", "no/such/folder", cwd=self.root).returncode, 2)
+
+    def test_next_counts_numbers_in_log_tables_too(self):
+        (self.root / "foresight").mkdir()
+        (self.root / "foresight" / "forecasts.md").write_text(
+            "| id | question |\n|---|---|\n| F-001 | one |\n| F-002 | two |\n", encoding="utf-8")
+        self.assertEqual(self.ids("next", "F").stdout.strip(), "F-003")
+
+    def test_a_written_line_moves_the_objects_day(self):
+        self.stamp("IN-001", "kept", "2026-11-17")
+        self.stamp("IN-001", "weakened", "2026-11-25", "--again", "new data")
+        concepts = self.root / "frontier" / "2026-11-20-concepts.md"
+        concepts.write_text(concepts.read_text(encoding="utf-8").replace("- **Written:** 2026-11-10",
+                                                                          "- **Written:** 2026-11-26"), encoding="utf-8")
+        self.assertNotIn("STALE CN-003", self.ids("stale").stdout)
+
+
 class FromLine(unittest.TestCase):
     def test_ids_note_names_and_citations_are_separated(self):
         self.assertEqual(ids.from_items("IN-001, `QN-002`; walters-2023, [@smith2020, p. 4]"),

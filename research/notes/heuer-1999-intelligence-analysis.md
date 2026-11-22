@@ -4,6 +4,7 @@
 - **File:** `../papers/heuer-1999-psychology-intelligence-analysis.pdf`
 - **Licence:** free to copy for educational purposes, not commercially (CIA notice): local only.
 - **Evidence:** analytical (practitioner synthesis of cognitive psychology).
+- **Read:** not recorded when the note was written for 1.0.0. The note cites pages of the PDF named under **File**, so the text was open then; which pages were read is not recorded. Not checked again on 2026-11-22: the PDF is kept local and is not on this machine, so its quotes could not be checked (`quote_gate.py`: NO TEXT).
 
 ## What it says
 - Diagnosticity: evidence helps only if it changes the relative likelihood of the hypotheses; evidence consistent

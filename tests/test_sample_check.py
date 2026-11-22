@@ -26,9 +26,9 @@ Twelve studies were read (see [the map](../research/maps/blame.md)).
 | Example 2023 (p. 2) | vignette |
 
 1. One study measured behaviour: [[example-2024-field-study]].
-2. The largest sample is 412 people (p. 9), in doi 10.1000/example.7.
+2. The largest sample is 412 people (p. 9), in doi:10.1000/example.7.
 3. A line with a pipe | in it, from https://example.org/paper.
-4. A line with no pointer to a source.
+4. A line with no pointer to a source, about version 2.10.1234/abc.
 
 ```
 - a line in a code block (p. 1)
@@ -39,11 +39,11 @@ Twelve studies were read (see [the map](../research/maps/blame.md)).
 class Claims(unittest.TestCase):
     def test_only_lines_that_point_to_a_source_are_claims(self):
         found = sample.claims_of(REPORT)
-        self.assertEqual([number for number, _ in found], [3, 9, 16, 17, 18])
+        self.assertEqual([number for number, _ in found], [3, 9, 14, 16, 17, 18])
 
     def test_field_lines_table_rows_headings_and_code_are_left_out(self):
         text = " ".join(line for _, line in sample.claims_of(REPORT))
-        for absent in ("**From:**", "**Challenge:**", "Example 2023 (p. 2)", "code block", "no pointer"):
+        for absent in ("**From:**", "**Challenge:**", "| study | design |", "code block", "no pointer"):
             self.assertNotIn(absent, text)
 
 
@@ -94,7 +94,7 @@ class Commands(unittest.TestCase):
         self.log.unlink()
         second = self.pick("--n", "3", "--seed", "7")
         self.assertEqual(first.stdout, second.stdout)
-        self.assertIn("3 of the 5 lines that point to a source, drawn with seed 7:", first.stdout)
+        self.assertIn("3 of the 6 lines that point to a source, drawn with seed 7:", first.stdout)
         self.log.unlink()
         self.assertNotEqual(self.pick("--n", "3", "--seed", "8").stdout, first.stdout)
 
@@ -105,11 +105,16 @@ class Commands(unittest.TestCase):
         self.pick("--n", "5", "--seed", "1")
         rows = sample.read_rows(self.log)
         self.assertEqual(len(rows), 5)
-        self.assertEqual({row[4] for row in rows}, {""})
+        self.assertEqual({row[5] for row in rows}, {""})
+        self.assertEqual({row[3] for row in rows}, {"1"})
         self.assertEqual({row[1] for row in rows}, {"insights/2026-11-22-blame.md"})
-        self.assertTrue(any("A line with a pipe / in it" in row[3] for row in rows))
-        self.assertIn("The report has only", self.pick("--n", "9", "--seed", "1").stdout)
-        self.assertEqual(len(sample.read_rows(self.log)), 10)       # a second draw is added, nothing is replaced
+        second = self.pick("--n", "9", "--seed", "1")
+        self.assertIn("5 lines of this report were already in the log", second.stdout)
+        rows = sample.read_rows(self.log)
+        self.assertEqual(len(rows), 6)                              # a claim is drawn once
+        self.assertEqual(len({row[2] for row in rows}), 6)
+        self.assertTrue(any("A line with a pipe / in it" in row[4] for row in rows))
+        self.assertEqual(self.pick().returncode, 1)                 # nothing new left to draw
 
     def test_a_report_with_no_pointer_to_a_source_is_exit_code_1(self):
         (self.root / "insights" / "2026-11-22-blame.md").write_text("# Nothing cited\n\nA thought.\n", encoding="utf-8")

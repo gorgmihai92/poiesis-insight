@@ -4,7 +4,7 @@ What the evidence means: connections, contradictions, patterns, and what they im
 
 ## Read first
 - `rules.md`.
-- The notes behind this playbook, with how much of each source was read: Klein & Jarosz 2011 (abstract only),
+- The notes behind this playbook, with how much of each source was read: Klein & Jarosz 2011 (abstract or secondary summaries only),
   Nosek et al. 2018 (abstract only), Benjamini & Hochberg 1995 (abstract only), Anscombe 1973 and Gelman & Loken
   2014 (not read: written from general knowledge, unverified). The rules that rest on them say so where they are
   stated. (Notes are in the plugin's repository, under `research/notes/`.)
@@ -26,7 +26,7 @@ What the evidence means: connections, contradictions, patterns, and what they im
    before looking: a random part of the rows, a later period or another source. It is not opened until step
    "Confirm leads".
 
-## Look for insights along three paths (Klein & Jarosz 2011, abstract only)
+## Look for insights along three paths (Klein & Jarosz 2011, abstract or secondary summaries only)
 - **Connections:** two items that, put together, say something neither says alone (across notes, sources, data
   slices).
 - **Contradictions:** items that do not fit each other or the expected picture; an anomaly is a lead.
