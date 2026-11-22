@@ -1,7 +1,7 @@
 {
   "name": "poiesis-insight",
-  "version": "1.4.3",
-  "description": "Insights (connections, contradictions, counted patterns) and foresight (signals, horizons, scenarios, scored forecasts) from a project's research or data. Every conclusion carries its evidence, rivals and what would prove it wrong, and passes a challenge. Agents: insight-analyst, foresight-analyst, challenger.",
+  "version": "2.0.0",
+  "description": "Insights (connections, contradictions, counted patterns), research questions from gaps in the evidence, and the methods of a field, from a project's research or data. Every conclusion carries its evidence, rivals and what would prove it wrong, passes a challenge, and has its verdict recorded once with a stamp. Agents: insight-analyst, challenger. Foresight is in poiesis-foresight.",
   "author": {
     "name": "George Mihai",
     "email": "hi@georgemihai.com"
@@ -11,9 +11,9 @@
   "license": "MIT",
   "keywords": [
     "insight",
-    "foresight",
-    "scenarios",
-    "forecasting",
+    "research-questions",
+    "challenge",
+    "evidence",
     "analysis",
     "sensemaking"
   ]

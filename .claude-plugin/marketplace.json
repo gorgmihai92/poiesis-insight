@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "poiesis-insight",
-  "description": "Interpret research and data: insights and foresight, each conclusion with its evidence, rivals and a challenge.",
+  "description": "Interpret research and data: insights, research questions and the methods of a field, each conclusion with its evidence, rivals and a recorded challenge.",
   "owner": {
     "name": "George Mihai",
     "email": "hi@georgemihai.com"
@@ -9,8 +9,8 @@
   "plugins": [
     {
       "name": "poiesis-insight",
-      "description": "Insights (connections, contradictions, counted patterns) and foresight (signals, horizons, scenarios, scored forecasts) from a project's research or data. Every conclusion carries its evidence, rivals and what would prove it wrong, and passes a challenge. Agents: insight-analyst, foresight-analyst, challenger.",
-      "version": "1.4.3",
+      "description": "Insights (connections, contradictions, counted patterns), research questions from gaps in the evidence, and the methods of a field, from a project's research or data. Every conclusion carries its evidence, rivals and what would prove it wrong, passes a challenge, and has its verdict recorded once with a stamp. Agents: insight-analyst, challenger. Foresight is in poiesis-foresight.",
+      "version": "2.0.0",
       "author": {
         "name": "George Mihai",
         "email": "hi@georgemihai.com"
