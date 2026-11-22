@@ -1,8 +1,9 @@
 # poiesis-insight
 
-Insights and foresight from research or data: the `insight` skill picks a playbook (insight, foresight, challenge);
-the agents `insight-analyst`, `foresight-analyst` and `challenger` run one part each, and every conclusion is
-challenged before it is reported.
+Insights, research questions and foresight from research or data: the `insight` skill picks a playbook (insight,
+questions, methods, foresight, challenge); the agents `insight-analyst`, `foresight-analyst` and `challenger` run
+one part each, and every conclusion is challenged before it is reported. The verdict is recorded once, with a
+stamp that other Poiesis plugins can verify.
 
 The plugin of [Poiesis Insight](https://github.com/gorgmihai92/poiesis-insight), one of the four products in the
 Poiesis Toolkit: Research collects, Insight connects, Frontier explores, Design creates ([Poiesis
