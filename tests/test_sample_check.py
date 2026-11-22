@@ -116,6 +116,13 @@ class Commands(unittest.TestCase):
         self.assertTrue(any("A line with a pipe / in it" in row[4] for row in rows))
         self.assertEqual(self.pick().returncode, 1)                 # nothing new left to draw
 
+    def test_the_report_is_named_the_same_from_any_folder(self):
+        self.pick("--n", "2", "--seed", "1")
+        inside = helpers.run("sample_check.py", "pick", "2026-11-22-blame.md", "--n", "9", "--seed", "1",
+                             "--log", "human-checks.md", cwd=self.root / "insights")
+        self.assertIn("2 lines of this report were already in the log", inside.stdout)
+        self.assertEqual({row[1] for row in sample.read_rows(self.log)}, {"insights/2026-11-22-blame.md"})
+
     def test_a_report_with_no_pointer_to_a_source_is_exit_code_1(self):
         (self.root / "insights" / "2026-11-22-blame.md").write_text("# Nothing cited\n\nA thought.\n", encoding="utf-8")
         done = self.pick()

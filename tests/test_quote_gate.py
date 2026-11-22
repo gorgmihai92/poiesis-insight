@@ -68,12 +68,19 @@ class TheReviewsCases(unittest.TestCase):
         self.assertEqual(gate.find("The effect ... changed behaviour", pages, (1, 1))[0], "NOT FOUND")
         status, where = gate.find("The effect ... did not change behaviour", self.pages, (1, 1))
         self.assertEqual(status, "FOUND")
-        self.assertIn("weak check", where)
+        self.assertIn("has an ellipsis", where)
 
     def test_a_line_under_quotes_that_is_not_a_quote_is_reported(self):
         note = "# A\n\n## Quotes\n- \"the database itself takes in new kinds of record\" (p. 1)\n- the effect was large (p. 2)\n> a blockquote (p. 2)\n"
         read = {number for number, _, _ in gate.quotes_of(note)}
         self.assertEqual([n for n, _ in gate.unread_quote_lines(note, read)], [5, 6])
+
+
+class TheRecheckCases(unittest.TestCase):
+    def test_an_apostrophe_after_the_quote_does_not_end_it(self):
+        note = '- "the database itself takes in new kinds of record" (p. 1), the authors\' words\n'
+        ((_, quote, span),) = gate.quotes_of(note)
+        self.assertEqual((quote, span), ("the database itself takes in new kinds of record", (1, 1)))
 
 
 class Reading(unittest.TestCase):
