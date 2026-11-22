@@ -155,3 +155,26 @@ class Commands(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PropertiesAtTheTop(unittest.TestCase):
+    """A properties block at the top of a report (Obsidian's YAML between two `---` lines) holds links and
+    addresses, but no claim: nothing in it is drawn."""
+
+    PROPERTIES = ('---\n'
+                  'type: insight-report\n'
+                  'plugin: poiesis-insight\n'
+                  'source: https://example.org/paper\n'
+                  'from:\n'
+                  '  - "[[example-2024-field-study]]"\n'
+                  '---\n')
+
+    def test_the_same_claims_are_drawn_with_and_without_properties(self):
+        shift = self.PROPERTIES.count("\n")
+        without = sample.claims_of(REPORT)
+        with_ = sample.claims_of(self.PROPERTIES + REPORT)
+        self.assertEqual(with_, [(number + shift, line) for number, line in without])
+
+    def test_a_rule_further_down_is_not_a_properties_block(self):
+        text = "# Report\n\n---\nA claim (p. 4).\n---\n"
+        self.assertEqual([number for number, _ in sample.claims_of(text)], [4])

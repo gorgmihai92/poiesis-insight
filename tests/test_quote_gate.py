@@ -1,7 +1,9 @@
 """The entry gate: a claim's quote is found in the source's text."""
 from __future__ import annotations
 
+import tempfile
 import unittest
+from pathlib import Path
 
 import helpers
 
@@ -142,3 +144,45 @@ class ThisRepositorysNotes(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+PROPERTIES = ('---\n'
+              'type: source-note\n'
+              'plugin: poiesis-research\n'
+              'from:\n'
+              '  - "[[IN-001]]"\n'
+              '  - "words that are in no source"\n'
+              '---\n')
+
+
+class PropertiesAtTheTop(unittest.TestCase):
+    """Obsidian's properties block, YAML between two `---` lines at the very top, is not part of the note's text:
+    a list item in it that starts with a quotation mark is not a quote."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.folder = Path(self._tmp.name)
+        self.original = (NOTES / "example-2020-counting-works.md").read_text(encoding="utf-8")
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def gate_on(self, text: str):
+        note = self.folder / "example-2020-counting-works.md"
+        note.write_text(text, encoding="utf-8")
+        return helpers.run("quote_gate.py", note, "--papers", PAPERS)
+
+    def test_the_gate_gives_the_same_result_with_and_without_properties(self):
+        without = self.gate_on(self.original)
+        with_ = self.gate_on(PROPERTIES + self.original)
+        self.assertEqual(with_.returncode, without.returncode)
+        self.assertEqual(with_.stdout.splitlines()[-2:], without.stdout.splitlines()[-2:])
+        statuses = lambda done: [line.split(" · ")[0].split()[0] for line in done.stdout.splitlines() if " · line " in line]
+        self.assertEqual(statuses(with_), statuses(without))
+        self.assertNotIn("IN-001", with_.stdout)
+
+    def test_line_numbers_still_count_the_properties_lines(self):
+        first = lambda done: next(line for line in done.stdout.splitlines() if " · line " in line)
+        number = lambda line: int(line.split(" · line ")[1].split(" · ")[0])
+        self.assertEqual(number(first(self.gate_on(PROPERTIES + self.original))),
+                         number(first(self.gate_on(self.original))) + PROPERTIES.count("\n"))

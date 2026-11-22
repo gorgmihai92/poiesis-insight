@@ -8,7 +8,8 @@ so far allow. Run with `python3 -I`.
 
 `pick` lists the report's lines that point to a source: a page `(p. 4)`, a citation `[@key]`, a link to a note,
 a `[[note]]` link, a DOI (written as `doi:` or `doi.org/`) or a web address; rows of a table count, its header
-does not. A line of that report already in the log is not drawn again, so a claim is counted once. It draws
+does not, and nor does a block of Obsidian properties at the very top (YAML between a first line `---` and the
+next `---`). A line of that report already in the log is not drawn again, so a claim is counted once. It draws
 --n of them at random and adds one row for each to the log, with the seed. The draw is the script's, not the
 writer's, so the easy claims are not the ones chosen; the same report and seed give the same draw. Leave
 --seed out: it is there to repeat a draw, not to choose one.
@@ -54,11 +55,23 @@ SEPARATOR_ROW = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
 FENCE = re.compile(r"^\s*(```|~~~)")
 
 
+def without_properties(text: str) -> str:
+    """The text with a properties block at its top blanked line for line, so the line numbers stay the same. The
+    block is Obsidian's: the first line is `---` and it ends at the next `---` line; never closed, it is not one."""
+    lines = text.splitlines(keepends=True)
+    if not lines or lines[0].rstrip() != "---":
+        return text
+    end = next((i for i, line in enumerate(lines[1:], 1) if line.rstrip() == "---"), None)
+    if end is None:
+        return text
+    return "".join(line[len(line.rstrip("\r\n")):] for line in lines[: end + 1]) + "".join(lines[end + 1:])
+
+
 def claims_of(report: str) -> list[tuple[int, str]]:
     """(line number, the line) for each line of a report that points to a source."""
     found = []
     fenced = False
-    lines = report.splitlines()
+    lines = without_properties(report).splitlines()
     for number, line in enumerate(lines, 1):
         if FENCE.match(line):
             fenced = not fenced
