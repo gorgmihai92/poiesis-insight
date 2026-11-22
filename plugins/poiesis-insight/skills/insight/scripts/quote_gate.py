@@ -27,6 +27,9 @@ ellipsis skips are not checked (a "not" may be among them), so such a quote is m
 source there". A quote may run onto the next page; it has to start on the page given. Any list line that starts
 with a double quotation mark is read as a quote, wherever it is in the note.
 
+A block of Obsidian properties at the very top of a note (YAML between a first line `---` and the next `---`) is
+skipped: a list item in it that starts with a quotation mark is not a quote. Line numbers still count its lines.
+
 A list line under a "Quotes" heading that cannot be read as a quote (no opening or closing quotation mark) is
 reported as NOT READ, so that nothing is skipped in silence.
 
@@ -59,6 +62,19 @@ GAP = 200
 QUOTES_HEADING_RE = re.compile(r"^#{1,6}\s+quotes?\b", re.I)
 ANY_HEADING_RE = re.compile(r"^#{1,6}\s")
 LIST_LINE_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+\S")
+
+
+def without_properties(text: str) -> str:
+    """The text with a properties block at its top blanked line for line, so the line numbers stay the same. The
+    block is Obsidian's: the first line is `---` and it ends at the next `---` line; never closed, it is not one."""
+    text = text.removeprefix("\ufeff")  # a byte-order mark is not part of the first line
+    lines = text.splitlines(keepends=True)
+    if not lines or lines[0].rstrip() != "---":
+        return text
+    end = next((i for i, line in enumerate(lines[1:], 1) if line.rstrip() == "---"), None)
+    if end is None:
+        return text
+    return "".join(line[len(line.rstrip("\r\n")):] for line in lines[: end + 1]) + "".join(lines[end + 1:])
 
 
 def fold(text: str) -> str:
@@ -199,7 +215,7 @@ def check(paths: list[Path], papers: list[Path], strict: bool) -> int:
         print(f"{status:10} {note.name} · {detail}")
 
     for path in notes:
-        note = path.read_text(encoding="utf-8-sig", errors="replace")
+        note = without_properties(path.read_text(encoding="utf-8-sig", errors="replace"))
         level = read_level(note)
         quotes = quotes_of(note)
         odd = unread_quote_lines(note, {number for number, _, _ in quotes})
