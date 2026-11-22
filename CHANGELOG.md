@@ -18,6 +18,7 @@ Everything is added: no path or field of 2.0.0 was renamed or removed, and the s
   `test_templates.py`: the block's rules, and `ids.py`, `challenge_stamp.py verify` and `sample_check.py` giving
   the same results on a report with the block and without it; in `test_challenge_stamp.py`, the gate example's
   stamps verifying with properties on top.
+- **Docs.** The README's Research and Design rows name `signal-scout` and `poiesis-studio`, as the other READMEs do.
 - **Not checked in this version:** how Obsidian shows the properties (no vault was opened), and any run on a topic.
 
 ## 2.0.0
