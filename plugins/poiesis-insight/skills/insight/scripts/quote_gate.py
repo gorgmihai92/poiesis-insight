@@ -67,6 +67,7 @@ LIST_LINE_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+\S")
 def without_properties(text: str) -> str:
     """The text with a properties block at its top blanked line for line, so the line numbers stay the same. The
     block is Obsidian's: the first line is `---` and it ends at the next `---` line; never closed, it is not one."""
+    text = text.removeprefix("\ufeff")  # a byte-order mark is not part of the first line
     lines = text.splitlines(keepends=True)
     if not lines or lines[0].rstrip() != "---":
         return text

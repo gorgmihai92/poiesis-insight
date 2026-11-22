@@ -8,9 +8,13 @@ Everything is added: no path or field of 2.0.0 was renamed or removed, and the s
   and Challenge lines, which remain the record, and a verdict is still read from its stamp.
 - **`quote_gate.py` and `sample_check.py` skip the block.** A list item in it that starts with a quotation mark was
   read as a quote, and a line holding a `[[link]]`, a DOI or an address was drawn as a claim. Its lines are now
-  blanked before reading, so line numbers stay the same. Only a block on the very first line counts, and one that
-  is never closed is not a block.
-- **Tests.** In `test_quote_gate.py` and `test_sample_check.py`, tests that failed before the fix;
+  blanked before reading, so line numbers stay the same. Only a block on the very first line counts (after a byte-order
+  mark, if there is one), and one that is never closed is not a block. A quote line inside the block is skipped
+  without a word.
+- **The block is a copy.** `SKILL.md` asks for a value in it to change in the same edit as the report it copies,
+  and says how to write a quotation mark inside a quoted value.
+- **Tests.** In `test_quote_gate.py` and `test_sample_check.py`, three tests that failed before the fix, one that
+  guards it (a `---` further down is not a block) and one for a report that starts with a byte-order mark;
   `test_templates.py`: the block's rules, and `ids.py`, `challenge_stamp.py verify` and `sample_check.py` giving
   the same results on a report with the block and without it; in `test_challenge_stamp.py`, the gate example's
   stamps verifying with properties on top.
