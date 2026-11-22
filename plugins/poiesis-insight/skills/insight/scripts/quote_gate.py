@@ -78,11 +78,11 @@ def quotes_of(note: str) -> list[tuple[int, str, tuple[int, int] | None]]:
 
 def read_level(note: str) -> str:
     """How much of the source was read, as the note says it; 'not stated' when it does not."""
-    hit = READ_LINE_RE.search(note)
-    if hit:
-        return hit.group(1).strip()
-    hit = OLD_READ_RE.search(note)
-    return hit.group(1).strip() if hit else "not stated"
+    hit = READ_LINE_RE.search(note) or OLD_READ_RE.search(note)
+    if not hit:
+        return "not stated"
+    level = hit.group(1).strip()
+    return level if len(level) <= 60 else level[:57].rstrip() + "…"
 
 
 def find(quote: str, pages: dict[int, str], span: tuple[int, int] | None) -> tuple[str, str]:
