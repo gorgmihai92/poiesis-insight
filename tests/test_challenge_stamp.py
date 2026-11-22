@@ -134,6 +134,38 @@ class Vectors(unittest.TestCase):
                          [vector["stamp"] for vector in VECTORS["vectors"]])
 
 
+class TheFormatPage(unittest.TestCase):
+    """`stamp-format.md` is what other plugins verify from, so it has to say what the script does."""
+
+    PAGE = (helpers.SKILL / "stamp-format.md").read_text(encoding="utf-8")
+
+    def test_it_shows_each_vectors_stamp_as_the_script_writes_it(self):
+        for vector in VECTORS["vectors"]:
+            self.assertIn(stamp.stamp_line(vector["stamp"]), self.PAGE, vector["id"])
+
+    def test_its_python_gives_the_scripts_hash_and_seal(self):
+        blocks = re.findall(r"```python\n(.*?)```", self.PAGE, re.S)
+        scope: dict = {}
+        exec(blocks[0] + blocks[1], scope)      # the two snippets of the page, as a reader would paste them
+        for vector in VECTORS["vectors"]:
+            digest = scope["text_sha256"](vector["text"])
+            self.assertEqual(digest, vector["stamp"]["text_sha256"])
+            self.assertEqual(scope["seal"](vector["id"], vector["verdict"], vector["date"], digest),
+                             vector["stamp"]["seal"])
+
+    def test_the_patterns_it_gives_are_the_scripts(self):
+        for pattern in (stamp.HEADING_RE, stamp.ID_LINE_RE, stamp.CHALLENGE_LINE_RE):
+            self.assertIn("`" + pattern.pattern + "`", self.PAGE)
+        self.assertIn(stamp.SEAL_HEAD, self.PAGE)
+        self.assertIn("`" + stamp.DEFAULT_STAMPS + "`", self.PAGE)
+
+    def test_its_example_lines_are_what_verify_prints(self):
+        for line in ("OK IN-004 weakened 2026-11-22", "NO STAMP IN-009: no challenge is recorded",
+                     'VERDICT RETYPED IN-004: shown "kept", stamped weakened on 2026-11-22',
+                     "TEXT CHANGED IN-004: the sentence is not the one stamped weakened on 2026-11-22. Challenge it again"):
+            self.assertIn(line, self.PAGE)
+
+
 class Writing(Folder):
     def test_a_stamp_holds_the_id_the_verdict_the_date_and_the_hash_of_the_heading(self):
         done = self.write("--note", self.note, "--id", "IN-001", "--verdict", "weakened", "--by", "agent")
