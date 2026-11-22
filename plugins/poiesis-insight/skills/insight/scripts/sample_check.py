@@ -7,9 +7,11 @@ so far allow. Run with `python3 -I`.
   sample_check.py bound --checked 30 --wrong 0
 
 `pick` lists the report's lines that point to a source: a page `(p. 4)`, a citation `[@key]`, a link to a note,
-a `[[note]]` link, a DOI or a web address. It draws --n of them at random and adds one row for each to the log.
-The draw is the script's, not the writer's, so the easy claims are not the ones chosen. The seed is printed:
-the same report and seed give the same draw.
+a `[[note]]` link, a DOI (written as `doi:` or `doi.org/`) or a web address; rows of a table count, its header
+does not. A line of that report already in the log is not drawn again, so a claim is counted once. It draws
+--n of them at random and adds one row for each to the log, with the seed. The draw is the script's, not the
+writer's, so the easy claims are not the ones chosen; the same report and seed give the same draw. Leave
+--seed out: it is there to repeat a draw, not to choose one.
 
 The person opens each source and fills the row's `result` cell with `ok` or `wrong`, and a few words under
 `what was seen`. A row with an empty result has not been checked.
@@ -42,11 +44,13 @@ DEFAULT_LOG = "insights/human-checks.md"
 HEADER = ("# Human checks\n\n"
           "Claims drawn at random by `sample_check.py`, for a person to check against the source. Fill `result` "
           "with `ok` or `wrong`.\n\n"
-          "| date | report | line | claim | result | what was seen |\n"
-          "|---|---|---|---|---|---|\n")
+          "| date | report | line | seed | claim | result | what was seen |\n"
+          "|---|---|---|---|---|---|---|\n")
 POINTS_TO_A_SOURCE = re.compile(
-    r"\(pp?\.\s*\d+[^)]*\)|\[@[^\]]+\]|\]\([^)\s]+\.md[^)]*\)|\[\[[^\]]+\]\]|\b10\.\d{4,9}/\S+|https?://\S+", re.I)
-SKIPPED_LINE = re.compile(r"^\s*(\||#|```|~~~|[-*+]\s+\*\*(Id|From|Written|Challenge):?\*\*)", re.I)
+    r"\(pp?\.\s*\d+[^)]*\)|\[@[^\]]+\]|\]\([^)\s]+\.md[^)]*\)|\[\[[^\]]+\]\]|(?:doi:\s*|doi\.org/)10\.\d{4,9}/\S+"
+    r"|https?://\S+", re.I)
+SKIPPED_LINE = re.compile(r"^\s*(#|```|~~~|[-*+]\s+\*\*(Id|From|Written|Challenge):?\*\*)", re.I)
+SEPARATOR_ROW = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
 FENCE = re.compile(r"^\s*(```|~~~)")
 
 
@@ -54,12 +58,17 @@ def claims_of(report: str) -> list[tuple[int, str]]:
     """(line number, the line) for each line of a report that points to a source."""
     found = []
     fenced = False
-    for number, line in enumerate(report.splitlines(), 1):
+    lines = report.splitlines()
+    for number, line in enumerate(lines, 1):
         if FENCE.match(line):
             fenced = not fenced
             continue
         if fenced or SKIPPED_LINE.match(line) or not POINTS_TO_A_SOURCE.search(line):
             continue
+        if line.lstrip().startswith("|"):
+            following = lines[number] if number < len(lines) else ""
+            if SEPARATOR_ROW.match(line) or SEPARATOR_ROW.match(following):
+                continue                     # the separator, or the header row above it
         found.append((number, re.sub(r"\s+", " ", line).strip()))
     return found
 
@@ -102,10 +111,18 @@ def read_rows(log: Path) -> list[list[str]]:
         if not line.lstrip().startswith("|"):
             continue
         cells = [part.strip() for part in line.strip().strip("|").split("|")]
-        if len(cells) < 5 or cells[0] in ("date", "") or set(cells[0]) <= set("-: "):
+        if len(cells) < 6 or cells[0] in ("date", "") or set(cells[0]) <= set("-: "):
             continue
         rows.append(cells)
     return rows
+
+
+def shown_path(path: Path) -> str:
+    """A report's path as written in the log: relative to the current folder, never a home path."""
+    try:
+        return path.resolve().relative_to(Path.cwd().resolve()).as_posix()
+    except ValueError:
+        return path.name
 
 
 def cmd_pick(args) -> int:
@@ -119,18 +136,31 @@ def cmd_pick(args) -> int:
         print(f"No line of {report} points to a source (a page, a citation, a link to a note, a DOI or an "
               "address), so there is nothing to draw from.")
         return 1
+    log = Path(args.log)
+    name = shown_path(report)
+    try:
+        done = {row[2] for row in read_rows(log) if row[1] == name} if log.is_file() else set()
+    except (OSError, UnicodeDecodeError) as err:
+        print(f"sample_check.py: cannot read {log}: {err}", file=sys.stderr)
+        return 2
+    already = len(claims)
+    claims = [(number, line) for number, line in claims if str(number) not in done]
+    if not claims:
+        print(f"Every line of {name} that points to a source is already in {log}: nothing new to draw.")
+        return 1
     seed = args.seed if args.seed is not None else secrets.randbelow(10 ** 9)
     drawn = sorted(random.Random(seed).sample(claims, min(args.n, len(claims))))
     today = args.date or datetime.date.today().isoformat()
-    log = Path(args.log)
     log.parent.mkdir(parents=True, exist_ok=True)
     new = not log.exists()
     with log.open("a", encoding="utf-8", newline="\n") as handle:
         if new:
             handle.write(HEADER)
         for number, line in drawn:
-            handle.write(f"| {today} | {cell(report.as_posix())} | {number} | {cell(line)} |  |  |\n")
+            handle.write(f"| {today} | {cell(name)} | {number} | {seed} | {cell(line)} |  |  |\n")
     print(f"{len(drawn)} of the {len(claims)} lines that point to a source, drawn with seed {seed}:")
+    if already > len(claims):
+        print(f"({already - len(claims)} lines of this report were already in the log and were left out.)")
     for number, line in drawn:
         print(f"  line {number}: {line}")
     if len(claims) < args.n:
@@ -149,7 +179,7 @@ def cmd_score(args) -> int:
     except (OSError, UnicodeDecodeError) as err:
         print(f"sample_check.py: cannot read {log}: {err}", file=sys.stderr)
         return 1
-    results = [row[4].lower() for row in rows]
+    results = [row[5].lower() for row in rows]
     ok, wrong = results.count("ok"), results.count("wrong")
     waiting = sum(1 for result in results if not result)
     other = len(results) - ok - wrong - waiting
@@ -188,7 +218,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command == "pick" and args.n < 1:
         parser.error("--n has to be at least 1")
-    return {"pick": cmd_pick, "score": cmd_score, "bound": cmd_bound}[args.command](args)
+    try:
+        return {"pick": cmd_pick, "score": cmd_score, "bound": cmd_bound}[args.command](args)
+    except OSError as err:
+        print(f"sample_check.py: {err}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

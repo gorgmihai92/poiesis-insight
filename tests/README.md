@@ -31,9 +31,9 @@ This folder is not part of the plugin, so it is not installed with it.
   `synthetic_map.py` writes the prompt of the synthetic case from made-up data (synthetic, for the test).
 
 ## The lab notebook
-Four tests also read `fixtures/` in the Poiesis Lab notebook, which is outside this repository: the stamp test on
-the notebook's own two files, the check that the copied rows are still the notebook's, the check that the eval
-prompts are what the notebook's numbers give, and nothing else. They look in the folder `POIESIS_LAB` names,
+Three tests also read `fixtures/` in the Poiesis Lab notebook, which is outside this repository: the stamp test on
+the notebook's own two files, the check that the copied rows are still the notebook's, and the check that the
+eval prompts are what the notebook's numbers give. They look in the folder `POIESIS_LAB` names,
 then in `~/Poiesis Lab`. Where neither holds the notebook they are skipped and say so; the same checks then run
 on the copies in this folder.
 

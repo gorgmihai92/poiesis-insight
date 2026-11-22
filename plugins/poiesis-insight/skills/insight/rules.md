@@ -22,7 +22,7 @@ checked:** what was skipped, or "nothing". These rules limit what is reported as
 ## Two loops
 Collect the evidence first (what the input shows, each item with its reference), then make sense of it (schemas,
 hypotheses, conclusions), and go back to the evidence when a hypothesis needs it. Every conclusion points back to
-its evidence items. (Pirolli & Card 2005, abstract only)
+its evidence items. (Pirolli & Card 2005, abstract or secondary summaries only)
 
 ## Every conclusion carries
 - **Evidence:** the items it rests on, each with its reference. A single memorable case is not a pattern: count
@@ -36,7 +36,7 @@ its evidence items. (Pirolli & Card 2005, abstract only)
 - **Rests on:** the one to three items the conclusion would fall without (Heuer 1999, p. 125).
 - **Would be wrong if:** what observation would disprove it, and what to watch for (Heuer 1999, p. 125).
 - **Confidence:** high / medium / low, with the reason. Not from how convincing it feels: intuition is reliable
-  only in regular, learnable environments with feedback (Kahneman & Klein 2009, abstract only).
+  only in regular, learnable environments with feedback (Kahneman & Klein 2009, abstract or secondary summaries only).
 
 ## Weighing
 - One rule for weighing evidence, applied the same way to every rival. Analysts who applied their rule
@@ -64,7 +64,7 @@ its evidence items. (Pirolli & Card 2005, abstract only)
 - Repeats of one item by one source count once.
 
 ## Hidden patterns and uncommon conclusions
-- These are where illusory patterns appear (Whitson & Galinsky 2008, abstract only; contested by a small
+- These are where illusory patterns appear (Whitson & Galinsky 2008, abstract or secondary summaries only; contested by a small
   replication). A pattern
   is reported only with independent support (more than one source or data slice) and after asking whether chance or
   the way the data were collected would produce it.
@@ -99,6 +99,8 @@ applied them.)
   separated by commas. It names what shaped the object, not everything that was read: having used a source does
   not make the result a derivation of it (W3C PROV-DM 2013, section 2.1.2; the note says which sections were
   read).
+- `- **Written:** YYYY-MM-DD` is the day the object's sentence was last written; without it, the date in the
+  note's file name counts. When a stale object is rewritten, its Written line gets the new day.
 - An object is **stale** when something in its From was dropped, weakened or challenged again after the object
   was written. `python3 -I $S/ids.py stale` lists stale objects and changes nothing. What to do with each is
   decided by a person or in the next session: challenge it again, rewrite it, or leave it and say so.

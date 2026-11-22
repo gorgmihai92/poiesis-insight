@@ -17,15 +17,21 @@ One line per quote, and one per note that has nothing to check:
   NOT FOUND   the words are not in the source's text
   NO TEXT     the source's text is not on this machine, so the note's quotes were not checked
   NO QUOTES   the note has no quote line, so none of its claims can be checked this way
+  NOT READ    a line under "Quotes" that could not be read as a quote
 
-Letters and digits have to match in order. Spaces, hyphens at line ends, quotation marks, accents and ligatures
-are ignored, because text taken out of a PDF mangles them. `...` or `…` splits a quote into parts that must all
-be there, in order. A quote may run onto the next page; it has to start on the page given.
+Letters and digits have to match in order, and so do the marks that change a number: a decimal point or comma
+between digits, a minus or plus sign before one, and %, <, >, =, ±. Spaces, hyphens at line ends, quotation
+marks, accents and ligatures are ignored, because text taken out of a PDF mangles them. `...` or `…` splits a
+quote into parts that must all be there, in order, each within 200 letters of the one before. A quote may run
+onto the next page; it has to start on the page given.
+
+A list line under a "Quotes" heading that cannot be read as a quote (no opening or closing quotation mark) is
+reported as NOT READ, so that nothing is skipped in silence.
 
 FOUND shows that the words are in the source. It does not show that a claim built on them follows.
 
 Exit codes: 0 no quote failed; 1 a quote is NOT FOUND or on the WRONG PAGE, or with --strict a note could not
-be checked (NO TEXT, NO QUOTES); 2 a wrong command line.
+be checked (NO TEXT, NO QUOTES, NOT READ); 2 a wrong command line.
 """
 from __future__ import annotations
 
@@ -35,7 +41,7 @@ import sys
 import unicodedata
 from pathlib import Path
 
-MARKS = "\"“”„«»"
+MARKS = "\"“”„«»‘’'"
 QUOTE_LINE_RE = re.compile(r"^\s*[-*+]\s+[" + MARKS + r"](.+)$")
 PAGE_RE = re.compile(r"\bpp?\.\s*(\d+)(?:\s*[-–—]\s*(\d+))?")
 MARKER_RE = re.compile(r"^\[p\. (\d+)\]\s*$", re.M)
@@ -45,9 +51,32 @@ READ_LINE_RE = re.compile(r"^\s*[-*+]\s+\*\*Read:?\*\*:?\s*(.+)$", re.M)
 OLD_READ_RE = re.compile(r"\*\*((?:abstract|title|reference)[^*]*only[^*]*)\*\*", re.I)
 
 
+NUMBER_MARKS = {"%", "<", ">", "=", "±"}
+MINUS = {"-", "−", "–", "+"}
+GAP = 200
+QUOTES_HEADING_RE = re.compile(r"^#{1,6}\s+quotes?\b", re.I)
+ANY_HEADING_RE = re.compile(r"^#{1,6}\s")
+LIST_LINE_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+\S")
+
+
 def fold(text: str) -> str:
-    """What survives being taken out of a PDF: letters and digits, in lower case, accents and ligatures undone."""
-    return "".join(char for char in unicodedata.normalize("NFKD", text).casefold() if char.isalnum())
+    """What survives being taken out of a PDF: letters and digits in lower case, accents and ligatures undone,
+    and the marks that change a number: a point or comma between digits, a sign before a digit, %, <, >, =, ±.
+    A minus sign is kept as `-`."""
+    chars = unicodedata.normalize("NFKD", text).casefold()
+    out = []
+    for i, char in enumerate(chars):
+        before = chars[i - 1] if i else ""
+        after = chars[i + 1] if i + 1 < len(chars) else ""
+        if char.isalnum() and unicodedata.category(char) != "Mn":
+            out.append(char)
+        elif char in ".," and before.isdigit() and after.isdigit():
+            out.append(char)
+        elif char in MINUS and after.isdigit() and not before.isalnum():
+            out.append("+" if char == "+" else "-")
+        elif char in NUMBER_MARKS:
+            out.append(char)
+    return "".join(out)
 
 
 def pages_of(text: str) -> dict[int, str]:
@@ -76,6 +105,18 @@ def quotes_of(note: str) -> list[tuple[int, str, tuple[int, int] | None]]:
     return found
 
 
+def unread_quote_lines(note: str, read: set[int]) -> list[tuple[int, str]]:
+    """List lines under a "Quotes" heading that were not read as quotes."""
+    found, inside = [], False
+    for number, line in enumerate(note.splitlines(), 1):
+        if ANY_HEADING_RE.match(line):
+            inside = bool(QUOTES_HEADING_RE.match(line))
+            continue
+        if inside and number not in read and (LIST_LINE_RE.match(line) or line.lstrip().startswith(">")):
+            found.append((number, line.strip()))
+    return found
+
+
 def read_level(note: str) -> str:
     """How much of the source was read, as the note says it; 'not stated' when it does not."""
     hit = READ_LINE_RE.search(note) or OLD_READ_RE.search(note)
@@ -92,20 +133,23 @@ def find(quote: str, pages: dict[int, str], span: tuple[int, int] | None) -> tup
         return "NOT FOUND", "nothing to look for"
 
     def start_in(text: str) -> int:
-        start = position = text.find(parts[0])
-        if start < 0:
-            return -1
-        position += len(parts[0])
-        for part in parts[1:]:
-            position = text.find(part, position)
-            if position < 0:
-                return -1
-            position += len(part)
-        return start
+        start = text.find(parts[0])
+        while start >= 0:
+            position = start + len(parts[0])
+            for part in parts[1:]:
+                found = text.find(part, position, position + GAP + len(part))
+                if found < 0:
+                    break
+                position = found + len(part)
+            else:
+                return start
+            start = text.find(parts[0], start + 1)
+        return -1
 
     numbers = sorted(pages)
     letters = sum(map(len, parts))
-    weak = f" (only {letters} letters: a weak check)" if letters < 20 else ""
+    weak = f" (only {letters} letters: a weak check)" if letters < 20 else \
+        (" (a part of it is under 12 letters: a weak check)" if min(map(len, parts)) < 12 and len(parts) > 1 else "")
     if numbers == [0]:
         return ("FOUND", "the text has no page marks" + weak) if start_in(pages[0]) >= 0 \
             else ("NOT FOUND", "not in the source's text")
@@ -155,6 +199,11 @@ def check(paths: list[Path], papers: list[Path], strict: bool) -> int:
         note = path.read_text(encoding="utf-8-sig", errors="replace")
         level = read_level(note)
         quotes = quotes_of(note)
+        odd = unread_quote_lines(note, {number for number, _, _ in quotes})
+        for number, line in odd:
+            say("NOT READ", path, f"line {number} · under Quotes and not a quote line: {line[:60]}")
+        if odd:
+            unchecked.append(path.name)
         if not quotes:
             say("NO QUOTES", path, f"read: {level} · no quote line, so nothing was checked")
             unchecked.append(path.name)

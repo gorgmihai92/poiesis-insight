@@ -1,11 +1,18 @@
 # The challenge stamp: format 1
 
 How poiesis-insight records a challenge verdict, and how anything that builds on a conclusion checks it. This
-page is enough to verify a stamp with your own code: no Poiesis plugin needs another to be installed, so
-poiesis-frontier and poiesis-studio read stamps from this description, not from this plugin's script.
+page is enough to verify a stamp with your own code: no Poiesis plugin needs another to be installed, so the
+plugins that consume stamps (poiesis-frontier 1.2.0 and poiesis-studio 0.1.0, not released yet) are built from
+this description, not from this plugin's script.
 
 Format 1, written 2026-11-22. A change to the fields, to the text that is hashed or to the seal is a new format
 number and a major version of the plugin. Everything marked **P** is a product decision.
+
+Changed on 2026-11-22, after an independent review, without changing the format: the rules for reading a note
+are stricter (an `Id` or `Challenge` line may be written without the list dash; the label passes only when its
+one verdict word is the stamped one; a conclusion with no Challenge line is skipped only when it is a research
+question), the script escapes everything outside ASCII when it writes a line, and lines are split at line feeds
+only. Stamps written before still verify.
 
 ## In short
 
@@ -17,7 +24,8 @@ and the verdict shown next to the sentence is the recorded one.
 ## Where a stamp lives (P)
 
 `insights/challenge-stamps.jsonl`, relative to the project's root. One stamp per line, as JSON. UTF-8, lines end
-with a line feed.
+with a line feed, and a line is split there only: the script writes every character outside ASCII as a `\u`
+escape, so no character inside a field (U+2028, for one) can end a line.
 
 - The file is only ever appended to. A line is never edited or removed.
 - **The last line for an id is its stamp in force.** Earlier lines for the same id are the history: a conclusion
@@ -35,10 +43,10 @@ with a line feed.
 
 | Field | Required | Value |
 |---|---|---|
-| `v` | yes | the number `1` |
+| `v` | yes | the integer `1` (not `true`, not `1.0`) |
 | `id` | yes | the conclusion's id, exactly as in the note: a letter or digit, then up to 63 letters, digits, `.`, `_` or `-`. Compared as typed: `c6` is not `C6` |
 | `verdict` | yes | `kept`, `weakened` or `dropped`, in lower case. Nothing else |
-| `date` | yes | the day of the challenge, `YYYY-MM-DD`, local time |
+| `date` | yes | the day of the challenge, `YYYY-MM-DD` in ASCII digits and a real date, local time |
 | `text_sha256` | yes | 64 lower-case hexadecimal digits: the hash of the sentence (next section) |
 | `seal` | yes | 64 lower-case hexadecimal digits: the hash of the other four (section "The seal") |
 | `by` | no | `agent` (the `challenger` agent gave the verdict) or `inline` (the session challenged its own conclusion) |
@@ -123,15 +131,19 @@ A conclusion in a Markdown note is a heading with an `Id` line under it:
 - **Challenge:** weakened · the two growth rates differ by about one standard error
 ```
 
-- Skip the lines of fenced code blocks: a line that starts with ``` or `~~~` (after spaces or tabs) opens or
-  closes one.
+- Split the note at line feeds only, and drop a carriage return before one.
+- Skip the lines of fenced code blocks: a line that starts with three or more backticks or tildes (after spaces
+  or tabs) opens one, and it is closed only by a line of the same character, at least as many, and nothing
+  else after them.
 - **A heading** is a line matching `^#{1,6}[ \t]+(.*)$`. The sentence is group 1, taken whole and then
   normalised. A block runs from a heading to the line before the next heading of any level.
 - **The id** is on the first line of the block matching, without regard to case,
-  `^[ \t]*[-*+][ \t]+\*\*id:?\*\*:?[ \t]*(\S+)[ \t]*$`. A block with no such line is not an object.
-- **The verdict shown** is on the first line of the block matching, without regard to case,
-  `^[ \t]*[-*+][ \t]+\*\*challenge:?\*\*:?[ \t]*(.*)$`. Take the first run of letters `[A-Za-z]+` in group 1 and
-  put it in lower case: `**Kept** · …` gives `kept`, and `not challenged` gives `not`, which is no verdict.
+  `^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?id(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(\S+)[ \t]*$`. A block with no such line is not an object.
+- **The label shown** is on the first line of the block matching, without regard to case,
+  `^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?challenge[a-z]*(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$` (`Challenge`, `Challenged`, with or without the bold marks and the
+  list dash). Take group 1 up to its first `·`, and find in it every whole word `kept`, `weakened` or `dropped`,
+  without regard to case. `**Kept** · …` gives {kept}; `weakened → kept after review` gives {weakened, kept};
+  `not challenged` gives nothing.
 - An id under two headings is an error: neither can be verified.
 - Insight writes its conclusions in `insights/<date>-<topic>.md`. To find a conclusion by id, read the notes in
   `insights/`; `where` may save the search.
@@ -146,7 +158,7 @@ Read the file and keep, for the id, its **last** line. Then, in this order:
 | 2 | the id has a line | **no stamp**: the conclusion was never challenged |
 | 3 | the last line for the id has `v` equal to 1, a verdict among the three, a date, a 64-digit `text_sha256`, and a `seal` equal to the one you compute | **stamp altered**. Do not fall back to an earlier line for the id: it may be a verdict that was since replaced |
 | 4 | `text_sha256` equals the hash of the sentence as it stands now | **text changed**: the sentence is not the one that was challenged |
-| 5 | the verdict shown with the sentence, if one is shown, equals `verdict` | **verdict retyped**: the label drifted. The stamp is the record, not the label |
+| 5 | if the block has a label, the verdict words in it are exactly one, and it is `verdict` | **verdict retyped**: the label drifted, says two verdicts, or says none (such as "not challenged" on a stamped conclusion). The stamp is the record, not the label |
 
 `verify` only says whether the record is intact. A dropped conclusion with an intact stamp verifies; what a
 dropped verdict means for your object is your gate's decision.
@@ -191,12 +203,13 @@ TEXT CHANGED IN-004: the sentence is not the one stamped weakened on 2026-11-22.
 VERDICT RETYPED IN-004: shown "kept", stamped weakened on 2026-11-22
 STAMP ALTERED IN-004: line 1 of insights/challenge-stamps.jsonl does not match its seal: it was changed after it was written
 NOT IN NOTE IN-404: insights/x.md has no conclusion with this id
-SKIPPED QN-001: no Challenge line and no stamp, so it is not read as a conclusion
+SKIPPED QN-001: a research question with no Challenge line and no stamp; questions are not stamped
 2 checked: 1 in order, 1 not.
 ```
 
-With `--note` and no `--id`, a block that has an id, no `Challenge` line and no stamp is skipped and does not
-count: a research question has an id and is not challenged.
+With `--note` and no `--id`, a research question (`QN-…`) with no `Challenge` line and no stamp is skipped and
+does not count. Any other object with no stamp is `NO STAMP`, with a Challenge line or without one. A note in
+which nothing can be checked fails: `Nothing checked: … Nothing verifies.`, exit code 1.
 
 ## A worked example
 
@@ -326,3 +339,6 @@ sentence of `IN-001` is the text of vector 1, so its `text_sha256` is the same a
 - **A split verdict.** A stamp has three verdicts and no fourth: a conclusion with parts is recorded as
   `weakened`, and its sentence becomes what survives (**P**).
 - There is no hook. Nothing runs `verify` by itself.
+- **What a stamp cannot show.** Nothing links one line to the next, so a removed last line for an id brings
+  the earlier verdict back unseen, and a line lost in a merge is not detected. Keep the stamp file in git, where
+  a removed line shows in the history. A research question is refused by `write`: stamp the gap it rests on.

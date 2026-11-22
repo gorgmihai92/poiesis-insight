@@ -3,7 +3,8 @@
 Interpretation that survives a challenge, in Claude Code. Poiesis Insight interprets the research or data a project
 already has. It finds **insights** (what the evidence means), writes **research questions** from what the evidence
 does not answer, and reads a field's findings against its **methods**. Every conclusion carries its evidence, its rival explanations and what would prove it wrong, and
-must survive a challenge before it is reported. The verdict of that challenge is recorded once and cannot drift.
+must survive a challenge before it is reported. The verdict of that challenge is recorded once, and a check shows
+when it drifts.
 
 For anyone with research notes, interviews, surveys or usage data who needs conclusions that hold up. Poiesis
 Insight is one of the five products in the [Poiesis Toolkit](#part-of-the-poiesis-toolkit) and works on its own, as
@@ -78,7 +79,6 @@ The plugin comes in when the work is interpretation, and you can name its agents
 - *"Here are 40 interview transcripts: what patterns do you see, and how sure are you?"*
 - *"Here is the Google Forms export of our customer survey (responses.csv): what stands out?"*
 - *"Search this usage log for correlations we haven't thought of."*
-- *"Is the drop in weekly signups a real trend or noise?"*
 - *"Challenge this conclusion: users leave because the pricing page is confusing."*
 - *"What does this literature not answer? Describe the gaps, then give me research questions."*
 - *"How do the studies in my evidence table measure recall? What does that let them say?"*
@@ -127,8 +127,9 @@ while the first verdicts stayed on them. Version 2.0.0 closes those gaps in code
   their sources, and says what your checks so far allow: five clean checks still leave up to 45% of claims
   possibly wrong, thirty bring that under 10%.
 
-Poiesis Frontier and Poiesis Studio read the stamps with their own code, from the description in
-`plugins/poiesis-insight/skills/insight/stamp-format.md`.
+Other plugins can check a stamp with their own code, from the description in
+`plugins/poiesis-insight/skills/insight/stamp-format.md`. Poiesis Frontier 1.2.0 and the report of Poiesis Studio
+0.1.0 are being built to do so; neither is released yet.
 
 ## Working with Poiesis Research and your own data
 
@@ -267,7 +268,7 @@ Mellers et al. 2015, Benneyan et al. 2003, Kahneman & Lovallo 1993) moved with t
 
 ## Files shared with the other products
 
-Writes `insights/<date>-<topic>.md`, each insight with **Id**, **From**, **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by Frontier; `insights/challenge-stamps.jsonl`, the verdicts as recorded, read by Frontier and Studio. Until 1.4.3 it also wrote `foresight/`; since 2.0.0 [Poiesis Foresight](https://github.com/gorgmihai92/poiesis-foresight) does. It reads Research notes, quotes and evidence tables, and Frontier's results.
+Writes `insights/<date>-<topic>.md`, each insight with **Id**, **From**, **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by Frontier; `insights/challenge-stamps.jsonl`, the verdicts as recorded, to be read by Frontier 1.2.0 and Studio 0.1.0, which are not released yet. Until 1.4.3 it also wrote `foresight/`; since 2.0.0 [Poiesis Foresight](https://github.com/gorgmihai92/poiesis-foresight) does. It reads Research notes, quotes and evidence tables, and Frontier's results.
 
 The paths and fields the other products read are a contract: they change only in a major version, noted in the
 changelog. Every plugin reads the others' files tolerantly: a missing file or field is reported as unknown, never

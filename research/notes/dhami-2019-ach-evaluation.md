@@ -5,6 +5,7 @@
 - **Licence:** accepted manuscript in a university repository: local only.
 - **Evidence:** empirical · 50 intelligence analysts randomly assigned to ACH or not, task with probabilistic
   ground truth (p. 1).
+- **Read:** not recorded when the note was written for 1.0.0. The note cites pages of the PDF named under **File**, so the text was open then; which pages were read is not recorded. Not checked again on 2026-11-22: the PDF is kept local and is not on this machine, so its quotes could not be checked (`quote_gate.py`: NO TEXT).
 
 ## What it says
 - ACH-trained analysts did not follow all the steps; evidence that ACH reduces confirmation bias was mixed; ACH may
