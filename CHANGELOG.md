@@ -1,10 +1,20 @@
 # Changelog
 
-## Unreleased: becomes 2.0.0 when foresight moves out
-Everything below is built. The version is still 1.4.3, because one step is left: foresight moves to
-[poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight) once that plugin is published, and that
-removal is what makes this a major version.
+## 2.0.0
+A major version: foresight leaves this plugin, and two paths of the files contract are no longer written here.
 
+- **Foresight moved to [poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight)** (0.1.0, its `main`
+  at `874fab3`, checked 2026-11-22). Removed from here, and where each went there:
+  - `playbooks/foresight.md` → the playbooks `horizons`, `layers`, `forecasts` and `trends` of its `foresight`
+    skill (every rule sentence is there word for word);
+  - `scripts/forecasts.py` → `skills/foresight/scripts/forecasts.py` (the same output on the lab's test log);
+  - `agents/foresight-analyst.md` → its `foresight-analyst` agent;
+  - `templates/forecasts.md` and `templates/signal.md` → its templates of the same names;
+  - the notes of Hiltunen 2008, Sharpe et al. 2016 (with its open text), Inayatullah 1998, Phadnis et al. 2015,
+    Mellers et al. 2015, Benneyan et al. 2003 and Kahneman & Lovallo 1993 → its `research/notes/`.
+- **Files contract:** this plugin no longer writes `foresight/<date>-<topic>.md` or `foresight/forecasts.md`;
+  poiesis-foresight writes them with the same columns. `ids.py` still reads `foresight/` to follow **From** lines.
+- Every remaining mention of foresight points to the new plugin; the READMEs count five products.
 - **The challenge stamp.** `challenge_stamp.py` records each verdict once, in `insights/challenge-stamps.jsonl`,
   with the conclusion's id, the day and a hash of its sentence. `verify` fails on a missing stamp, a changed
   sentence, a retyped verdict or an altered line. `stamp-format.md` describes the format so that poiesis-frontier

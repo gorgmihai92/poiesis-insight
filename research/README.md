@@ -37,10 +37,7 @@ research/notes --papers research/papers`.
 - **Ids, From and the challenge stamp:** [W3C 2013](notes/w3c-2013-prov-dm.md), entity and derivation (part of
   the text); [the lab's two recorded runs](notes/poiesis-lab-2026-recorded-runs.md), what went wrong when nothing
   recorded a verdict (observation).
-- **Foresight:** [Hiltunen 2008](notes/hiltunen-2008-future-sign.md), weak signals;
-  [Sharpe et al. 2016](notes/sharpe-2016-three-horizons.md), three horizons;
-  [Inayatullah 1998](notes/inayatullah-1998-causal-layered-analysis.md), causal layered analysis;
-  [Phadnis et al. 2015](notes/phadnis-2015-scenario-planning.md), what scenarios do;
-  [Mellers et al. 2015](notes/mellers-2015-superforecasters.md), scored forecasts.
-- **Trends in data:** [Benneyan et al. 2003](notes/benneyan-2003-control-charts.md), signal vs noise (control
-  charts); [Kahneman & Lovallo 1993](notes/kahneman-1993-outside-view.md), base rates (the outside view).
+- **Foresight and trends in data** moved in 2.0.0 to
+  [poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight), with their seven notes (Hiltunen 2008,
+  Sharpe et al. 2016, Inayatullah 1998, Phadnis et al. 2015, Mellers et al. 2015, Benneyan et al. 2003, Kahneman &
+  Lovallo 1993) and the open text of Sharpe et al. 2016.

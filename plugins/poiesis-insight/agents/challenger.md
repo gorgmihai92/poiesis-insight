@@ -1,6 +1,6 @@
 ---
 name: challenger
-description: Tests conclusions before they are reported - rivals, diagnosticity, independence, chance, sensitivity, consistency, denominators, replication, absence - and returns one structured verdict per conclusion, kept, weakened (with the narrower claim) or dropped. Use on the output of insight-analyst or foresight-analyst, or on any conclusion the user wants tested. Read-only.
+description: Tests conclusions before they are reported - rivals, diagnosticity, independence, chance, sensitivity, consistency, denominators, replication, absence - and returns one structured verdict per conclusion, kept, weakened (with the narrower claim) or dropped. Use on the output of insight-analyst, of poiesis-foresight's foresight-analyst, or on any conclusion the user wants tested. Read-only.
 tools: Bash, Read, Grep, Glob, WebSearch, WebFetch
 model: sonnet
 ---
