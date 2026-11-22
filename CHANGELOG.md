@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.1.0
+Everything is added: no path or field of 2.0.0 was renamed or removed, and the scripts read every note as before.
+- **Properties.** `templates/report.md` is the top of every report in `insights/<date>-<topic>.md`: a block of
+  Obsidian properties (YAML between two `---` lines) with `type`, `plugin`, `date` and `topic`, then the title. A
+  report holds several conclusions, so its properties carry no id or verdict: those stay on the Id, From, Written
+  and Challenge lines, which remain the record, and a verdict is still read from its stamp.
+- **`quote_gate.py` and `sample_check.py` skip the block.** A list item in it that starts with a quotation mark was
+  read as a quote, and a line holding a `[[link]]`, a DOI or an address was drawn as a claim. Its lines are now
+  blanked before reading, so line numbers stay the same. Only a block on the very first line counts, and one that
+  is never closed is not a block.
+- **Tests.** In `test_quote_gate.py` and `test_sample_check.py`, tests that failed before the fix;
+  `test_templates.py`: the block's rules, and `ids.py`, `challenge_stamp.py verify` and `sample_check.py` giving
+  the same results on a report with the block and without it; in `test_challenge_stamp.py`, the gate example's
+  stamps verifying with properties on top.
+- **Not checked in this version:** how Obsidian shows the properties (no vault was opened), and any run on a topic.
+
 ## 2.0.0
 A major version: foresight leaves this plugin, and two paths of the files contract are no longer written here.
 

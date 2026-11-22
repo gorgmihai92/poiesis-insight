@@ -209,6 +209,7 @@ plugins/
         sample_check.py       draw claims for a person to check; what the checks allow
         to_text.py            convert Excel, Word and CSV into CSV or TXT, masking emails and phone numbers
       templates/
+        report.md             the top of every report: its properties and its title
         insight.md            one insight with everything it carries
         question.md           one research question and the gap it rests on
         methods.md            the method table of a field
