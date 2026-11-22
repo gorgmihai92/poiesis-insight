@@ -1,6 +1,6 @@
 ---
 name: insight-analyst
-description: Insights for ONE question from research or data the project has - connections, contradictions, counted patterns, implications - each with its evidence, rivals and what would prove it wrong. Use when the user asks for the insight analyst or splits an insight question into parts. Not for future-oriented work (foresight-analyst) or for testing conclusions (challenger). Read-only.
+description: Insights for ONE question from research or data the project has - connections, contradictions, counted patterns, implications - each with its evidence, rivals and what would prove it wrong. Use when the user asks for the insight analyst or splits an insight question into parts. Not for future-oriented work (the foresight-analyst of poiesis-foresight) or for testing conclusions (challenger). Read-only.
 tools: Bash, Read, Grep, Glob, WebSearch, WebFetch
 model: sonnet
 ---

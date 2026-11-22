@@ -21,8 +21,8 @@ what it rests on: ids, note names and citation keys, separated by commas. Its da
 A verdict given on the object's own day is not called stale: on one day the usual order is challenge, then
 build. Days are compared, not hours.
 
-Looks in `research`, `insights`, `foresight`, `frontier` and `design` under --root (default: the current
-folder); --folders names others. Numbers are never reused: `next` also counts ids that appear only in a From
+Looks in `research`, `insights`, `foresight` (written by poiesis-foresight), `frontier` and `design` under
+--root (default: the current folder); --folders names others. Numbers are never reused: `next` also counts ids that appear only in a From
 line or in a stamp. Rows of a log table (F-001, E-001) are not objects here.
 
 Exit codes: 0 when nothing is stale (for `next` and `list`: always, unless the stamp file is damaged);
