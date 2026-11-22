@@ -117,10 +117,12 @@ def read_rows(log: Path) -> list[list[str]]:
     return rows
 
 
-def shown_path(path: Path) -> str:
-    """A report's path as written in the log: relative to the current folder, never a home path."""
+def shown_path(path: Path, log: Path) -> str:
+    """A report's path as written in the log: relative to the project, the folder above the log's folder, so it
+    is the same from wherever the script runs; never a home path."""
+    root = log.resolve().parent.parent
     try:
-        return path.resolve().relative_to(Path.cwd().resolve()).as_posix()
+        return path.resolve().relative_to(root).as_posix()
     except ValueError:
         return path.name
 
@@ -137,7 +139,7 @@ def cmd_pick(args) -> int:
               "address), so there is nothing to draw from.")
         return 1
     log = Path(args.log)
-    name = shown_path(report)
+    name = shown_path(report, log)
     try:
         done = {row[2] for row in read_rows(log) if row[1] == name} if log.is_file() else set()
     except (OSError, UnicodeDecodeError) as err:

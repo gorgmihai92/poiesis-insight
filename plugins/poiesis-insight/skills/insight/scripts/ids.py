@@ -27,8 +27,9 @@ Looks in `research`, `insights`, `foresight` (written by poiesis-foresight), `fr
 line, in a stamp, or anywhere else in the notes, such as a row of a log table (F-001, E-001). Those rows are
 counted for `next` and are not objects here.
 
-Exit codes: 0 when nothing is stale (for `next` and `list`: always, unless the stamp file is damaged);
-1 when `stale` finds something, or the stamp file is damaged; 2 a wrong command line.
+Exit codes: 0 when nothing is stale (for `next` and `list`: unless the stamp file is damaged or a stamp was
+altered); 1 when `stale` finds something, the stamp file is damaged or a stamp was altered; 2 a wrong command
+line or a folder that does not exist.
 """
 from __future__ import annotations
 
@@ -101,17 +102,24 @@ def read_objects(root: Path, folders: tuple[str, ...]) -> tuple[list[dict], list
 
 
 def next_id(prefix: str, root: Path, folders: tuple[str, ...], ledger: stamps.Ledger) -> str:
-    """One more than the highest number used for the prefix anywhere: in the notes' text (ids, From lines,
-    table rows) and in the stamps."""
+    """One more than the highest number used for the prefix: on Id lines, in From lines, in the first cell of a
+    table row (a log such as the forecast log), and in the stamps. Prose is not read, so "IN-2024" in a sentence
+    does not count."""
     pattern = re.compile(r"(?<![A-Za-z0-9])" + re.escape(prefix) + r"-([0-9]+)(?![0-9])")
     numbers = [0]
     for folder in folders:
         base = root / folder
         for path in sorted(base.rglob("*.md")) if base.is_dir() else []:
             try:
-                numbers += [int(n) for n in pattern.findall(path.read_text(encoding="utf-8-sig"))]
+                text = path.read_text(encoding="utf-8-sig")
             except (OSError, UnicodeDecodeError):
                 continue
+            for line in text.splitlines():
+                if stamps.ID_LINE_RE.match(line) or FROM_LINE_RE.match(line):
+                    numbers += [int(n) for n in pattern.findall(line)]
+                elif line.lstrip().startswith("|"):
+                    first = line.strip().strip("|").split("|")[0]
+                    numbers += [int(n) for n in pattern.findall(first)]
     numbers += [int(hit.group(1)) for name in ledger.entries if (hit := pattern.fullmatch(name))]
     return f"{prefix}-{max(numbers) + 1:03d}"
 

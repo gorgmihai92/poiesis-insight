@@ -27,7 +27,8 @@ and the verdict shown next to the sentence is the recorded one.
 with a line feed, and a line is split there only: the script writes every character outside ASCII as a `\u`
 escape, so no character inside a field (U+2028, for one) can end a line.
 
-- The file is only ever appended to. A line is never edited or removed.
+- The file is only ever appended to. A line is meant never to be edited or removed: the seal shows an edit, and
+  nothing but the file's git history shows a removed line (see the end of this page).
 - **The last line for an id is its stamp in force.** Earlier lines for the same id are the history: a conclusion
   that was challenged again has more than one line.
 - Stamps for every kind of object go in this one file, whatever folder the object's note is in.
@@ -43,10 +44,10 @@ escape, so no character inside a field (U+2028, for one) can end a line.
 
 | Field | Required | Value |
 |---|---|---|
-| `v` | yes | the integer `1` (not `true`, not `1.0`) |
+| `v` | yes | written `1` in the line (the script rejects `true` and `1.0`; a reader whose JSON parser cannot tell `1.0` from `1` may check the raw text) |
 | `id` | yes | the conclusion's id, exactly as in the note: a letter or digit, then up to 63 letters, digits, `.`, `_` or `-`. Compared as typed: `c6` is not `C6` |
 | `verdict` | yes | `kept`, `weakened` or `dropped`, in lower case. Nothing else |
-| `date` | yes | the day of the challenge, `YYYY-MM-DD` in ASCII digits and a real date, local time |
+| `date` | yes | the day of the challenge, `YYYY-MM-DD` in ASCII digits and a real date, local time. It is not checked against today: a date in the future is accepted |
 | `text_sha256` | yes | 64 lower-case hexadecimal digits: the hash of the sentence (next section) |
 | `seal` | yes | 64 lower-case hexadecimal digits: the hash of the other four (section "The seal") |
 | `by` | no | `agent` (the `challenger` agent gave the verdict) or `inline` (the session challenged its own conclusion) |
@@ -138,11 +139,13 @@ A conclusion in a Markdown note is a heading with an `Id` line under it:
 - **A heading** is a line matching `^#{1,6}[ \t]+(.*)$`. The sentence is group 1, taken whole and then
   normalised. A block runs from a heading to the line before the next heading of any level.
 - **The id** is on the first line of the block matching, without regard to case,
-  `^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?id(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(\S+)[ \t]*$`. A block with no such line is not an object.
+  `^[ \t]*(?:[-*+][ \t]+(?:\*\*)?|\*\*)id(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(\S+)[ \t]*$`. A block with no such line is not an object.
 - **The label shown** is on the first line of the block matching, without regard to case,
-  `^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?challenge[a-z]*(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$` (`Challenge`, `Challenged`, with or without the bold marks and the
-  list dash). Take group 1 up to its first `·`, and find in it every whole word `kept`, `weakened` or `dropped`,
-  without regard to case. `**Kept** · …` gives {kept}; `weakened → kept after review` gives {weakened, kept};
+  `^[ \t]*(?:[-*+][ \t]+(?:[*_]{1,2})?|[*_]{1,2})challenge[a-z ]*?(?:[*_]{1,2})?[ \t]*(?::(?:[*_]{1,2})?|(?:[*_]{1,2})?:|[*_]{2}[ \t])[ \t]*(.*)$` (`Challenge`, `Challenged`, `Challenge result`,
+  after a list dash or bold or `_` marks; a plain line that only starts with "Challenge:" is prose). Take group 1
+  up to its first `·`, and find in it every whole word `kept`, `weakened` or `dropped`, without regard to case. If
+  it holds one and also a word of negation (`not`, `no`, `never`, or a word starting with `un`), it holds no
+  verdict. `**Kept** · …` gives {kept}; `weakened → kept after review` gives {weakened, kept};
   `not challenged` gives nothing.
 - An id under two headings is an error: neither can be verified.
 - Insight writes its conclusions in `insights/<date>-<topic>.md`. To find a conclusion by id, read the notes in
@@ -154,7 +157,7 @@ Read the file and keep, for the id, its **last** line. Then, in this order:
 
 | Step | Check | If it fails |
 |---|---|---|
-| 1 | every non-empty line of the file is a JSON object with an `id` | the file is damaged (a merge conflict, a cut line): nothing in it can be trusted to be the last word on any id |
+| 1 | every non-empty line of the file is a JSON object with an `id` of the form under "Fields" | the file is damaged (a merge conflict, a cut line): nothing in it can be trusted to be the last word on any id |
 | 2 | the id has a line | **no stamp**: the conclusion was never challenged |
 | 3 | the last line for the id has `v` equal to 1, a verdict among the three, a date, a 64-digit `text_sha256`, and a `seal` equal to the one you compute | **stamp altered**. Do not fall back to an earlier line for the id: it may be a verdict that was since replaced |
 | 4 | `text_sha256` equals the hash of the sentence as it stands now | **text changed**: the sentence is not the one that was challenged |
@@ -208,8 +211,9 @@ SKIPPED QN-001: a research question with no Challenge line and no stamp; questio
 ```
 
 With `--note` and no `--id`, a research question (`QN-…`) with no `Challenge` line and no stamp is skipped and
-does not count. Any other object with no stamp is `NO STAMP`, with a Challenge line or without one. A note in
-which nothing can be checked fails: `Nothing checked: … Nothing verifies.`, exit code 1.
+does not count. Any other object with no stamp is `NO STAMP`, with a Challenge line or without one. A note that
+holds only research questions gives `0 checked`, exit code 0. A note in which nothing at all can be read fails:
+`Nothing checked: … Nothing verifies.`, exit code 1.
 
 ## A worked example
 
