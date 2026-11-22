@@ -7,3 +7,12 @@ research/papers/heuer-*
 research/papers/dhami-*
 research/papers/nickerson-*
 research/papers/phadnis-*
+# Texts read for 2.0.0: kept on the machine that read them, not committed
+research/papers/alvesson-*
+research/papers/sandberg-*
+research/papers/panickssery-*
+research/papers/wataoka-*
+research/papers/w3c-*
+research/papers/claude-code-*
+# Eval results are written by each run
+plugins/poiesis-insight/evals/results/
