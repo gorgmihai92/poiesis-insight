@@ -20,7 +20,7 @@
 ## What it means for the plugin
 - The `questions` playbook describes each gap by the element that is missing and by one of the four reasons, before any question is written.
 - For work outside health care, intervention and comparison become what was varied and what it was compared with. This widening is a product decision, not something the report tested.
-- "One study only" is recorded the same way every time in a project: the report shows that two people split on it.
+- A gap with one study only is recorded the same way every time in a project: the report shows that two people split on it.
 - Limit: built for systematic reviews in health care and tried on two reports.
 
 ## Quotes

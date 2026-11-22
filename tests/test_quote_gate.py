@@ -47,6 +47,35 @@ class Finding(unittest.TestCase):
         self.assertEqual(gate.find("only the words to find", pages, (4, 4))[0], "FOUND")
 
 
+class TheReviewsCases(unittest.TestCase):
+    PAGES = {1: "Growth of 40% was observed (p < 0.5). The effect did not change behaviour in the lab.",
+             2: "Scores rose by 1,000 points, and the change was -3.2 on average."}
+
+    def setUp(self):
+        self.pages = {n: gate.fold(text) for n, text in self.PAGES.items()}
+
+    def test_a_moved_decimal_point_or_a_changed_sign_is_not_found(self):
+        for quote, page in (("Growth of 4.0% was observed", 1), ("(p < .05)", 1), ("rose by 1.000 points", 2),
+                            ("the change was 3.2 on average", 2), ("Growth of 40 was observed", 1)):
+            self.assertEqual(gate.find(quote, self.pages, (page, page))[0], "NOT FOUND", quote)
+        for quote, page in (("Growth of 40% was observed (p < 0.5)", 1), ("rose by 1,000 points", 2),
+                            ("the change was −3.2 on average", 2)):
+            self.assertEqual(gate.find(quote, self.pages, (page, page))[0], "FOUND", quote)
+
+    def test_an_ellipsis_does_not_bridge_a_long_gap(self):
+        long_text = {1: "The effect " + "filler words here " * 30 + "changed behaviour."}
+        pages = {n: gate.fold(text) for n, text in long_text.items()}
+        self.assertEqual(gate.find("The effect ... changed behaviour", pages, (1, 1))[0], "NOT FOUND")
+        status, where = gate.find("The effect ... did not change behaviour", self.pages, (1, 1))
+        self.assertEqual(status, "FOUND")
+        self.assertIn("weak check", where)
+
+    def test_a_line_under_quotes_that_is_not_a_quote_is_reported(self):
+        note = "# A\n\n## Quotes\n- \"the database itself takes in new kinds of record\" (p. 1)\n- the effect was large (p. 2)\n> a blockquote (p. 2)\n"
+        read = {number for number, _, _ in gate.quotes_of(note)}
+        self.assertEqual([n for n, _ in gate.unread_quote_lines(note, read)], [5, 6])
+
+
 class Reading(unittest.TestCase):
     def test_quote_lines_give_their_words_and_pages(self):
         note = '- "one" (p. 4)\n- “two” (pp. 4–5)\n- not a quote (p. 2)\n* "three"\n'

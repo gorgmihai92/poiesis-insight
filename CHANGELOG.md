@@ -5,13 +5,15 @@ A major version: foresight leaves this plugin, and two paths of the files contra
 
 - **Foresight moved to [poiesis-foresight](https://github.com/gorgmihai92/poiesis-foresight)** (0.1.0, its `main`
   at `874fab3`, checked 2026-11-22). Removed from here, and where each went there:
-  - `playbooks/foresight.md` → the playbooks `horizons`, `layers`, `forecasts` and `trends` of its `foresight`
-    skill (every rule sentence is there word for word);
+  - `playbooks/foresight.md` → the playbooks `scan` (signals), `trends`, `horizons`, `layers`, `scenarios` and
+    `forecasts` of its `foresight` skill (every rule sentence is there word for word);
   - `scripts/forecasts.py` → `skills/foresight/scripts/forecasts.py` (the same output on the lab's test log);
   - `agents/foresight-analyst.md` → its `foresight-analyst` agent;
   - `templates/forecasts.md` and `templates/signal.md` → its templates of the same names;
-  - the notes of Hiltunen 2008, Sharpe et al. 2016 (with its open text), Inayatullah 1998, Phadnis et al. 2015,
-    Mellers et al. 2015, Benneyan et al. 2003 and Kahneman & Lovallo 1993 → its `research/notes/`.
+  - the notes of Hiltunen 2008, Sharpe et al. 2016, Inayatullah 1998, Phadnis et al. 2015, Mellers et al. 2015,
+    Benneyan et al. 2003 and Kahneman & Lovallo 1993 → its `research/notes/`. The open text of Sharpe et al.
+    2016 is removed from this repository and not committed there: poiesis-foresight keeps its texts local. It
+    stays in this repository's history.
 - **Files contract:** this plugin no longer writes `foresight/<date>-<topic>.md` or `foresight/forecasts.md`;
   poiesis-foresight writes them with the same columns. `ids.py` still reads `foresight/` to follow **From** lines.
 - Every remaining mention of foresight points to the new plugin; the READMEs count five products.
@@ -37,7 +39,7 @@ A major version: foresight leaves this plugin, and two paths of the files contra
 - **Rules:** each rule whose source was read only as an abstract, or not read, says so. New sections on the entry
   gate, ids and From, "a verdict is written once" and "not found is not does not exist". A step with no playbook
   or script is named as missing, not improvised.
-- **Eleven research notes**, each with how much of its source was read; tests for every script (`tests/`); six
+- **Eleven research notes**, each with how much of its source was read; tests for every new script (`tests/`; `to_text.py` has none); six
   eval cases (`plugins/poiesis-insight/evals/`), written and not run.
 - Files contract, additions only: the **Id** and **From** lines, `insights/challenge-stamps.jsonl`,
   `insights/challenges/`, `insights/human-checks.md`. `- **Challenge:**` may now read `not challenged`.

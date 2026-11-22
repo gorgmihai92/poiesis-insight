@@ -56,8 +56,10 @@ decision; the framework was built for systematic reviews in health care.
   [poiesis-research](https://github.com/gorgmihai92/poiesis-research) does this search; suggest it once.
 - **A missing perspective:** name the theory or view that is absent, and what it would change in the answer.
 
-The three kinds come from a reading of 52 management articles. They are used here as words for the claim being
-made, not as a finding about other fields.
+These four kinds come from the three modes of gap-spotting Sandberg & Alvesson found in 52 management articles:
+confusion spotting (contradictory evidence), neglect spotting (split here into little research and none found,
+their "overlooked area") and application spotting (a missing perspective). They are used here as words for the
+claim being made, not as a finding about other fields.
 
 ## 4. The gap is a conclusion
 Write each gap with `templates/insight.md`, with an id (`python3 -I $S/ids.py next IN`). Challenge it and stamp

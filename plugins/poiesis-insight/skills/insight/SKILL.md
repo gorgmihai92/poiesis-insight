@@ -62,7 +62,8 @@ Insight never edits these files; it writes only to `insights/`.
 ## Scripts
 
 Scripts are in `${CLAUDE_SKILL_DIR}/scripts` (called `$S`; if that path does not exist, Glob for
-`**/insight/scripts/challenge_stamp.py` under `~/.claude`). They need only Python 3; run them with `python3 -I`,
+`**/insight/scripts/challenge_stamp.py` under `~/.claude`). They need only Python 3 and its standard library, except `to_text.py`, which installs the Excel
+and Word libraries once, on first use, into a private cache (a network request); run them with `python3 -I`,
 from the project's folder. Each prints its own help with `--help`.
 
 | Script | What it does |

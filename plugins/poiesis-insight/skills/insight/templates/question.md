@@ -2,6 +2,7 @@
 
 - **Id:** <QN-001: the next free one, from `ids.py next QN`>
 - **From:** <the gap it rests on (IN-…), then note names or citation keys>
+- **Written:** <YYYY-MM-DD: the day the sentence was last written; change it when the object is rewritten>
 - **Where the evidence falls short:** <the elements not covered: population / what was varied / comparison / what was measured / setting>
 - **Why:** <insufficient or imprecise / biased / inconsistent or unknown consistency / not the right information> · <one line>
 - **Kind of gap:** <contradictory evidence / little research / none found / a missing perspective>

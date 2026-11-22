@@ -17,13 +17,15 @@ what it rests on: ids, note names and citation keys, separated by commas. Its da
   DROPPED SOURCE  something in From had already been dropped on the object's day
   SAME DAY        something in From was challenged again on the object's day: which came first is not known
   NO DATE         the object has no day, so nothing can be said about it
+  STAMP ALTERED   the stamp of something in From was edited by hand, so its verdict is not known
 
 A verdict given on the object's own day is not called stale: on one day the usual order is challenge, then
 build. Days are compared, not hours.
 
 Looks in `research`, `insights`, `foresight` (written by poiesis-foresight), `frontier` and `design` under
 --root (default: the current folder); --folders names others. Numbers are never reused: `next` also counts ids that appear only in a From
-line or in a stamp. Rows of a log table (F-001, E-001) are not objects here.
+line, in a stamp, or anywhere else in the notes, such as a row of a log table (F-001, E-001). Those rows are
+counted for `next` and are not objects here.
 
 Exit codes: 0 when nothing is stale (for `next` and `list`: always, unless the stamp file is damaged);
 1 when `stale` finds something, or the stamp file is damaged; 2 a wrong command line.
@@ -98,14 +100,19 @@ def read_objects(root: Path, folders: tuple[str, ...]) -> tuple[list[dict], list
     return found, twice
 
 
-def next_id(prefix: str, objects: list[dict], ledger: stamps.Ledger) -> str:
-    pattern = re.compile(re.escape(prefix) + r"-(\d+)")
+def next_id(prefix: str, root: Path, folders: tuple[str, ...], ledger: stamps.Ledger) -> str:
+    """One more than the highest number used for the prefix anywhere: in the notes' text (ids, From lines,
+    table rows) and in the stamps."""
+    pattern = re.compile(r"(?<![A-Za-z0-9])" + re.escape(prefix) + r"-([0-9]+)(?![0-9])")
     numbers = [0]
-    names = [obj["id"] for obj in objects] + [item for obj in objects for item in obj["from"]] + list(ledger.entries)
-    for name in names:
-        hit = pattern.fullmatch(name)
-        if hit:
-            numbers.append(int(hit.group(1)))
+    for folder in folders:
+        base = root / folder
+        for path in sorted(base.rglob("*.md")) if base.is_dir() else []:
+            try:
+                numbers += [int(n) for n in pattern.findall(path.read_text(encoding="utf-8-sig"))]
+            except (OSError, UnicodeDecodeError):
+                continue
+    numbers += [int(hit.group(1)) for name in ledger.entries if (hit := pattern.fullmatch(name))]
     return f"{prefix}-{max(numbers) + 1:03d}"
 
 
@@ -116,6 +123,11 @@ def findings(objects: list[dict], ledger: stamps.Ledger) -> list[tuple[str, dict
     for obj in objects:
         lines: list[tuple[str, str]] = []
         sources = [item for item in obj["from"] if OBJECT_ID_RE.fullmatch(item) and ledger.times(item)]
+        for source in sources:
+            current, why = ledger.current(source)
+            if why:
+                lines.append(("STAMP ALTERED", f"the stamp of {source} cannot be trusted ({why}), so what this "
+                                               "object rests on is not known"))
         if sources and obj["day"] is None:
             lines.append(("NO DATE", "no `Written` line and no date in the file name; From names "
                                      + ", ".join(sources) + ", which carry a verdict"))
@@ -138,7 +150,8 @@ def findings(objects: list[dict], ledger: stamps.Ledger) -> list[tuple[str, dict
                                                 "the object's day"))
         direct[obj["id"]] = lines
 
-    stale = {id_ for id_, lines in direct.items() if any(kind == "STALE" for kind, _ in lines)}
+    stale = {id_ for id_, lines in direct.items() if any(kind in ("STALE", "DROPPED SOURCE", "STAMP ALTERED")
+                                                          for kind, _ in lines)}
     through: dict[str, str] = {}
     changed = True
     while changed:                       # staleness travels along From
@@ -157,7 +170,8 @@ def findings(objects: list[dict], ledger: stamps.Ledger) -> list[tuple[str, dict
         for kind, sentence in direct[obj["id"]]:
             out.append((kind, obj, sentence))
         if obj["id"] in through:
-            out.append(("THROUGH", obj, f"rests on {through[obj['id']]}, which is stale"))
+            out.append(("THROUGH", obj, f"rests on {through[obj['id']]}, which is stale or rests on something "
+                                        "dropped"))
     return out
 
 
@@ -176,6 +190,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     root = Path(args.root)
+    if not root.is_dir():
+        print(f"ids.py: {root} is not a folder", file=sys.stderr)
+        return 2
     try:
         ledger = stamps.Ledger(Path(args.stamps) if args.stamps else root / stamps.DEFAULT_STAMPS)
     except stamps.Unreadable as problem:
@@ -191,7 +208,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "next":
         if not args.prefix or not PREFIX_RE.fullmatch(args.prefix):
             parser.error("next needs a prefix of one to three capital letters, such as IN")
-        print(next_id(args.prefix, objects, ledger))
+        print(next_id(args.prefix, root, tuple(args.folders), ledger))
         return 1 if damaged else 0
 
     if args.command == "list":
@@ -199,6 +216,7 @@ def main(argv: list[str] | None = None) -> int:
         for obj in shown:
             stamp, why = ledger.current(obj["id"])
             verdict = f"{stamp['verdict']} {stamp['date']}" if stamp else ("stamp altered" if why else "no stamp")
+            damaged = damaged or bool(why)
             rests_on = ", ".join(obj["from"]) or "-"
             print(f"{obj['id']} | {obj['file']} | {obj['day'] or 'no date'} | {verdict} | From: {rests_on} | "
                   f"{obj['text']}")

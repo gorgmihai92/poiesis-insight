@@ -1,5 +1,5 @@
 {
-  "about": "Copied on 2026-11-22 from the Poiesis Lab notebook's fixtures, with only the fields the stamp test reads. `challenger` is the verdict the challenger gave each conclusion on 2026-11-17 (challenge-verdicts.json, ids in lower case). `published` and `corrected` are the rows of trend-scan/challenge.published.json and challenge.corrected.json: the id, the verdict shown on the page, and the restated claim. The published file shows c6 as kept; the challenger said weakened.",
+  "about": "Copied on 2026-11-22 from the Poiesis Lab notebook's fixtures, with only the fields the stamp test reads. `challenger` is the verdict the challenger gave each conclusion on 2026-11-17 (challenge-verdicts.json, ids in lower case). `published` and `corrected` are the rows of trend-scan/challenge.published.json and challenge.corrected.json: the id, the verdict shown on the page, and the restated claim. The published file shows c6 as kept; the challenger said weakened. `challenger_narrower` is the challenger's own narrower claim for each, from challenge-verdicts.json: the page restated each claim in other words, so these sentences are not the page's.",
   "challenger": {
     "c1": "weakened",
     "c2": "weakened",
@@ -71,5 +71,13 @@
       "verdict": "weakened",
       "restated": "Slow growth, no detectable change in rate."
     }
-  ]
+  ],
+  "challenger_narrower": {
+    "c1": "A 2025 acceleration, not a 2024–2025 break.",
+    "c2": "Largest and fastest-growing; the 2017 step is the real break, and the 2024 narrow-term year is borderline.",
+    "c3": "The growth rate in 2020–25 is below 2015–20; a 2025 decline is not supported.",
+    "c4": "Steady, within variation, with the neuromorphic-specific slowdown larger than 19% vs 24% suggests.",
+    "c5": "Slow growth, with no detectable change in rate.",
+    "c6": "Raw counts overstate by about 16 percentage points, not 29."
+  }
 }
