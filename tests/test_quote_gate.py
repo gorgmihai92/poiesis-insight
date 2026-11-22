@@ -142,9 +142,6 @@ class ThisRepositorysNotes(unittest.TestCase):
         self.assertNotIn("WRONG PAGE", done.stdout)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 PROPERTIES = ('---\n'
               'type: source-note\n'
@@ -186,3 +183,7 @@ class PropertiesAtTheTop(unittest.TestCase):
         number = lambda line: int(line.split(" · line ")[1].split(" · ")[0])
         self.assertEqual(number(first(self.gate_on(PROPERTIES + self.original))),
                          number(first(self.gate_on(self.original))) + PROPERTIES.count("\n"))
+
+
+if __name__ == "__main__":
+    unittest.main()

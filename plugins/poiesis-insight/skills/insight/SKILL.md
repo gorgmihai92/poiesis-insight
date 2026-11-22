@@ -132,3 +132,5 @@ Added in 2.1.0. Everything above is unchanged.
   the Id, From, Written and Challenge lines stay the record. In the block no line starts with `#` and text values
   are quoted. Never put a link in a heading (the heading is the stamped sentence) or an **Id** line, or a link
   with an alias (`[[a|b]]`) in a table. `quote_gate.py` and `sample_check.py` skip the block.
+- When the report's date or topic changes, change the block in the same edit. Inside a quoted value write `\"` for
+  a quotation mark and `\\` for a backslash: `topic: "Does \"nudging\" work?"`.

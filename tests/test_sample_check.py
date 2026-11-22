@@ -153,9 +153,6 @@ class Commands(unittest.TestCase):
         self.assertEqual(self.run_sample("bound", "--checked", "0", "--wrong", "0").returncode, 2)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 class PropertiesAtTheTop(unittest.TestCase):
     """A properties block at the top of a report (Obsidian's YAML between two `---` lines) holds links and
@@ -178,3 +175,14 @@ class PropertiesAtTheTop(unittest.TestCase):
     def test_a_rule_further_down_is_not_a_properties_block(self):
         text = "# Report\n\n---\nA claim (p. 4).\n---\n"
         self.assertEqual([number for number, _ in sample.claims_of(text)], [4])
+
+
+class AByteOrderMark(unittest.TestCase):
+    def test_a_report_that_starts_with_one_still_has_its_properties_skipped(self):
+        shift = PropertiesAtTheTop.PROPERTIES.count("\n")
+        self.assertEqual(sample.claims_of("\ufeff" + PropertiesAtTheTop.PROPERTIES + REPORT),
+                         [(n + shift, line) for n, line in sample.claims_of(REPORT)])
+
+
+if __name__ == "__main__":
+    unittest.main()
