@@ -246,6 +246,28 @@ The data behind IN-002.
         self.assertEqual([(line["id"], line["verdict"]) for line in self.lines()],
                          [("IN-001", "weakened"), ("IN-002", "dropped")])
 
+    def test_the_answer_form_of_the_challenger_agent_is_read(self):
+        answer = ("I named nothing.\n\n### IN-002\n- **Claim:** The share rose in five countries.\n"
+                  "- **Verdict:** kept\n- **Narrower:** none\n- **Reason:** Holds.\n\n"
+                  "### IN-001\n- **Claim:** Slow growth with a modest acceleration.\n- **Verdict:** weakened\n"
+                  "- **Narrower:** Slow growth, with no detectable\nchange in rate.\n"
+                  "**Tally:** 1 kept, 1 weakened, 0 dropped.\n")
+        self.assertEqual(stamp.answer_verdicts(answer), [
+            {"id": "IN-002", "verdict": "kept", "narrower": ""},
+            {"id": "IN-001", "verdict": "weakened", "narrower": "Slow growth, with no detectable change in rate."}])
+        done = self.write("--note", self.note, "--verdicts", self.answer(answer), "--by", "agent")
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        self.assertIn('NOTE IN-002: the note shows "not challenged" and the stamp says kept', done.stdout)
+
+    def test_the_agents_own_file_shows_a_block_this_script_reads(self):
+        agent = (helpers.PLUGIN / "agents" / "challenger.md").read_text(encoding="utf-8")
+        block = agent.split("```")[1]
+        for label in ("Claim", "Verdict", "Narrower", "Reason", "Parts", "Rivals added", "Checks", "Confidence",
+                      "Not checked"):
+            self.assertIn(f"- **{label}:**", block)
+        filled = block.replace("<id>", "IN-001").replace("<kept, weakened or dropped>", "dropped")
+        self.assertEqual([(v["id"], v["verdict"]) for v in stamp.answer_verdicts(filled)], [("IN-001", "dropped")])
+
     def test_a_weakened_conclusion_must_stand_in_the_note_as_the_narrower_claim(self):
         answer = self.ANSWER.replace("Slow growth, with no detectable\n  change in rate.", "Slow growth only.")
         done = self.write("--note", self.note, "--verdicts", self.answer(answer))
