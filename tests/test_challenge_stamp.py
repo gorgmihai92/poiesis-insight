@@ -725,3 +725,32 @@ class TheGateExample(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PropertiesAtTheTop(unittest.TestCase):
+    """A note with Obsidian properties at its top (YAML between two `---` lines) verifies as it did without them:
+    the stamp hashes the heading above the Id line, and the properties come before any heading."""
+
+    PROPERTIES = ('---\n'
+                  'type: insight-report\n'
+                  'plugin: poiesis-insight\n'
+                  'date: 2026-11-17\n'
+                  'topic: "gate example"\n'
+                  'from:\n'
+                  '  - "[[IN-001]]"\n'
+                  '---\n')
+
+    def verify(self, prefix: str) -> tuple[int, str]:
+        folder = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, folder, ignore_errors=True)
+        shutil.copytree(GATE / "insights", folder / "insights")
+        note = folder / "insights" / "2026-11-17-gate-example.md"
+        note.write_text(prefix + note.read_text(encoding="utf-8"), encoding="utf-8")
+        done = helpers.run("challenge_stamp.py", "verify", "--note", note, cwd=folder)
+        return done.returncode, done.stdout
+
+    def test_the_stamps_verify_the_same_with_and_without_properties(self):
+        without, with_ = self.verify(""), self.verify(self.PROPERTIES)
+        self.assertEqual(with_, without)
+        self.assertIn("OK IN-001 kept 2026-11-17", with_[1])
+        self.assertIn("OK IN-002 dropped 2026-11-17", with_[1])
