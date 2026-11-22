@@ -9,7 +9,8 @@ goal is to find why it might be wrong, not to defend it. The verdict is then rec
 - For the stamp, the new challenge and "none found": `research/notes/poiesis-lab-2026-recorded-runs.md`, an
   observation of two runs. These three rules are product decisions built on it.
 - For the sample a person checks: `research/notes/panickssery-2024-self-preference.md` and
-  `research/notes/wataoka-2024-self-preference-bias.md`, both read in full.
+  `research/notes/wataoka-2024-self-preference-bias.md`: both papers read in full, not the first one's
+  appendixes.
 
 (Notes are in the plugin's repository, under `research/notes/`.)
 
@@ -27,7 +28,7 @@ For each conclusion:
 3. **Independence and count:** how many independent items support it? One source, one speaker, one week, or one
    vivid case is one item (Nickerson 1998, p. 9).
 4. **Chance:** with this much data, how likely is a pattern like this by chance? For hidden patterns, ask what
-   the data would look like if there were no pattern (Whitson & Galinsky 2008, abstract only). If it came from a
+   the data would look like if there were no pattern (Whitson & Galinsky 2008, abstract or secondary summaries only). If it came from a
    free search, how many comparisons were tried, and does it survive the correction for them? (Benjamini &
    Hochberg 1995, abstract only)
 5. **Sensitivity:** remove the one to three items it rests on; does it still stand? (Heuer 1999, p. 125)
@@ -110,9 +111,9 @@ numbers on the page moved, and the first verdicts stayed on them.)
 The challenger is a model of the same family as the session that wrote the conclusions. In one study, three
 models favoured summaries they had written over those of other models and of people (Panickssery et al. 2024,
 p. 2). In another, models acting as judges rated answers that were familiar to them higher than people did
-(Wataoka et al. 2024, p. 1, 4). Those studies are about rating summaries and chat answers. They did not test
-checking a claim against its source, and the second found the bias in style, not in facts (Wataoka et al. 2024,
-p. 7). So this step is a precaution and a product decision, not a finding: someone who is not the model looks at
+(Wataoka et al. 2024, p. 1, 6, 7). Those studies are about rating summaries and chat answers. They did not test
+checking a claim against its source, and in the cases the second study's authors looked at, the bias was about
+styles of answering more than clear factual errors (Wataoka et al. 2024, p. 7). So this step is a precaution and a product decision, not a finding: someone who is not the model looks at
 a few claims.
 
 For every saved report:

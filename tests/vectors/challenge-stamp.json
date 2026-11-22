@@ -1,5 +1,5 @@
 {
-  "about": "Three test vectors for the challenge stamp of poiesis-insight 2.0.0. `text` is the conclusion's sentence as it is found; `normalised` is what is hashed (UTF-8). The same vectors are in challenge-stamp-format.md.",
+  "about": "Three test vectors for the challenge stamp of poiesis-insight 2.0.0. `text` is the conclusion's sentence as it is found; `normalised` is what is hashed (UTF-8). The same vectors are in plugins/poiesis-insight/skills/insight/stamp-format.md.",
   "seal_head": "poiesis-challenge-stamp v1",
   "vectors": [
     {
