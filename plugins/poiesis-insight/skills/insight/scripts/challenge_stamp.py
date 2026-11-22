@@ -260,14 +260,14 @@ def conclusions(markdown: str) -> tuple[dict[str, dict], list[str]]:
 
 
 def field(lines: list[str], pattern: re.Pattern) -> str | None:
-    """The value of the first line that matches, with the lines it runs on to: a value ends at an empty line
-    or at the next list item."""
+    """The value of the first line that matches, with the lines it runs on to: a value ends at an empty line,
+    at the next list item, or at a line that starts with a bold label such as `**Tally:**`."""
     for index, line in enumerate(lines):
         hit = pattern.match(line)
         if hit:
             parts = [hit.group(1)]
             for more in lines[index + 1:]:
-                if not more.strip() or ITEM_RE.match(more):
+                if not more.strip() or ITEM_RE.match(more) or more.lstrip().startswith("**"):
                     break
                 parts.append(more)
             return " ".join(parts)
@@ -378,9 +378,8 @@ def cmd_write(args) -> int:
                                 "challenger gave. Copy that claim into the heading as it stands, then stamp")
             else:
                 todo.append((id_, answer["verdict"], found[id_]["text"]))
-                shown = found[id_]["shown"]
-                if shown and shown != answer["verdict"]:
-                    notes.append(f"NOTE {id_}: the note shows \"{shown}\" and the stamp says "
+                if found[id_]["shown"] and found[id_]["shown"] != answer["verdict"]:
+                    notes.append(f"NOTE {id_}: the note shows \"{found[id_]['label']}\" and the stamp says "
                                  f"{answer['verdict']}. Change the note's label to match")
         if problems:
             for problem in problems:
@@ -402,10 +401,9 @@ def cmd_write(args) -> int:
                 raise Refused(f"{id_}: {args.note} has no conclusion with this id. A conclusion is a heading "
                               f"with a line `- **Id:** {id_}` under it")
             text = found[id_]["text"]
-            shown = found[id_]["shown"]
-            if shown and shown != verdict:
-                notes.append(f"NOTE {id_}: the note shows \"{shown}\" and the stamp says {verdict}. Change "
-                             "the note's label to match")
+            if found[id_]["shown"] and found[id_]["shown"] != verdict:
+                notes.append(f"NOTE {id_}: the note shows \"{found[id_]['label']}\" and the stamp says "
+                             f"{verdict}. Change the note's label to match")
         else:
             text = one_text(args)
         todo.append((id_, verdict, text))
