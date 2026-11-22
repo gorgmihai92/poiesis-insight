@@ -1,9 +1,10 @@
 # Poiesis Insight
 
 Interpretation that survives a challenge, in Claude Code. Poiesis Insight interprets the research or data a project
-already has. It finds **insights** (what the evidence means) and does **foresight** (what is emerging and what may
-come). Every conclusion carries its evidence, its rival explanations and what would prove it wrong, and must survive
-a challenge before it is reported.
+already has. It finds **insights** (what the evidence means), writes **research questions** from what the evidence
+does not answer, reads a field's findings against its **methods**, and does **foresight** (what is emerging and
+what may come). Every conclusion carries its evidence, its rival explanations and what would prove it wrong, and
+must survive a challenge before it is reported. The verdict of that challenge is recorded once and cannot drift.
 
 For anyone with research notes, interviews, surveys or usage data who needs conclusions that hold up. Poiesis
 Insight is one of the four products in the [Poiesis Toolkit](#part-of-the-poiesis-toolkit) and works on its own, as
@@ -40,15 +41,17 @@ Research ──► Insight ──► Frontier ──► Design
   parts in parallel, or for an independent check at thorough depth.
 - **Rules limit what is reported as true, never what may be explored.**
 
-## Three kinds of question: what it means, what is coming, whether it holds
+## Five kinds of question: what it means, what is missing, how a field works, what is coming, whether it holds
 
 | You want to know | It returns | Saved in |
 |---|---|---|
 | **Insight:** what the evidence means | connections, contradictions and counted patterns, and, on request, hidden correlations from a free search confirmed on held-out data; each with its evidence, rivals, confidence and what it means for the project | `insights/` |
+| **Questions:** what the evidence does not answer | each gap described by where and why the evidence falls short, challenged like any conclusion; then research questions, with the assumption each one contests | `insights/` |
+| **Methods:** how a field studies its subject | a table of designs, samples and measures, study by study; method patterns as counted conclusions; the field's findings re-read with the method in the sentence | `insights/` |
 | **Foresight:** what is emerging and what may come | weak signals, trends in your data (checked against noise and base rates), the three horizons, layered readings, scenarios (what holds across them, what depends on one) and dated forecasts | `foresight/` |
-| **Challenge:** whether a conclusion holds | for each conclusion: kept, weakened (with the narrower claim) or dropped, and why | in the report |
+| **Challenge:** whether a conclusion holds | for each conclusion: kept, weakened (with the narrower claim) or dropped, and why; the verdict recorded with a stamp | `insights/challenge-stamps.jsonl` |
 
-Every conclusion from insight or foresight goes through the challenge before you see it. The input is your
+Every conclusion goes through the challenge before you see it. The input is your
 [Poiesis Research](https://github.com/gorgmihai92/poiesis-research) library, your own data (forms, tables,
 documents), or both.
 
@@ -74,6 +77,10 @@ The plugin comes in when the work is interpretation, and you can name its agents
 - *"Search this usage log for correlations we haven't thought of."*
 - *"Is the drop in weekly signups a real trend or noise?"*
 - *"Challenge this conclusion: users leave because the pricing page is confusing."*
+- *"What does this literature not answer? Describe the gaps, then give me research questions."*
+- *"How do the studies in my evidence table measure blame? What does that let them say?"*
+- *"I changed the base of the shares. What in my notes is out of date now?"*
+- *"Draw five claims from this report for me to check against the sources."*
 - *"Run insight-analyst and foresight-analyst in parallel, then the challenger on both."*
 
 ## Evidence first, then meaning, then a challenge
@@ -84,23 +91,52 @@ collects the evidence first, then picks a **playbook**. Each playbook has an **a
 | Playbook | Agent | What it does |
 |---|---|---|
 | insight | `insight-analyst` | lists the evidence and what was observed, fixes the comparisons in advance, then looks for connections, contradictions and counted patterns; for hidden correlations, searches freely and confirms leads on held-out data |
+| questions | `insight-analyst` | describes each gap by the part of the question the studies do not cover and the reason no conclusion can be drawn, checks the kind of gap, then contests the assumptions behind it on five types |
+| methods | `insight-analyst` | tables each study's design, sample and measures with how much of it was read, counts the patterns, and reads the field's findings against them |
 | foresight | `foresight-analyst` | logs signals (visibility, spread and meaning kept apart), checks trends in data against noise and base rates, places them on three horizons, reads the issue in four layers, builds scenarios, writes forecasts |
-| challenge | `challenger` | tries to show why each conclusion is wrong: rivals, diagnostic evidence, independence, chance, sensitivity, consistency, denominators, replication |
+| challenge | `challenger` | tries to show why each conclusion is wrong: rivals, diagnostic evidence, independence, chance, sensitivity, consistency, denominators, replication, and absence ("none found" is not "does not exist"); returns one structured verdict per conclusion |
 
 - **Evidence before meaning.** What the input shows is collected first, each item with its reference; only then is
   it interpreted, and every conclusion points back to its items.
 - **An independent challenge at thorough depth.** The `challenger` gets the conclusions and the data, not the
   reasoning that produced them, so it can find what the analyst missed. At quick and standard depth the challenge
   runs inline, which costs less.
+- **Sources are checked before they are built on.** Before an insight rests on a research note, each quote in
+  the note is looked for in the source's text. A note that could not be checked is used as unchecked, and the
+  report says so.
 - **Forecasts are scored.** A foresight claim that can be checked later becomes a forecast: a precise question, a
   probability and a date, logged in `foresight/forecasts.md`. `forecasts.py` scores the log (Brier score) once the
   dates pass, so you learn which reasoning to trust.
 
+## A verdict is recorded once
+
+In two recorded runs of these plugins, 15 of 16 first conclusions did not survive the challenge as written. One
+verdict then changed from weakened to kept when it was retyped onto a page, and numbers moved after the challenge
+while the first verdicts stayed on them. Version 2.0.0 closes those gaps in code:
+
+- **The stamp.** After the challenge, `challenge_stamp.py` writes one line per conclusion in
+  `insights/challenge-stamps.jsonl`: its id, the verdict, the day and a hash of the conclusion's sentence. The
+  check fails when the stamp is missing, when the sentence changed, when the verdict shown is not the stamped one,
+  or when the line was edited. It makes a change visible; it does not prevent one.
+- **Ids and From.** Each conclusion and question has an id (`IN-001`, `QN-001`) and a line that names what it
+  rests on. When a verdict changes, `ids.py stale` lists everything that was built on it before. It reports and
+  changes nothing.
+- **A new challenge.** When the method, the data or the sentence changes after a verdict, the conclusion is
+  challenged again and the new verdict is recorded next to the old one.
+- **A person checks a sample.** The challenger is a model of the same family as the session that wrote the
+  conclusions. For each saved report, `sample_check.py` draws five claims at random for you to check against
+  their sources, and says what your checks so far allow: five clean checks still leave up to 45% of claims
+  possibly wrong, thirty bring that under 10%.
+
+Poiesis Frontier and Poiesis Studio read the stamps with their own code, from the description in
+`plugins/poiesis-insight/skills/insight/stamp-format.md`.
+
 ## Working with Poiesis Research and your own data
 
 **From Poiesis Research** (if the project has it): Poiesis Insight starts from `research/README.md`, the library's
-index, and reads the notes in `research/notes/`, one per source, with each claim and its page. Insights cite back
-to the note and page. Insight never edits the research files; it writes only to `insights/` and `foresight/`.
+index, and reads the notes in `research/notes/`, one per source, with each claim and its page, and the evidence
+table in `research/maps/` when there is one. Insights cite back to the note and page. Insight never edits the
+research files; it writes only to `insights/` and `foresight/`.
 
 **Your own data:**
 
@@ -132,13 +168,20 @@ The same rules apply to every playbook (`skills/insight/rules.md`), each with it
   corrected for how many comparisons were tried, until it holds on the part set aside.
 - **Trends in data** are reported only when the change exceeds the series' usual noise, starting from how often
   similar changes continued.
+- **"None found" is not "does not exist".** A search that returns nothing says what was searched and which
+  databases answered.
 - **Interpretation is labelled** as interpretation, and nothing is added from memory without saying so.
+- **Each rule says how much of its source was read.** A rule that rests on an abstract, or on an observation of
+  one run, says so where it is stated.
 
 ## Reports stay in `insights/` and `foresight/`
 
 ```
 insights/<date>-<topic>.md     the question, the evidence, the insights that survived (with their challenge
-                               result) and the ones dropped, with the reason
+                               result) and the ones dropped, with the reason; gaps, questions, method tables
+insights/challenge-stamps.jsonl   one line per verdict, only ever added to
+insights/challenges/           the challenger's answers, as they came
+insights/human-checks.md       claims drawn for you to check, and what you found
 foresight/<date>-<topic>.md    signals, horizons, layers, scenarios and what survived the challenge
 foresight/forecasts.md         the forecast log: question, probability, date made, date to resolve, outcome
 ```
@@ -157,29 +200,57 @@ plugins/
     skills/insight/           the skill: what Claude follows when you ask for insights or foresight
       SKILL.md                entry point: reads the input (research library or your data), picks the playbook
       rules.md                what every conclusion carries, weighing, data before patterns; with sources
+      stamp-format.md         the challenge stamp, described so that another plugin can verify one
       playbooks/
         insight.md            connections, contradictions, counted patterns, free search with a hold-out
+        questions.md          gaps described, assumptions contested, research questions
+        methods.md            a field's designs, samples and measures, and what they let it say
         foresight.md          signals, trends in data, horizons, layers, scenarios, forecasts
-        challenge.md          the eight checks and the verdict
+        challenge.md          the nine checks, the verdict, the stamp, the sample a person checks
       scripts/                Python 3; Excel and Word libraries install themselves on first use
+        challenge_stamp.py    record a verdict once; check a note against its stamps
+        ids.py                the next free id; what rests on what; what went stale
+        quote_gate.py         look for each quote of a research note in the source's text
+        sample_check.py       draw claims for a person to check; what the checks allow
         to_text.py            convert Excel, Word and CSV into CSV or TXT, masking emails and phone numbers
         forecasts.py          score the forecast log (Brier score)
       templates/
         insight.md            one insight with everything it carries
+        question.md           one research question and the gap it rests on
+        methods.md            the method table of a field
         signal.md             one signal: observed, visibility, spread, interpretation, horizon
         forecasts.md          the forecast log
     agents/
       insight-analyst.md      insights for one question
       foresight-analyst.md    foresight for one issue
-      challenger.md           tests conclusions before they are reported
-research/                     the sources behind the rules: one note per source
+      challenger.md           tests conclusions and returns one structured verdict for each
+    evals/                    six cases for `claude plugin eval`; written, not run
+research/                     the sources behind the rules: one note per source, with how much was read
+tests/                        tests for the scripts and the eval cases; they need Python 3 and no network
 CHANGELOG.md                  what changed in each version
 LICENSE                       MIT
 ```
 
 ## Where the rules come from
 
-Each rule names its source; there is one note per source in `research/notes`.
+Each rule names its source; there is one note per source in `research/notes`, and each note says how much of the
+source was read. The sources added in 2.0.0:
+
+- **A gap described by where and why the evidence falls short:** Robinson, Saldanha & Mckoy 2011 (the report's
+  framework and its limits were read; the journal article was not).
+- **Three kinds of gap:** Sandberg & Alvesson 2011 (the typology was read, not the whole article).
+- **Five types of assumption to contest:** Alvesson & Sandberg 2011 (read in full). Shown by its authors on one
+  article; whether it gives better questions was not tested.
+- **A person checks a sample:** Panickssery, Bowman & Feng 2024 and Wataoka, Takahashi & Ri 2024 (both read in
+  full). They show that a model rating text favours its own and familiar text. They did not test checking a claim
+  against its source, so the check is a precaution.
+- **The challenger is measured, not assumed to work:** Du et al. 2023, Wang et al. 2024 and Smit et al. 2024
+  (abstracts only) disagree on whether a second model pass helps.
+- **Ids and what an object rests on:** W3C PROV-DM 2013 (the sections on entities and derivation).
+- **The stamp, the new challenge, "none found", the method table:** the lab's two recorded runs. Observations of
+  two runs, not rates.
+
+The earlier sources:
 
 - **Three paths to an insight (connections, contradictions, impasses):** Klein & Jarosz 2011.
 - **Evidence first, then sensemaking:** Pirolli & Card 2005. Analysts forage for evidence and make sense of it in
@@ -209,7 +280,7 @@ Each rule names its source; there is one note per source in `research/notes`.
 
 ## Files shared with the other products
 
-Writes `insights/<date>-<topic>.md`, each insight with **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by Frontier; `foresight/` scenarios and the forecast log `foresight/forecasts.md`. It reads Research notes and Frontier's results.
+Writes `insights/<date>-<topic>.md`, each insight with **Id**, **From**, **Evidence**, **Confidence**, **Found by**, **Challenge** (kept / weakened / dropped) and **So what**, read by Frontier; `insights/challenge-stamps.jsonl`, the verdicts as recorded, read by Frontier and Studio; `foresight/` scenarios and the forecast log `foresight/forecasts.md`. It reads Research notes, quotes and evidence tables, and Frontier's results.
 
 The paths and fields the other products read are a contract: they change only in a major version, noted in the
 changelog. Every plugin reads the others' files tolerantly: a missing file or field is reported as unknown, never
@@ -225,8 +296,10 @@ an error. The full list is in each skill's `SKILL.md`, so Claude knows it too.
 
 ## Changing the plugin
 
-Edit the files under `plugins/poiesis-insight/`, run `claude plugin validate .`, bump the version (major if a field under "Files" changes) in
-`plugin.json`, `marketplace.json` and `CHANGELOG.md`, and push. Projects get it with the update commands above.
+Edit the files under `plugins/poiesis-insight/`, run `python3 -I -m unittest discover -s tests` and
+`claude plugin validate plugins/poiesis-insight` (at the repository's root the command checks only the
+marketplace file), bump the version (major if a field under "Files" changes) in `plugin.json`, `marketplace.json`
+and `CHANGELOG.md`, and push. Projects get it with the update commands above.
 
 ## License
 
