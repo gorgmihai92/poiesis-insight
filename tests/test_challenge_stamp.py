@@ -253,12 +253,14 @@ class FromTheChallengersAnswer(Folder):
     ANSWER = """Two of two conclusions tested.
 
 ### IN-001
+- **Claim:** Slow growth with a modest acceleration.
 - **Verdict:** weakened
 - **Narrower:** Slow growth, with no detectable
   change in rate.
 - **Reason:** the two rates differ by about one standard error.
 
 ### IN-002 · the share in five countries
+- **Claim:** The share rose in five countries.
 - **Verdict:** **Dropped**
 - **Narrower:** none
 - **Reason:** rests on one pass.
@@ -285,9 +287,11 @@ The data behind IN-002.
                   "- **Narrower:** Slow growth, with no detectable\nchange in rate.\n"
                   "**Tally:** 1 kept, 1 weakened, 0 dropped.\n")
         self.assertEqual(stamp.answer_verdicts(answer), [
-            {"id": "IN-002", "verdict": "kept", "as_written": "kept", "narrower": ""},
+            {"id": "IN-002", "verdict": "kept", "as_written": "kept", "narrower": "",
+             "claim": "The share rose in five countries."},
             {"id": "IN-001", "verdict": "weakened", "as_written": "weakened",
-             "narrower": "Slow growth, with no detectable change in rate."}])
+             "narrower": "Slow growth, with no detectable change in rate.",
+             "claim": "Slow growth with a modest acceleration."}])
         done = self.write("--note", self.note, "--verdicts", self.answer(answer), "--by", "agent")
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
         self.assertIn('NOTE IN-002: the note shows "not challenged" and the stamp says kept', done.stdout)
@@ -585,6 +589,85 @@ class StrictAnswers(Folder):
         self.assertEqual(done.returncode, 1)
         self.assertIn("IN-001: the answer has a block for it and no Verdict line that could be read", done.stdout)
         self.assertFalse(self.stamps.exists())
+
+
+class TheClaimJudged(Folder):
+    """For kept and dropped the heading stamped is the one the challenger judged: the answer's Claim. A heading
+    edited between the challenge and the stamp is refused, not sealed as challenged."""
+
+    KEPT = "### IN-002\n- **Claim:** The share rose in five countries.\n- **Verdict:** {verdict}\n- **Narrower:** none\n"
+
+    def answer(self, text):
+        path = self.folder / "answer.md"
+        path.write_text(text, encoding="utf-8")
+        return self.write("--note", self.note, "--verdicts", path)
+
+    def edit_heading(self):
+        self.note.write_text(NOTE.replace("### The share rose in five countries.",
+                                          "### The share rose sharply in five countries."), encoding="utf-8")
+
+    def test_kept_with_the_claim_as_the_heading_is_stamped(self):
+        done = self.answer(self.KEPT.format(verdict="kept"))
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        self.assertEqual([(line["id"], line["verdict"], line["text_sha256"]) for line in self.lines()],
+                         [("IN-002", "kept", stamp.text_hash("The share rose in five countries."))])
+
+    def test_kept_after_the_heading_was_edited_is_refused(self):
+        self.edit_heading()
+        done = self.answer(self.KEPT.format(verdict="kept"))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("REFUSED IN-002: kept, and the note's heading and the challenger's Claim differ",
+                      done.stdout)
+        self.assertIn("If the heading was edited after the challenge, challenge it again; if the challenger "
+                      "misquoted the heading, ask it to copy the heading exactly. Never copy the Claim into the "
+                      "heading", done.stdout)
+        self.assertIn("Nothing was written.", done.stdout)
+        self.assertFalse(self.stamps.exists())
+
+    def test_dropped_with_the_claim_as_the_heading_is_stamped(self):
+        done = self.answer(self.KEPT.format(verdict="dropped"))
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        self.assertEqual([(line["id"], line["verdict"]) for line in self.lines()], [("IN-002", "dropped")])
+
+    def test_dropped_after_the_heading_was_edited_is_refused(self):
+        self.edit_heading()
+        done = self.answer(self.KEPT.format(verdict="dropped"))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("REFUSED IN-002: dropped, and the note's heading and the challenger's Claim differ",
+                      done.stdout)
+        self.assertFalse(self.stamps.exists())
+
+    def test_the_claim_is_compared_as_a_heading_is_normalised(self):
+        done = self.answer("### IN-002\n- **Claim:** The share rose   in five\n  countries.\n- **Verdict:** kept\n")
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+
+    def test_one_edited_heading_stops_the_whole_answer(self):
+        self.edit_heading()
+        done = self.answer("### IN-001\n- **Claim:** Slow growth, with no detectable change in rate.\n"
+                           "- **Verdict:** kept\n\n" + self.KEPT.format(verdict="kept"))
+        self.assertEqual(done.returncode, 1)
+        self.assertNotIn("IN-001", done.stdout)
+        self.assertFalse(self.stamps.exists())
+
+    def test_a_weakened_conclusion_is_still_checked_against_its_narrower_claim_only(self):
+        for claim in ("- **Claim:** Slow growth with a modest acceleration.\n", ""):
+            with self.subTest(claim=claim):
+                if self.stamps.exists():
+                    self.stamps.unlink()
+                done = self.answer(f"### IN-001\n{claim}- **Verdict:** weakened\n"
+                                   "- **Narrower:** Slow growth, with no detectable change in rate.\n")
+                self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+                self.assertEqual([(line["id"], line["verdict"]) for line in self.lines()], [("IN-001", "weakened")])
+
+    def test_kept_or_dropped_with_no_claim_line_is_refused(self):
+        for verdict in ("kept", "dropped"):
+            for claim in ("", "- **Claim:**\n"):
+                with self.subTest(verdict=verdict, claim=claim):
+                    done = self.answer(f"### IN-002\n{claim}- **Verdict:** {verdict}\n")
+                    self.assertEqual(done.returncode, 1)
+                    self.assertIn(f"REFUSED IN-002: {verdict}, and the answer has no Claim line: the challenger's "
+                                  "answer must name the claim it judged", done.stdout)
+                    self.assertFalse(self.stamps.exists())
 
 
 class ReadingANote(unittest.TestCase):

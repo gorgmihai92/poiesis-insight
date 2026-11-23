@@ -20,7 +20,9 @@ A stamp is one line of JSON in `insights/challenge-stamps.jsonl` (`--stamps PATH
 
 `write` appends a line and never changes an earlier one. A conclusion that already has a stamp is refused,
 unless `--again "why"` records a new challenge; the last line for an id is its current stamp. With `--verdicts`
-the verdicts are read from the challenger's saved answer, so no label is typed by hand.
+the verdicts are read from the challenger's saved answer, so no label is typed by hand, and the heading stamped is
+the one the challenger judged: for kept and dropped the note's heading has to be the answer's Claim, for weakened
+its Narrower.
 
 `verify` fails when the stamp is missing, when the sentence is no longer the one stamped, when the verdict shown
 with the conclusion is not the stamped one, or when the stamp's line was altered.
@@ -59,6 +61,7 @@ CHALLENGE_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+(?:[*_]{1,2})?|[*_]{1,2})c
 NEGATION_RE = re.compile(r"\b(?:not|no|never|un\w*)\b", re.IGNORECASE)
 VERDICT_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?verdict(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
 NARROWER_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?narrower(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
+CLAIM_LINE_RE = re.compile(r"^[ \t]*(?:[-*+][ \t]+)?(?:\*\*)?claim(?:\*\*)?[ \t]*:(?:\*\*)?[ \t]*(.*)$", re.IGNORECASE)
 VERDICT_WORD_RE = re.compile(r"\b(kept|weakened|dropped)\b", re.IGNORECASE)
 OBJECT_ID_RE = re.compile(r"[A-Z]{1,3}-[0-9]+")
 ANSWER_ID_RE = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]{1,3}-?[0-9]{1,4}(?![A-Za-z0-9])")
@@ -320,14 +323,17 @@ def field(lines: list[str], pattern: re.Pattern) -> str | None:
 
 def answer_verdicts(markdown: str) -> list[dict]:
     """The verdicts in a challenger's saved answer: one block per conclusion, a heading that starts with the
-    id, a line `- **Verdict:** kept|weakened|dropped`, and for a weakened one `- **Narrower:** the claim that
-    survives`. A verdict field has to hold one verdict word and nothing else.
+    id, a line `- **Claim:** the sentence judged`, a line `- **Verdict:** kept|weakened|dropped`, and for a
+    weakened one `- **Narrower:** the claim that survives`. A verdict field has to hold one verdict word and
+    nothing else. `claim` is the Claim normalised as a heading is, or None when the block has no Claim line or an
+    empty one.
     Headings that start with an id-like token (`IN-001`) and have no Verdict line are returned with the
     verdict None, so that a block whose verdict could not be read is not passed over in silence."""
     found = []
     for heading, lines in blocks(markdown):
         verdict = field(lines, VERDICT_LINE_RE)
         narrower = field(lines, NARROWER_LINE_RE)
+        claim = field(lines, CLAIM_LINE_RE)
         named = ANSWER_ID_RE.search(heading)
         token = named.group(0) if named else (heading.split()[0].strip("*`:·,.") if heading.split() else "")
         if verdict is None and not named:
@@ -336,7 +342,8 @@ def answer_verdicts(markdown: str) -> list[dict]:
         if narrower.lower() in NO_NARROWER:
             narrower = ""
         found.append({"id": token, "verdict": None if verdict is None else one_verdict(verdict),
-                      "as_written": normalise(verdict or ""), "narrower": narrower})
+                      "as_written": normalise(verdict or ""), "narrower": narrower,
+                      "claim": normalise(claim) if claim is not None and normalise(claim) else None})
     return found
 
 
@@ -431,6 +438,14 @@ def cmd_write(args) -> int:
             elif answer["verdict"] == "weakened" and normalise(found[id_]["text"]) != answer["narrower"]:
                 problems.append(f"{id_}: weakened, and the note's heading is not the narrower claim the "
                                 "challenger gave. Copy that claim into the heading as it stands, then stamp")
+            elif answer["verdict"] != "weakened" and answer["claim"] is None:
+                problems.append(f"{id_}: {answer['verdict']}, and the answer has no Claim line: the challenger's "
+                                "answer must name the claim it judged. Ask the challenger for it")
+            elif answer["verdict"] != "weakened" and normalise(found[id_]["text"]) != answer["claim"]:
+                problems.append(f"{id_}: {answer['verdict']}, and the note's heading and the challenger's Claim "
+                                "differ. If the heading was edited after the challenge, challenge it again; if the "
+                                "challenger misquoted the heading, ask it to copy the heading exactly. Never copy "
+                                "the Claim into the heading")
             else:
                 todo.append((id_, answer["verdict"], found[id_]["text"]))
                 if found[id_]["shown"] is not None and found[id_]["shown"] != {answer["verdict"]}:

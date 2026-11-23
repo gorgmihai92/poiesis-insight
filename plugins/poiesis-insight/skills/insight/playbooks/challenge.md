@@ -75,7 +75,9 @@ When the work is saved (`SKILL.md`, "Saving"):
      `- **Challenge:** dropped · <reason>`
    - never challenged (a lead, a conclusion added later): `- **Challenge:** not challenged`
 2. **Write the stamps.** `$S` is the skill's `scripts` folder.
-   - From the challenger's saved answer, so that no verdict is typed by hand:
+   - From the challenger's saved answer, so that no verdict is typed by hand. It refuses a kept or dropped
+     conclusion whose heading is not the answer's Claim (or has no Claim), and a weakened one whose heading is not
+     its Narrower:
      `python3 -I $S/challenge_stamp.py write --note insights/<note>.md --verdicts insights/challenges/<answer>.md --by agent`
    - After an inline challenge, one conclusion at a time:
      `python3 -I $S/challenge_stamp.py write --note insights/<note>.md --id IN-001 --verdict weakened --by inline`

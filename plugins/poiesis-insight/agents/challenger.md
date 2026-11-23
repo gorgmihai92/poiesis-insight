@@ -35,6 +35,7 @@ Answer with one block per conclusion, in this form, in the order given:
 ```
 
 Rules for a block:
+- The Claim line is the conclusion's sentence (its heading) copied exactly as you received it: never reword it.
 - The verdict line holds one of the three words and nothing else. Not "split", "partly", "mostly" or "kept with
   caveats": a caveat goes under Reason.
 - The sentence under Narrower is copied into the report as it stands and is what later work is built on. Write it so
