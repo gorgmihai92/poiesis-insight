@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.1.1
+A fix: no path, field or stamp changed. The stamp file's format and its hash are as in 2.1.0.
+- **`challenge_stamp.py write --verdicts` checks the claim judged.** For a kept or dropped conclusion it sealed
+  whatever heading the note held when it was stamped, so a heading edited between the challenge and the stamp was
+  sealed as challenged (found by the audit of 2026-11-23). It now reads the answer's Claim line and refuses, with
+  nothing written, when the heading is not that claim (normalised as a heading is) or when the block has no Claim
+  line. A weakened conclusion is checked as before, against its Narrower claim.
+- **The challenger** copies the Claim line exactly as it received the sentence: one rule added to its file.
+- **Docs.** `stamp-format.md` (exit code 1 of `write`) and `playbooks/challenge.md` (step 2) say what the check
+  refuses.
+- **Tests.** In `test_challenge_stamp.py`, eight for the Claim check (kept and dropped stamped and refused,
+  normalisation, one refusal stopping the whole answer, weakened unchanged, no Claim line); the hand-written answer
+  of `FromTheChallengersAnswer` gains the Claim lines the challenger's form always had.
+- **Not checked in this version:** a run of the challenger on a topic.
+
 ## 2.1.0
 Everything is added: no path or field of 2.0.0 was renamed or removed, and the scripts read every note as before.
 - **Properties.** `templates/report.md` is the top of every report in `insights/<date>-<topic>.md`: a block of

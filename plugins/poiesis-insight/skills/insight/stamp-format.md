@@ -194,7 +194,7 @@ names another stamp file.
 | Exit code | `write` | `verify` | `list` |
 |---|---|---|---|
 | 0 | the stamp was appended | everything checked is in order | every line is intact |
-| 1 | refused, and nothing was written: the id already has a stamp and `--again` was not given; the verdict is not one of the three; the id is not in the note or is there twice; the stamp file is damaged | at least one conclusion does not verify | a line is altered or damaged |
+| 1 | refused, and nothing was written: the id already has a stamp and `--again` was not given; the verdict is not one of the three; the id is not in the note or is there twice; the stamp file is damaged; with `--verdicts`, a kept or dropped conclusion whose heading is not the answer's Claim or whose block has no Claim line, or a weakened one whose heading is not the answer's Narrower | at least one conclusion does not verify | a line is altered or damaged |
 | 2 | a wrong command line, or a file that cannot be read | the same | the same |
 
 What `verify` prints, one line per conclusion and a count at the end. The first words are fixed:
