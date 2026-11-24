@@ -1,6 +1,6 @@
 # Poiesis Insight
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24501562.svg)](https://doi.org/10.5281/zenodo.24501562) [![Cognitive Centered Design Oath: signed](https://raw.githubusercontent.com/gorgmihai92/ccd-oath/main/badges/ccd-oath-signed.svg)](https://github.com/gorgmihai92/ccd-oath/blob/main/SIGNATORIES.md)
+[![Tests](https://github.com/gorgmihai92/poiesis-insight/actions/workflows/tests.yml/badge.svg)](https://github.com/gorgmihai92/poiesis-insight/actions/workflows/tests.yml) [![Release](https://img.shields.io/github/v/release/gorgmihai92/poiesis-insight)](https://github.com/gorgmihai92/poiesis-insight/releases/latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24501562.svg)](https://doi.org/10.5281/zenodo.24501562) [![Cognitive Centered Design Oath: signed](https://raw.githubusercontent.com/gorgmihai92/ccd-oath/main/badges/ccd-oath-signed.svg)](https://github.com/gorgmihai92/ccd-oath/blob/main/SIGNATORIES.md)
 
 Interpretation that survives a challenge, in Claude Code. Poiesis Insight interprets the research or data a project
 already has. It finds **insights** (what the evidence means), writes **research questions** from what the evidence
