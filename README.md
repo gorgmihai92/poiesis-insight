@@ -1,5 +1,7 @@
 # Poiesis Insight
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24501562.svg)](https://doi.org/10.5281/zenodo.24501562)
+
 Interpretation that survives a challenge, in Claude Code. Poiesis Insight interprets the research or data a project
 already has. It finds **insights** (what the evidence means), writes **research questions** from what the evidence
 does not answer, and reads a field's findings against its **methods**. Every conclusion carries its evidence, its rival explanations and what would prove it wrong, and
